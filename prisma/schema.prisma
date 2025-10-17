@@ -14,3 +14,27 @@ datasource db {
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
+
+
+model user_data{
+  id  String @id @default(cuid())
+  user_id String  @unique
+  user_password String
+  user_state String @default("0")
+  user_main_location String?
+  user_name String @unique
+  user_email String @unique
+  
+  login_records login_record[]
+}
+
+model login_record{
+  id  String @id @default(cuid())
+  user_id String
+  login_time DateTime @default(now())
+  login_location String?
+  login_ip String?
+  login_platform String?
+  
+  user user_data @relation(fields: [user_id], references: [user_id])
+}
