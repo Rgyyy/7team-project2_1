@@ -14,14 +14,47 @@ datasource db {
   directUrl = env("DIRECT_URL") //추가함
 }
 
-// 임시 테이블(By 이주한)
-model User {
-  id          String        @id @default(cuid())
+// 한규현 ⬇️
+model user_data {
+  id                 String  @id @default(cuid())
+  user_id            String  @unique
+  user_password      String
+  user_state         String  @default("0")
+  user_main_location String?
+  user_name          String  @unique
+  user_email         String  @unique
+
+  login_records login_record[]
+
+  // 아래 이주한 추가. 오류 방지
   Moim        Moim[]
   MoimPost    MoimPost[]
   MoimGallery MoimGallery[]
   MoimMember  MoimMember[]
+  // 이주한 추가 끝
 }
+
+model login_record {
+  id             String   @id @default(cuid())
+  user_id        String
+  login_time     DateTime @default(now())
+  login_location String?
+  login_ip       String?
+  login_platform String?
+
+  user user_data @relation(fields: [user_id], references: [user_id])
+}
+
+// 한규현 ⬆️
+
+// 임시 테이블(By 이주한)
+// model User {
+//   id          String        @id @default(cuid())
+//   Moim        Moim[]
+//   MoimPost    MoimPost[]
+//   MoimGallery MoimGallery[]
+//   MoimMember  MoimMember[]
+// }
 
 // 이주한 ⬇️
 
@@ -51,7 +84,7 @@ enum MoimMemberRole {
 model Moim {
   id            String        @id @default(cuid())
   authorId      String
-  author        User          @relation(fields: [authorId], references: [id])
+  author        user_data     @relation(fields: [authorId], references: [id])
   moimTitle     String
   moimCatch     String //캐치프레이즈
   regionId      Int
@@ -72,7 +105,7 @@ model Moim {
 model MoimPost {
   id              String      @id @default(cuid())
   authorId        String
-  author          User        @relation(fields: [authorId], references: [id])
+  author          user_data   @relation(fields: [authorId], references: [id])
   moimId          String
   moim            Moim        @relation(fields: [moimId], references: [id], onDelete: Cascade)
   moimPostTitle   String
@@ -85,21 +118,21 @@ model MoimPost {
 
 // 모임 갤러리
 model MoimGallery {
-  id               String   @id @default(cuid())
+  id               String    @id @default(cuid())
   authorId         String
-  author           User     @relation(fields: [authorId], references: [id])
+  author           user_data @relation(fields: [authorId], references: [id])
   moimId           String
-  moim             Moim     @relation(fields: [moimId], references: [id], onDelete: Cascade)
+  moim             Moim      @relation(fields: [moimId], references: [id], onDelete: Cascade)
   moimGalleryTitle String
   moimGalleryPhoto String
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
 }
 
 // 모임 멤버
 model MoimMember {
   authorId String
-  author   User           @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  author   user_data      @relation(fields: [authorId], references: [id], onDelete: Cascade)
   moimId   String
   moim     Moim           @relation(fields: [moimId], references: [id], onDelete: Cascade)
   role     MoimMemberRole @default(MEMBER)
