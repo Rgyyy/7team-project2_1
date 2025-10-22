@@ -157,4 +157,4 @@ model Region {
   posts       Moim[]
 }
 
-// 이주한 ⬆️ push test
+// 이주한 ⬆️ yjh branch 생성 test
