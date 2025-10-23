@@ -20,6 +20,13 @@ const eslintConfig = [
       "next-env.d.ts",
     ],
   },
+  {
+    // 추후 빌드 실행 시 주석해제로 무시설정 혹은 각 에러 찾아서 처리, 팀원들과 상의 해봐야할듯.
+    // rules: {
+    //   "@typescript-eslint/no-explicit-any": "off",
+    //   "@typescript-eslint/no-unused-vars": "warn",
+    // },
+  },
 ];
 
 export default eslintConfig;
