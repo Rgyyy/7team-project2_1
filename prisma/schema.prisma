@@ -46,6 +46,105 @@ model login_record {
 
 // 한규현 ⬆️
 
+// 우경호 (가장 먼저 정의)
+model User {
+  id              String          @id @default(cuid())
+  email           String          @unique
+  name            String
+  phone           String?
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+  
+  // 관계: 작성한 활동들
+  activities      Activity[]
+  
+  // 관계: 참여한 활동들
+  participations  Participation[]
+}
+
+// 카테고리 모델 (취미 분류)
+model Category {
+  id          String     @id @default(cuid())
+  name        String     @unique
+  description String?
+  icon        String?    // RemixIcon 클래스명 (예: "ri-basketball-line")
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  
+  // 관계: 한 카테고리는 여러 활동을 가질 수 있음
+  activities  Activity[]
+}
+
+// 지역 모델
+model Location {
+  id          String     @id @default(cuid())
+  name        String     @unique
+  code        String?    // 지역 코드 (예: "02" - 서울)
+  description String?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  
+  // 관계: 한 지역은 여러 활동을 가질 수 있음
+  activities  Activity[]
+}
+
+// 활동(모임) 모델
+model Activity {
+  id               String   @id @default(cuid())
+  title            String
+  description      String
+  date             String
+  time             String
+  address          String   // 상세 주소
+  duration         Int      // 분 단위
+  maxParticipants  Int
+  participants     Int      @default(0)
+  difficultyLevel  String
+  price            Int      @default(0)
+  organizer        String
+  phone            String
+  email            String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  
+  // 관계: 각 활동은 하나의 카테고리에 속함
+  categoryId       String
+  category         Category @relation(fields: [categoryId], references: [id])
+  
+  // 관계: 각 활동은 하나의 지역에 속함
+  locationId       String
+  location         Location @relation(fields: [locationId], references: [id])
+  
+  // 관계: 작성자 (User)
+  userId           String
+  user             User     @relation(fields: [userId], references: [id])
+  
+  // 관계: 참여자 목록
+  participations   Participation[]
+  
+  @@index([categoryId])
+  @@index([locationId])
+  @@index([userId])
+}
+
+// 참여 모델
+model Participation {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  
+  // 관계: 활동
+  activityId  String
+  activity    Activity @relation(fields: [activityId], references: [id], onDelete: Cascade)
+  
+  // 관계: 참여자
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // 중복 참여 방지
+  @@unique([activityId, userId])
+  @@index([activityId])
+  @@index([userId])
+}
 // 이주한 ⬇️
 
 // // ========================
