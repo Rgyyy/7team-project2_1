@@ -9,7 +9,10 @@ export default function ButtonLogin() {
   };
 
   return (
-    <button className="bg-blue-500" onClick={handleLogin}>
+    <button
+      className="bg-blue-500 text-white rounded-lg p-1"
+      onClick={handleLogin}
+    >
       로그인
     </button>
   );
