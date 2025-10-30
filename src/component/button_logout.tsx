@@ -7,5 +7,12 @@ export default function ButtonLogout() {
     await logoutUser();
   };
 
-  return <button onClick={handleLogout}>로그아웃</button>;
+  return (
+    <button
+      className="bg-red-500 text-white rounded-lg p-1"
+      onClick={handleLogout}
+    >
+      로그아웃
+    </button>
+  );
 }
