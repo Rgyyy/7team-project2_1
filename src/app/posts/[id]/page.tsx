@@ -6,15 +6,15 @@ import { notFound } from "next/navigation";
 
 // params 타입 정의
 type Props = {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 };
 
 // 특정 게시글 가져오기
-async function getPost(id: string) {
+async function getPost(moimPostid: string) {
   const post = await prisma.moimPost.findUnique({
-    where: { id },
+    where: { id: moimPostid },
     select: {
       id: true,
       moimPostTitle: true,
@@ -26,8 +26,9 @@ async function getPost(id: string) {
 }
 
 export default async function PostDetailPage({ params }: Props) {
-  // cuid는 string이므로 그대로 사용
-  const post = await getPost(params.id);
+  // params를 먼저 await
+  const { id } = await params;
+  const post = await getPost(id);
 
   // 게시글이 없으면 404 페이지 표시
   if (!post) {
@@ -76,7 +77,11 @@ export default async function PostDetailPage({ params }: Props) {
 
 // generateMetadata: 페이지 메타데이터 동적 생성 (SEO)
 export async function generateMetadata({ params }: Props) {
-  const post = await getPost(params.id);
+  // params를 먼저 await
+  const { id } = await params;
+  const post = await getPost(id);
+
+  //const post = await getPost(params.id);
 
   if (!post) {
     return {

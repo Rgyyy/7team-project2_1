@@ -16,33 +16,34 @@ datasource db {
 }
 
 // 한규현 ⬇️
-// model user_data {
-//   id                 String  @id @default(cuid())
-//   user_id            String  @unique
-//   user_password      String
-//   user_state         String  @default("0")
-//   user_main_location String?
-//   user_name          String  @unique
-//   user_email         String  @unique
+model user_data {
+  id                 String  @id @default(cuid())
+  user_id            String  @unique
+  user_password      String
+  user_state         String  @default("0")
+  user_main_location String?
+  user_name          String  @unique
+  user_email         String  @unique
 
-//   login_records login_record[]
+  login_records login_record[]
 
-//   Moim       Moim[]
-//   MoimPost   MoimPost[]
-//   MoimGallery MoimGallery[]
-//   MoimMember MoimMember[]
-// }
+  //   Moim       Moim[]
+  //   MoimPost   MoimPost[]
+  //   MoimGallery MoimGallery[]
+  //   MoimMember MoimMember[]
+}
 
-// model login_record {
-//   id             String   @id @default(cuid())
-//   user_id        String
-//   login_time     DateTime @default(now())
-//   login_location String?
-//   login_ip       String?
-//   login_platform String?
+model login_record {
+  id             String   @id @default(cuid())
+  user_id        String
+  login_time     DateTime @default(now())
+  login_location String?
+  login_ip       String?
+  login_platform String?
 
-//   user user_data @relation(fields: [user_id], references: [user_id])
-// }
+  user user_data @relation(fields: [user_id], references: [user_id])
+}
+
 // 한규현 ⬆️
 
 // 이주한 ⬇️
