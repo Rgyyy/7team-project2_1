@@ -20,7 +20,7 @@ export default function Login() {
         },
         (error) => {
           setLocationInfo("GPS 비허용");
-          console.error("Error fetching GPS location:", error);
+          // console.error("Error fetching GPS location:", error);
         },
         {
           timeout: 10000,
