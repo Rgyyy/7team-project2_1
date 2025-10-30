@@ -1,17 +1,26 @@
 "use client";
 
-import { registerUser } from "@/actions/createPost";
+import { createPost } from "@/actions/createPost";
 import { useActionState } from "react";
 
 const initialState = { error: "" };
 
 export default function Register() {
-  const [state, formAction] = useActionState(registerUser, initialState);
+  const [state, formAction] = useActionState(createPost, initialState);
   return (
     <div>
       <h1>게시글 작성 페이지</h1>
       <form action={formAction}>
         {state.error && <div>{state.error}</div>}
+        <div>
+          <label htmlFor="category">분류</label>
+          <select name="category" id="category">
+            <option value="모임후기">모임후기</option>
+            <option value="가입인사">가입인사</option>
+            <option value="자유">자유</option>
+            <option value="공지">공지</option>
+          </select>
+        </div>
 
         <div>
           <label>제목</label>

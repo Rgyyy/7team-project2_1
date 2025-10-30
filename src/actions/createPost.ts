@@ -1,16 +1,22 @@
+// 이주한
+// posts/new/page.js 처리
+
 "use server";
 
 import { prisma } from "@/lib/prisma";
+import { MoimPostCat } from "@prisma/client";
 import { redirect } from "next/navigation";
 
-export async function registerUser(prevState: any, formData: FormData) {
+export async function createPost(prevState: any, formData: FormData) {
   try {
+    const category = formData.get("category") as MoimPostCat;
     const title = formData.get("title") as string;
     const content = formData.get("content") as string;
 
     // 사용자 생성
     await prisma.moimPost.create({
       data: {
+        moimPostCat: category,
         moimPostTitle: title,
         moimPostContent: content,
       },

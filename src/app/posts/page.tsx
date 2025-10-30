@@ -1,12 +1,14 @@
 // app/posts/page.tsx
 
 import { prisma } from "@/lib/prisma";
+import Link from "next/link";
 
 // 특정 필드만 가져오기
 async function getPosts() {
   const posts = await prisma.moimPost.findMany({
     select: {
       id: true,
+      moimPostCat: true,
       moimPostTitle: true,
       moimPostContent: true,
       createdAt: true,
@@ -39,12 +41,14 @@ export default async function PostsPage() {
                 borderRadius: "4px",
               }}
             >
-              <h3>{post.moimPostTitle}</h3>
-              <p style={{ color: "#666", fontSize: "14px" }}>
-                상태: {true ? "공개" : "비공개"} | 작성일:{" "}
-                {new Date(post.createdAt).toLocaleDateString("ko-KR")}
-              </p>
-              <p>Id: {post.id}</p>
+              <Link href={`/posts/${post.id}`}>
+                <h3>{post.moimPostTitle}</h3>
+                <p style={{ color: "#666", fontSize: "14px" }}>
+                  상태: {true ? "공개" : "비공개"} | 작성일:{" "}
+                  {new Date(post.createdAt).toLocaleDateString("ko-KR")}
+                </p>
+                <p>분류: {post.moimPostCat}</p>
+              </Link>
             </li>
           ))}
         </ul>

@@ -12,31 +12,138 @@ generator client {
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  directUrl = env("DIRECT_URL") //추가함
 }
 
 // 한규현 ⬇️
-model user_data {
-  id                 String  @id @default(cuid())
-  user_id            String  @unique
-  user_password      String
-  user_state         String  @default("0")
-  user_main_location String?
-  user_name          String  @unique
-  user_email         String  @unique
+// model user_data {
+//   id                 String  @id @default(cuid())
+//   user_id            String  @unique
+//   user_password      String
+//   user_state         String  @default("0")
+//   user_main_location String?
+//   user_name          String  @unique
+//   user_email         String  @unique
 
-  login_records login_record[]
-}
+//   login_records login_record[]
 
-model login_record {
-  id             String   @id @default(cuid())
-  user_id        String
-  login_time     DateTime @default(now())
-  login_location String?
-  login_ip       String?
-  login_platform String?
+//   Moim       Moim[]
+//   MoimPost   MoimPost[]
+//   MoimGallery MoimGallery[]
+//   MoimMember MoimMember[]
+// }
 
-  user user_data @relation(fields: [user_id], references: [user_id])
-}
+// model login_record {
+//   id             String   @id @default(cuid())
+//   user_id        String
+//   login_time     DateTime @default(now())
+//   login_location String?
+//   login_ip       String?
+//   login_platform String?
 
+//   user user_data @relation(fields: [user_id], references: [user_id])
+// }
 // 한규현 ⬆️
+
+// 이주한 ⬇️
+
+// // ========================
+// // ENUMS
+// // ========================
+
+enum MoimPostCat {
+  전체
+  모임후기
+  가입인사
+  자유
+  공지
+}
+
+// enum MoimMemberRole {
+//   OWNER
+//   ADMIN
+//   MEMBER
+// }
+
+// // ========================
+// // MODELS
+// // ========================
+
+// // 모임 홈
+// model Moim {
+//   id            String       @id @default(cuid())
+//   authorId      String
+//   author        user_data    @relation(fields: [authorId], references: [id])
+//   moimTitle     String
+//   moimCatch     String //캐치프레이즈
+//   regionId      Int
+//   region        Region        @relation(fields: [regionId], references: [id])
+//   hobbyId       Int
+//   hobby         Hobby         @relation(fields: [hobbyId], references: [id])
+//   moimMember    MoimMember[]
+//   memberCount   Int          @default(0)
+//   moimPostPhoto String? // 모임 대표 사진 (optional)
+//   moimContent   String // 모임 소개 본문
+//   createdAt     DateTime     @default(now())
+//   updatedAt     DateTime     @updatedAt
+//   moimPost      MoimPost[]
+//   moimGallery   MoimGallery[]
+// }
+
+// // 모임 게시글
+model MoimPost {
+  id              String      @id @default(cuid())
+  //authorId        String
+  //author          user_data   @relation(fields: [authorId], references: [id])
+  //moimId          String
+  //moim            Moim        @relation(fields: [moimId], references: [id], onDelete: Cascade)
+  moimPostTitle   String
+  moimPostContent String
+  //moimPostPhoto   String?
+  moimPostCat     MoimPostCat
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+}
+
+// // 모임 갤러리
+// model MoimGallery {
+//   id               String   @id @default(cuid())
+//   authorId         String
+//   author           user_data     @relation(fields: [authorId], references: [id])
+//   moimId           String
+//   moim             Moim     @relation(fields: [moimId], references: [id], onDelete: Cascade)
+//   moimGalleryTitle String
+//   moimGalleryPhoto String
+//   createdAt        DateTime @default(now())
+//   updatedAt        DateTime @updatedAt
+// }
+
+// // 모임 멤버
+// model MoimMember {
+//   authorId String
+//   author   user_data @relation(fields: [authorId], references: [id], onDelete: Cascade)
+//   moimId   String
+//   moim     Moim      @relation(fields: [moimId], references: [id], onDelete: Cascade)
+//   role     MoimMemberRole @default(MEMBER)
+//   joinedAt DateTime  @default(now())
+
+//   @@id([authorId, moimId])
+// }
+
+// // 취미 카테고리
+// model Hobby {
+//   id          Int    @id @default(autoincrement())
+//   slug        String @unique
+//   displayName String
+//   posts       Moim[]
+// }
+
+// // 지역 카테고리
+// model Region {
+//   id          Int    @id @default(autoincrement())
+//   slug        String @unique
+//   displayName String
+//   posts       Moim[]
+// }
+
+// // 이주한 ⬆️
