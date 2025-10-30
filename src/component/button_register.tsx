@@ -10,7 +10,7 @@ export default function ButtonRegister() {
 
   return (
     <button
-      className="bg-blue-500 text-white rounded-lg p-1"
+      className="bg-purple-600 text-white rounded-lg p-1"
       onClick={handleRegister}
     >
       회원가입
