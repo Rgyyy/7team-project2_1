@@ -48,80 +48,80 @@ model login_record {
 
 // 우경호 (가장 먼저 정의)
 model User {
-  id              String          @id @default(cuid())
-  email           String          @unique
-  name            String
-  phone           String?
-  createdAt       DateTime        @default(now())
-  updatedAt       DateTime        @updatedAt
-  
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  phone     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   // 관계: 작성한 활동들
-  activities      Activity[]
-  
+  activities Activity[]
+
   // 관계: 참여한 활동들
-  participations  Participation[]
+  participations Participation[]
 }
 
 // 카테고리 모델 (취미 분류)
 model Category {
-  id          String     @id @default(cuid())
-  name        String     @unique
+  id          String   @id @default(cuid())
+  name        String   @unique
   description String?
-  icon        String?    // RemixIcon 클래스명 (예: "ri-basketball-line")
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-  
+  icon        String? // RemixIcon 클래스명 (예: "ri-basketball-line")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
   // 관계: 한 카테고리는 여러 활동을 가질 수 있음
-  activities  Activity[]
+  activities Activity[]
 }
 
 // 지역 모델
 model Location {
-  id          String     @id @default(cuid())
-  name        String     @unique
-  code        String?    // 지역 코드 (예: "02" - 서울)
+  id          String   @id @default(cuid())
+  name        String   @unique
+  code        String? // 지역 코드 (예: "02" - 서울)
   description String?
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
   // 관계: 한 지역은 여러 활동을 가질 수 있음
-  activities  Activity[]
+  activities Activity[]
 }
 
 // 활동(모임) 모델
 model Activity {
-  id               String   @id @default(cuid())
-  title            String
-  description      String
-  date             String
-  time             String
-  address          String   // 상세 주소
-  duration         Int      // 분 단위
-  maxParticipants  Int
-  participants     Int      @default(0)
-  difficultyLevel  String
-  price            Int      @default(0)
-  organizer        String
-  phone            String
-  email            String
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
-  
+  id              String   @id @default(cuid())
+  title           String
+  description     String
+  date            String
+  time            String
+  address         String // 상세 주소
+  duration        Int // 분 단위
+  maxParticipants Int
+  participants    Int      @default(0)
+  difficultyLevel String
+  price           Int      @default(0)
+  organizer       String
+  phone           String
+  email           String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
   // 관계: 각 활동은 하나의 카테고리에 속함
-  categoryId       String
-  category         Category @relation(fields: [categoryId], references: [id])
-  
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
+
   // 관계: 각 활동은 하나의 지역에 속함
-  locationId       String
-  location         Location @relation(fields: [locationId], references: [id])
-  
+  locationId String
+  location   Location @relation(fields: [locationId], references: [id])
+
   // 관계: 작성자 (User)
-  userId           String
-  user             User     @relation(fields: [userId], references: [id])
-  
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
   // 관계: 참여자 목록
-  participations   Participation[]
-  
+  participations Participation[]
+
   @@index([categoryId])
   @@index([locationId])
   @@index([userId])
@@ -129,27 +129,28 @@ model Activity {
 
 // 참여 모델
 model Participation {
-  id          String   @id @default(cuid())
-  createdAt   DateTime @default(now())
-  
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
   // 관계: 활동
-  activityId  String
-  activity    Activity @relation(fields: [activityId], references: [id], onDelete: Cascade)
-  
+  activityId String
+  activity   Activity @relation(fields: [activityId], references: [id], onDelete: Cascade)
+
   // 관계: 참여자
-  userId      String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   // 중복 참여 방지
   @@unique([activityId, userId])
   @@index([activityId])
   @@index([userId])
 }
+
 // 이주한 ⬇️
 
-// // ========================
-// // ENUMS
-// // ========================
+// ========================
+// ENUMS
+// ========================
 
 enum MoimPostCat {
   전체
@@ -159,36 +160,9 @@ enum MoimPostCat {
   공지
 }
 
-// enum MoimMemberRole {
-//   OWNER
-//   ADMIN
-//   MEMBER
-// }
-
-// // ========================
-// // MODELS
-// // ========================
-
-// // 모임 홈
-// model Moim {
-//   id            String       @id @default(cuid())
-//   authorId      String
-//   author        user_data    @relation(fields: [authorId], references: [id])
-//   moimTitle     String
-//   moimCatch     String //캐치프레이즈
-//   regionId      Int
-//   region        Region        @relation(fields: [regionId], references: [id])
-//   hobbyId       Int
-//   hobby         Hobby         @relation(fields: [hobbyId], references: [id])
-//   moimMember    MoimMember[]
-//   memberCount   Int          @default(0)
-//   moimPostPhoto String? // 모임 대표 사진 (optional)
-//   moimContent   String // 모임 소개 본문
-//   createdAt     DateTime     @default(now())
-//   updatedAt     DateTime     @updatedAt
-//   moimPost      MoimPost[]
-//   moimGallery   MoimGallery[]
-// }
+// ========================
+// MODELS
+// ========================
 
 // // 모임 게시글
 model MoimPost {
@@ -205,45 +179,4 @@ model MoimPost {
   updatedAt       DateTime    @updatedAt
 }
 
-// // 모임 갤러리
-// model MoimGallery {
-//   id               String   @id @default(cuid())
-//   authorId         String
-//   author           user_data     @relation(fields: [authorId], references: [id])
-//   moimId           String
-//   moim             Moim     @relation(fields: [moimId], references: [id], onDelete: Cascade)
-//   moimGalleryTitle String
-//   moimGalleryPhoto String
-//   createdAt        DateTime @default(now())
-//   updatedAt        DateTime @updatedAt
-// }
-
-// // 모임 멤버
-// model MoimMember {
-//   authorId String
-//   author   user_data @relation(fields: [authorId], references: [id], onDelete: Cascade)
-//   moimId   String
-//   moim     Moim      @relation(fields: [moimId], references: [id], onDelete: Cascade)
-//   role     MoimMemberRole @default(MEMBER)
-//   joinedAt DateTime  @default(now())
-
-//   @@id([authorId, moimId])
-// }
-
-// // 취미 카테고리
-// model Hobby {
-//   id          Int    @id @default(autoincrement())
-//   slug        String @unique
-//   displayName String
-//   posts       Moim[]
-// }
-
-// // 지역 카테고리
-// model Region {
-//   id          Int    @id @default(autoincrement())
-//   slug        String @unique
-//   displayName String
-//   posts       Moim[]
-// }
-
-// // 이주한 ⬆️
+// 이주한 ⬆️
