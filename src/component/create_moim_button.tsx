@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { getUserName } from "@/actions/userAuth";
 
-export default async function CreateMoinButton() {
+export default async function CreateMoimButton() {
   const userName = await getUserName();
   return (
     <div>
