@@ -43,7 +43,8 @@ export async function loginUser(prevState: any, formData: FormData) {
     cookieStore.set("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      sameSite: "lax", // ✅ strict → lax 로 변경
+      path: "/",        // ✅ 전체 경로에서 쿠키 접근 
       maxAge: 60 * 60 * 24, // 24시간
     });
 

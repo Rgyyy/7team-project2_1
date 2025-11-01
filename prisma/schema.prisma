@@ -26,6 +26,11 @@ model user_data {
   user_email         String  @unique
 
   login_records login_record[]
+    // 관계: 작성한 활동들
+  activities      Activity[]
+  
+  // 관계: 참여한 활동들
+  participations  Participation[]
 }
 
 model login_record {
@@ -50,11 +55,7 @@ model User {
   createdAt       DateTime        @default(now())
   updatedAt       DateTime        @updatedAt
   
-  // 관계: 작성한 활동들
-  activities      Activity[]
-  
-  // 관계: 참여한 활동들
-  participations  Participation[]
+
 }
 
 // 카테고리 모델 (취미 분류)
@@ -112,7 +113,7 @@ model Activity {
   
   // 관계: 작성자 (User)
   userId           String
-  user             User     @relation(fields: [userId], references: [id])
+  user             user_data @relation(fields: [userId], references: [id])
   
   // 관계: 참여자 목록
   participations   Participation[]
@@ -133,7 +134,7 @@ model Participation {
   
   // 관계: 참여자
   userId      String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user        user_data @relation(fields: [userId], references: [id], onDelete: Cascade)
   
   // 중복 참여 방지
   @@unique([activityId, userId])
