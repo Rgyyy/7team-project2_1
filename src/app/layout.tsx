@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Link from 'next/link';
+import Link from "next/link";
 import "./globals.css";
+import AuthButtons from "@/component/auth_buttons";
+import CreateMoimButton from "@/component/create_moim_button";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Nabo Chamo',
-  description: '지역 기반 취미활동 공유 플랫폼',
+  title: "Nabo Chamo",
+  description: "지역 기반 취미활동 공유 플랫폼",
 };
 
 export default function RootLayout({
@@ -26,12 +28,14 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <head>
-        <link 
-          href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" 
+        <link
+          href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css"
           rel="stylesheet"
         />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
+      >
         {/* 헤더 */}
         <header className="bg-white shadow-sm border-b border-gray-200">
           <nav className="w-full px-4 sm:px-6 lg:px-8">
@@ -41,7 +45,7 @@ export default function RootLayout({
                 <Link href="/" className="flex items-center">
                   <span
                     className="text-2xl font-bold text-purple-600"
-                    style={{ fontFamily: 'Pacifico, serif' }}
+                    style={{ fontFamily: "Pacifico, serif" }}
                   >
                     Nabo Chamo
                   </span>
@@ -51,32 +55,32 @@ export default function RootLayout({
               {/* 네비게이션 (데스크탑) */}
               <div className="hidden md:block">
                 <div className="ml-10 flex items-baseline space-x-8">
-                  <Link href="/" className="text-gray-700 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium">
+                  <Link
+                    href="/"
+                    className="text-gray-700 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium"
+                  >
                     홈
                   </Link>
-                  <Link href="/activities" className="text-gray-700 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium">
+                  <Link
+                    href="/activities"
+                    className="text-gray-700 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium"
+                  >
                     모임 게시판
                   </Link>
-                  <Link href="/create-activity" className="text-gray-700 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium">
+                  <Link
+                    href="/create-activity"
+                    className="text-gray-700 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium"
+                  >
                     모임 만들기
                   </Link>
-                  
                 </div>
               </div>
 
               {/* 모임 만들기 버튼 (데스크탑) */}
               <div className="hidden md:block">
                 <div className="ml-4 flex items-center md:ml-6 space-x-4">
-                  <Link href="/example" className="text-gray-700 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium">
-                    로그인
-                  </Link>
-                  <Link
-                    href="/create-activity"
-                    className="bg-purple-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-purple-700 whitespace-nowrap flex items-center gap-2"
-                  >
-                    <i className="ri-add-line"></i>
-                    모임 만들기
-                  </Link>
+                  <AuthButtons />
+                  <CreateMoimButton />
                 </div>
               </div>
 
@@ -105,15 +109,21 @@ export default function RootLayout({
               <div className="lg:col-span-1">
                 <div
                   className="text-2xl font-bold text-blue-400 mb-4"
-                  style={{ fontFamily: 'Pacifico, serif' }}
+                  style={{ fontFamily: "Pacifico, serif" }}
                 >
                   Nabo Chamo
                 </div>
                 <p className="text-gray-300 text-sm mb-6">
-                  지역 기반 취미활동 공유 플랫폼으로 새로운 사람들과 함께하는 즐거운 경험을 제공합니다.
+                  지역 기반 취미활동 공유 플랫폼으로 새로운 사람들과 함께하는
+                  즐거운 경험을 제공합니다.
                 </p>
                 <div className="flex space-x-4">
-                  {['facebook-fill', 'instagram-line', 'twitter-fill', 'youtube-fill'].map((icon) => (
+                  {[
+                    "facebook-fill",
+                    "instagram-line",
+                    "twitter-fill",
+                    "youtube-fill",
+                  ].map((icon) => (
                     <a
                       key={icon}
                       href="#"
@@ -126,47 +136,47 @@ export default function RootLayout({
               </div>
 
               {/* 섹션: 플랫폼 */}
-              <FooterColumn 
-                title="플랫폼" 
+              <FooterColumn
+                title="플랫폼"
                 links={[
-                  { text: '모임 찾기', href: '/activities' },
-                  { text: '모임 만들기', href: '/create-activity' },
-                  { text: '활동 달력', href: '#' },
-                  { text: '지역별 모임', href: '/activities' }
-                ]} 
+                  { text: "모임 찾기", href: "/activities" },
+                  { text: "모임 만들기", href: "/create-activity" },
+                  { text: "활동 달력", href: "#" },
+                  { text: "지역별 모임", href: "/activities" },
+                ]}
               />
 
               {/* 섹션: 고객지원 */}
-              <FooterColumn 
-                title="고객지원" 
+              <FooterColumn
+                title="고객지원"
                 links={[
-                  { text: '이용가이드', href: '#' },
-                  { text: '자주 묻는 질문', href: '#' },
-                  { text: '고객센터', href: '#' },
-                  { text: '신고하기', href: '#' }
-                ]} 
+                  { text: "이용가이드", href: "#" },
+                  { text: "자주 묻는 질문", href: "#" },
+                  { text: "고객센터", href: "#" },
+                  { text: "신고하기", href: "#" },
+                ]}
               />
 
               {/* 섹션: 회사 */}
-              <FooterColumn 
-                title="회사" 
+              <FooterColumn
+                title="회사"
                 links={[
-                  { text: '회사소개', href: '/about' },
-                  { text: '채용정보', href: '#' },
-                  { text: '파트너십', href: '#' },
-                  { text: '언론보도', href: '#' }
-                ]} 
+                  { text: "회사소개", href: "/about" },
+                  { text: "채용정보", href: "#" },
+                  { text: "파트너십", href: "#" },
+                  { text: "언론보도", href: "#" },
+                ]}
               />
 
               {/* 섹션: 약관 및 정책 */}
-              <FooterColumn 
-                title="약관 및 정책" 
+              <FooterColumn
+                title="약관 및 정책"
                 links={[
-                  { text: '이용약관', href: '#' },
-                  { text: '개인정보처리방침', href: '#' },
-                  { text: '위치기반서비스', href: '#' },
-                  { text: '운영정책', href: '#' }
-                ]} 
+                  { text: "이용약관", href: "#" },
+                  { text: "개인정보처리방침", href: "#" },
+                  { text: "위치기반서비스", href: "#" },
+                  { text: "운영정책", href: "#" },
+                ]}
               />
             </div>
 
@@ -175,7 +185,10 @@ export default function RootLayout({
               <div className="flex flex-col md:flex-row justify-between items-center">
                 <div className="text-gray-400 text-sm mb-4 md:mb-0 text-center md:text-left">
                   <p>© 2025 Nabo Chamo. All rights reserved.</p>
-                  <p>사업자등록번호: 123-45-67890 | 대표자: 김개발 | 주소: 서울시 강남구 테헤란로 123</p>
+                  <p>
+                    사업자등록번호: 123-45-67890 | 대표자: 김개발 | 주소: 서울시
+                    강남구 테헤란로 123
+                  </p>
                 </div>
                 <div className="flex items-center space-x-4">
                   <a
@@ -207,7 +220,10 @@ function FooterColumn({ title, links }: FooterColumnProps) {
       <ul className="space-y-3">
         {links.map((link, i) => (
           <li key={i}>
-            <Link href={link.href} className="text-gray-300 hover:text-white transition-colors text-sm">
+            <Link
+              href={link.href}
+              className="text-gray-300 hover:text-white transition-colors text-sm"
+            >
               {link.text}
             </Link>
           </li>
