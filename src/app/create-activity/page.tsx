@@ -4,8 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createActivity } from '@/app/actions/activity';
 import { getUser } from "@/actions/userAuth";
-  const User = await getUser();
-  console.log(User?.userId);
+ 
 
 export default function CreateActivityPage() {
   const router = useRouter();

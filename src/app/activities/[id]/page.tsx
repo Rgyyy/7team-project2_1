@@ -61,6 +61,8 @@ export default function ActivityDetailPage({ params }: { params: Promise<{ id: s
       const response = await fetch(`/api/activities/${activityId}`);
       if (response.ok) {
         const data = await response.json();
+        console.log('Activity User ID:', data.userId);  // 추가
+        console.log('Activity Data:', data);  // 추가
         setActivity(data);
       } else {
         alert('모임을 찾을 수 없습니다.');
@@ -73,17 +75,26 @@ export default function ActivityDetailPage({ params }: { params: Promise<{ id: s
     }
   };
 
-  const checkCurrentUser = async () => {
-    try {
-      const response = await fetch('/api/auth/current-user');
-      if (response.ok) {
-        const data = await response.json();
-        setCurrentUserId(data.userId);
-      }
-    } catch (error) {
-      console.error('Error:', error);
+const checkCurrentUser = async () => {
+  try {
+    console.log('=== Checking current user ==='); // 시작 확인
+    const response = await fetch('/api/auth/current-user');
+    console.log('Response status:', response.status);
+    console.log('Response ok:', response.ok);
+    
+    const data = await response.json();
+    console.log('Full API response:', JSON.stringify(data)); // JSON으로 출력
+    
+    if (data && data.userId) {
+      console.log('✅ Found userId:', data.userId);
+      setCurrentUserId(data.userId);
+    } else {
+      console.log('❌ No userId in response, data:', data);
     }
-  };
+  } catch (error) {
+    console.error('❌ Error in checkCurrentUser:', error);
+  }
+};
 
   const checkParticipationStatus = async () => {
     try {
@@ -96,6 +107,7 @@ export default function ActivityDetailPage({ params }: { params: Promise<{ id: s
       console.error('Error:', error);
     }
   };
+
 
   const handleJoin = async () => {
     if (!currentUserId) {
