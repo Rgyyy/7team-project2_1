@@ -26,11 +26,11 @@ model user_data {
   user_email         String  @unique
 
   login_records login_record[]
-    // 관계: 작성한 활동들
-  activities      Activity[]
-  
+  // 관계: 작성한 활동들
+  activities    Activity[]
+
   // 관계: 참여한 활동들
-  participations  Participation[]
+  participations Participation[]
 
   //   Moim       Moim[]
   //   MoimPost   MoimPost[]
@@ -52,16 +52,6 @@ model login_record {
 // 한규현 ⬆️
 
 // 우경호 (가장 먼저 정의)
-model User {
-  id              String          @id @default(cuid())
-  email           String          @unique
-  name            String
-  phone           String?
-  createdAt       DateTime        @default(now())
-  updatedAt       DateTime        @updatedAt
-  
-
-}
 
 // 카테고리 모델 (취미 분류)
 model Category {
@@ -117,9 +107,9 @@ model Activity {
   location   Location @relation(fields: [locationId], references: [id])
 
   // 관계: 작성자 (User)
-  userId           String
-  user             user_data @relation(fields: [userId], references: [id])
-  
+  userId String
+  user   user_data @relation(fields: [userId], references: [id])
+
   // 관계: 참여자 목록
   participations Participation[]
 
@@ -138,9 +128,9 @@ model Participation {
   activity   Activity @relation(fields: [activityId], references: [id], onDelete: Cascade)
 
   // 관계: 참여자
-  userId      String
-  user        user_data @relation(fields: [userId], references: [id], onDelete: Cascade)
-  
+  userId String
+  user   user_data @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   // 중복 참여 방지
   @@unique([activityId, userId])
   @@index([activityId])
