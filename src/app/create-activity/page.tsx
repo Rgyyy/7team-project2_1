@@ -1,11 +1,9 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { createActivity } from '@/app/actions/activity';
-import { getUser } from "@/actions/userAuth";
-  const User = await getUser();
-  console.log(User?.userId);
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { createActivity } from "@/app/actions/activity";
+import { getUserIdNameEmail } from "@/actions/userDataCall";
 
 export default function CreateActivityPage() {
   const router = useRouter();
@@ -18,34 +16,34 @@ export default function CreateActivityPage() {
 
     const formData = new FormData(e.currentTarget);
     const data = {
-      title: formData.get('title') as string,
-      category: formData.get('category') as string,
-      description: formData.get('description') as string,
-      date: formData.get('date') as string,
-      time: formData.get('time') as string,
-      location: formData.get('location') as string,
-      address: formData.get('address') as string,
-      duration: formData.get('duration') as string,
-      maxParticipants: formData.get('maxParticipants') as string,
-      difficultyLevel: formData.get('difficultyLevel') as string,
-      price: (formData.get('price') as string) || '0',
-      organizer: formData.get('organizer') as string,
-      phone: formData.get('phone') as string,
-      email: formData.get('email') as string,
+      title: formData.get("title") as string,
+      category: formData.get("category") as string,
+      description: formData.get("description") as string,
+      date: formData.get("date") as string,
+      time: formData.get("time") as string,
+      location: formData.get("location") as string,
+      address: formData.get("address") as string,
+      duration: formData.get("duration") as string,
+      maxParticipants: formData.get("maxParticipants") as string,
+      difficultyLevel: formData.get("difficultyLevel") as string,
+      price: (formData.get("price") as string) || "0",
+      organizer: formData.get("organizer") as string,
+      phone: formData.get("phone") as string,
+      email: formData.get("email") as string,
     };
 
     try {
       const result = await createActivity(data);
 
       if (result.success) {
-        alert('모임이 성공적으로 생성되었습니다!');
-        router.push('/activities');
+        alert("모임이 성공적으로 생성되었습니다!");
+        router.push("/activities");
       } else {
-        alert(result.error || '모임 생성에 실패했습니다.');
+        alert(result.error || "모임 생성에 실패했습니다.");
       }
     } catch (error) {
-      console.error('Error:', error);
-      alert('오류가 발생했습니다.');
+      console.error("Error:", error);
+      alert("오류가 발생했습니다.");
     } finally {
       setIsSubmitting(false);
     }
@@ -388,7 +386,7 @@ export default function CreateActivityPage() {
                 disabled={isSubmitting}
                 className="px-8 py-3 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
               >
-                {isSubmitting ? '생성 중...' : '모임 만들기'}
+                {isSubmitting ? "생성 중..." : "모임 만들기"}
               </button>
             </div>
           </form>

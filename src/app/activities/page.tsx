@@ -42,23 +42,34 @@ export default function ActivitiesPage() {
     try {
       const response = await fetch('/api/activities');
       const data = await response.json();
-      setActivities(data);
+      
+      console.log('API Response:', data); // 디버깅용
+      console.log('Is Array?', Array.isArray(data)); // 배열인지 확인
+      
+      // 데이터가 배열인지 확인
+      if (Array.isArray(data)) {
+        setActivities(data);
+      } else {
+        console.error('Expected array but got:', data);
+        setActivities([]);
+      }
     } catch (error) {
       console.error('Error fetching activities:', error);
+      setActivities([]);
     } finally {
       setLoading(false);
     }
   };
 
   const categories = ['전체', '운동', '요리', '독서', '사진', '음악', '미술', '언어', '게임', '여행', '그외'];
-  const locations = ['전국', '서울', '인천', '대전', '대구', '광주', '울산', '부산', '세종', '경기도', '강원도', '충청북도', '충청남도', '전라북도', '전라남도', '경상북도', '경상남도', '제주도'];
-  
+  const locations = ['전국', '서울', '인천', '대전', '대구', '부산', '광주', '울산', '경기도', '강원도', '충청북도', '충청남도', '전라북도', '전라남도', '경상북도', '경상남도', '제주도'];
 
-  const filteredActivities = activities.filter(act => {
-    const matchCategory = categoryFilter === '전체' || act.category.name === categoryFilter;
-    const matchLocation = locationFilter === '전국' || act.location.name === locationFilter;
+  // 안전하게 필터링 (activities가 배열인지 확인)
+  const filteredActivities = Array.isArray(activities) ? activities.filter(act => {
+    const matchCategory = categoryFilter === '전체' || act.category?.name === categoryFilter;
+    const matchLocation = locationFilter === '전국' || act.location?.name === locationFilter;
     return matchCategory && matchLocation;
-  });
+  }) : [];
 
   if (loading) {
     return (
@@ -109,7 +120,7 @@ export default function ActivitiesPage() {
                   onClick={() => setLocationFilter(loc)}
                   className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                     locationFilter === loc
-                      ? 'bg-purple-600 text-white'
+                      ? 'bg-blue-600 text-white'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
                 >
