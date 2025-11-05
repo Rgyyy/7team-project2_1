@@ -23,7 +23,7 @@ export async function call_login_records() {
             login_platform: true,
           },
           orderBy: { login_time: "desc" },
-          take: 10,
+          take: 5,
         },
         activities: {
           select: {
@@ -40,6 +40,15 @@ export async function call_login_records() {
           select: {
             id: true,
             activityId: true,
+            activity: {
+              select: {
+                id: true,
+                title: true,
+                difficultyLevel: true,
+                participants: true,
+                maxParticipants: true,
+              },
+            },
           },
           orderBy: { createdAt: "desc" },
           take: 5,
