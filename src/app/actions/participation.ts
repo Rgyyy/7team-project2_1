@@ -1,15 +1,15 @@
-'use server';
+"use server";
 
-import { prisma } from '@/lib/prisma';
-import { revalidatePath } from 'next/cache';
-import { getUser } from '@/actions/userAuth';
+import { prisma } from "@/lib/prisma";
+import { revalidatePath } from "next/cache";
+import { getUserIdNameEmail } from "@/actions/userDataCall";
 
 // 참여하기
 export async function joinActivity(activityId: string) {
   try {
-    const user = await getUser();
+    const user = await getUserIdNameEmail();
     if (!user?.userId) {
-      return { success: false, error: '로그인이 필요합니다.' };
+      return { success: false, error: "로그인이 필요합니다." };
     }
 
     // 활동 확인
@@ -21,12 +21,15 @@ export async function joinActivity(activityId: string) {
     });
 
     if (!activity) {
-      return { success: false, error: '모임을 찾을 수 없습니다.' };
+      return { success: false, error: "모임을 찾을 수 없습니다." };
     }
 
     // 작성자는 참여 불가
     if (activity.userId === user.userId) {
-      return { success: false, error: '본인이 작성한 모임에는 참여할 수 없습니다.' };
+      return {
+        success: false,
+        error: "본인이 작성한 모임에는 참여할 수 없습니다.",
+      };
     }
 
     // 이미 참여했는지 확인
@@ -40,12 +43,12 @@ export async function joinActivity(activityId: string) {
     });
 
     if (existingParticipation) {
-      return { success: false, error: '이미 참여한 모임입니다.' };
+      return { success: false, error: "이미 참여한 모임입니다." };
     }
 
     // 정원 확인
     if (activity.participants >= activity.maxParticipants) {
-      return { success: false, error: '참여 인원이 마감되었습니다.' };
+      return { success: false, error: "참여 인원이 마감되었습니다." };
     }
 
     // 참여 생성
@@ -67,21 +70,21 @@ export async function joinActivity(activityId: string) {
     });
 
     revalidatePath(`/activities/${activityId}`);
-    revalidatePath('/activities');
+    revalidatePath("/activities");
 
-    return { success: true, message: '모임에 참여했습니다!' };
+    return { success: true, message: "모임에 참여했습니다!" };
   } catch (error) {
-    console.error('Join activity error:', error);
-    return { success: false, error: '참여에 실패했습니다.' };
+    console.error("Join activity error:", error);
+    return { success: false, error: "참여에 실패했습니다." };
   }
 }
 
 // 참여 취소
 export async function cancelParticipation(activityId: string) {
   try {
-    const user = await getUser();
+    const user = await getUserIdNameEmail();
     if (!user?.userId) {
-      return { success: false, error: '로그인이 필요합니다.' };
+      return { success: false, error: "로그인이 필요합니다." };
     }
 
     const participation = await prisma.participation.findUnique({
@@ -94,7 +97,7 @@ export async function cancelParticipation(activityId: string) {
     });
 
     if (!participation) {
-      return { success: false, error: '참여하지 않은 모임입니다.' };
+      return { success: false, error: "참여하지 않은 모임입니다." };
     }
 
     // 참여 삭제
@@ -115,19 +118,19 @@ export async function cancelParticipation(activityId: string) {
     });
 
     revalidatePath(`/activities/${activityId}`);
-    revalidatePath('/activities');
+    revalidatePath("/activities");
 
-    return { success: true, message: '참여를 취소했습니다.' };
+    return { success: true, message: "참여를 취소했습니다." };
   } catch (error) {
-    console.error('Cancel participation error:', error);
-    return { success: false, error: '취소에 실패했습니다.' };
+    console.error("Cancel participation error:", error);
+    return { success: false, error: "취소에 실패했습니다." };
   }
 }
 
 // 참여 여부 확인
 export async function checkParticipation(activityId: string) {
   try {
-    const user = await getUser();
+    const user = await getUserIdNameEmail();
     if (!user?.userId) {
       return { isParticipating: false };
     }
@@ -143,7 +146,7 @@ export async function checkParticipation(activityId: string) {
 
     return { isParticipating: !!participation };
   } catch (error) {
-    console.error('Check participation error:', error);
+    console.error("Check participation error:", error);
     return { isParticipating: false };
   }
 }
