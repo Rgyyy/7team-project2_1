@@ -1,4 +1,6 @@
 import { call_login_records } from "@/actions/userCallProfile";
+import Link from "next/link";
+
 export default async function Home() {
   const user = await call_login_records();
   return (
@@ -29,6 +31,67 @@ export default async function Home() {
           </div>
         ) : (
           <p>사용자 정보가 없습니다.</p>
+        )}
+      </div>
+
+      <div className="border-2 border-gray-400 m-4 p-2 rounded-lg">
+        <h2 className="border-b-1 border-gray-400 p-2">내가 만든 활동</h2>
+        {user && user.activities.length > 0 ? (
+          <ul key="user_activities_ul">
+            {user.activities.map((activity) => (
+              <li key={`user_activities_li_${activity.id}`} className="m-2">
+                {activity.difficultyLevel === "초급" ? (
+                  <div className="inline bg-blue-100 rounded-lg p-1 mr-2">
+                    {activity.difficultyLevel}
+                  </div>
+                ) : activity.difficultyLevel === "중급" ? (
+                  <div className="inline bg-yellow-100 rounded-lg p-1 mr-2">
+                    {activity.difficultyLevel}
+                  </div>
+                ) : (
+                  <div className="inline bg-red-100 rounded-lg p-1 mr-2">
+                    {activity.difficultyLevel}
+                  </div>
+                )}
+
+                <div className="bg-purple-100 rounded-lg p-1 inline mr-2">
+                  {activity.participants} / {activity.maxParticipants}
+                </div>
+
+                <Link
+                  href={`/activities/${activity.id}`}
+                  className="hover:underline"
+                >
+                  {activity.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>활동이 없습니다.</p>
+        )}
+      </div>
+
+      <div>
+        <h2 className="border-b-1 border-gray-400 p-2">참여한 활동</h2>
+        {user && user.participations.length > 0 ? (
+          <ul key="user_participations_ul">
+            {user.participations.map((participation) => (
+              <li
+                key={`user_participations_li_${participation.activityId}`}
+                className="m-2"
+              >
+                <Link
+                  href={`/activities/${participation.activityId}`}
+                  className="hover:underline"
+                >
+                  {participation.activityId}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>참여한 활동이 없습니다.</p>
         )}
       </div>
 
