@@ -2,6 +2,7 @@ import ButtonLogin from "./button_login";
 import ButtonRegister from "./button_register";
 import ButtonLogout from "@/component/button_logout";
 import { getUserName } from "@/actions/userAuth";
+import Link from "next/link";
 
 export default async function AuthButtons() {
   const userName = await getUserName();
@@ -10,7 +11,9 @@ export default async function AuthButtons() {
       {userName ? (
         <div>
           <div className="flex gap-2 items-center justify-end">
-            <p>{userName}</p>
+            <Link href="/profile" className="hover:underline">
+              {userName}
+            </Link>
             <ButtonLogout />
           </div>
         </div>
