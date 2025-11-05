@@ -1,10 +1,10 @@
-'use server';
+"use server";
 
-import { prisma } from '@/lib/prisma';
-import { revalidatePath } from 'next/cache';
-import { getUser } from "@/actions/userAuth";
-  const User = await getUser();
-  console.log(User?.userId);
+import { prisma } from "@/lib/prisma";
+import { revalidatePath } from "next/cache";
+import { getUserIdNameEmail } from "@/actions/userDataCall";
+const User = await getUserIdNameEmail();
+console.log(User?.userId);
 
 interface ActivityData {
   title: string;
@@ -26,12 +26,12 @@ interface ActivityData {
 export async function createActivity(data: ActivityData) {
   try {
     // 로그인 확인
-    const user = await getUser();
+    const user = await getUserIdNameEmail();
 
-    console.log('User from getUser():', user);
+    console.log("User from getUserIdNameEmail():", user);
 
     if (!user?.userId) {
-      return { success: false, error: '로그인이 필요합니다.' };
+      return { success: false, error: "로그인이 필요합니다." };
     }
 
     // 카테고리 찾기
@@ -40,7 +40,7 @@ export async function createActivity(data: ActivityData) {
     });
 
     if (!category) {
-      return { success: false, error: '유효하지 않은 카테고리입니다.' };
+      return { success: false, error: "유효하지 않은 카테고리입니다." };
     }
 
     // 지역 찾기
@@ -49,12 +49,12 @@ export async function createActivity(data: ActivityData) {
     });
 
     if (!location) {
-      return { success: false, error: '유효하지 않은 지역입니다.' };
+      return { success: false, error: "유효하지 않은 지역입니다." };
     }
 
-    console.log('Creating activity with userId:', user.userId); 
-    console.log('Category ID:', category.id); 
-    console.log('Location ID:', location.id);
+    console.log("Creating activity with userId:", user.userId);
+    console.log("Category ID:", category.id);
+    console.log("Location ID:", location.id);
 
     // 활동(모임) 생성
     const activity = await prisma.activity.create({
@@ -67,7 +67,7 @@ export async function createActivity(data: ActivityData) {
         duration: parseInt(data.duration),
         maxParticipants: parseInt(data.maxParticipants),
         difficultyLevel: data.difficultyLevel,
-        price: parseInt(data.price || '0'),
+        price: parseInt(data.price || "0"),
         organizer: data.organizer,
         phone: data.phone,
         email: data.email,
@@ -82,11 +82,11 @@ export async function createActivity(data: ActivityData) {
     });
 
     // 캐시 갱신
-    revalidatePath('/activities');
-    
+    revalidatePath("/activities");
+
     return { success: true, data: activity };
   } catch (error) {
-    console.error('Activity creation error:', error);
-    return { success: false, error: '모임 생성에 실패했습니다.' };
+    console.error("Activity creation error:", error);
+    return { success: false, error: "모임 생성에 실패했습니다." };
   }
 }
