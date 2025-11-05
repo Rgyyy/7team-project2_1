@@ -25,9 +25,28 @@ export async function call_login_records() {
           orderBy: { login_time: "desc" },
           take: 10,
         },
+        activities: {
+          select: {
+            id: true,
+            title: true,
+            difficultyLevel: true,
+            participants: true,
+            maxParticipants: true,
+          },
+          orderBy: { createdAt: "desc" },
+          take: 5,
+        },
+        participations: {
+          select: {
+            id: true,
+            activityId: true,
+          },
+          orderBy: { createdAt: "desc" },
+          take: 5,
+        },
       },
     });
-    // console.log(userData);
+    console.log(userData);
     return userData || null;
   } catch (error) {
     return null;
