@@ -56,9 +56,6 @@ export default async function PostDetailPage({ params }: Props) {
           <span>
             작성일: {new Date(post.createdAt).toLocaleDateString("ko-KR")}
           </span>
-          <span style={{ margin: "0 10px" }}>|</span>
-          <span>상태: {true ? "공개" : "비공개"}</span>
-          <span style={{ margin: "0 10px" }}>|</span>
         </div>
 
         <div

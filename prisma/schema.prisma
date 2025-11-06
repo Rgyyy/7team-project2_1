@@ -12,7 +12,7 @@ generator client {
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL") //추가함
+  directUrl = env("DIRECT_URL")
 }
 
 // 한규현 ⬇️
@@ -32,10 +32,14 @@ model user_data {
   // 관계: 참여한 활동들
   participations Participation[]
 
-  //   Moim       Moim[]
-  //   MoimPost   MoimPost[]
-  //   MoimGallery MoimGallery[]
-  //   MoimMember MoimMember[]
+  // 관계: 작성한 게시글들
+  moimPosts MoimPost[]
+
+  // 관계: 좋아요
+  postLikes PostLike[]
+
+  // 관계: 댓글
+  postComments PostComment[]
 }
 
 model login_record {
@@ -58,7 +62,7 @@ model Category {
   id          String   @id @default(cuid())
   name        String   @unique
   description String?
-  icon        String? // RemixIcon 클래스명 (예: "ri-basketball-line")
+  icon        String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -70,7 +74,7 @@ model Category {
 model Location {
   id          String   @id @default(cuid())
   name        String   @unique
-  code        String? // 지역 코드 (예: "02" - 서울)
+  code        String?
   description String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -86,8 +90,8 @@ model Activity {
   description     String
   date            String
   time            String
-  address         String // 상세 주소
-  duration        Int // 분 단위
+  address         String
+  duration        Int
   maxParticipants Int
   participants    Int      @default(0)
   difficultyLevel String
@@ -112,9 +116,7 @@ model Activity {
 
   // 관계: 참여자 목록
   participations Participation[]
-
-  // 관계: 게시글
-  moimPost MoimPost[]
+  moimPost       MoimPost[]
 
   @@index([categoryId])
   @@index([locationId])
@@ -154,25 +156,64 @@ enum MoimPostCat {
   공지
 }
 
-// ========================
-// MODELS
-// ========================
-
-// // 모임 게시글
+// 모임 게시글
 model MoimPost {
   id              String      @id @default(cuid())
-  //authorId        String
-  //author          user_data   @relation(fields: [authorId], references: [id])
-  //moimId          String
-  //moim            Moim        @relation(fields: [moimId], references: [id], onDelete: Cascade)
   moimPostTitle   String
   moimPostContent String
-  //moimPostPhoto   String?
   moimPostCat     MoimPostCat
   createdAt       DateTime    @default(now())
   updatedAt       DateTime    @updatedAt
-  activityId      String
-  activity        Activity    @relation(fields: [activityId], references: [id], onDelete: Cascade)
+
+  activityId String
+  activity   Activity @relation(fields: [activityId], references: [id], onDelete: Cascade)
+
+  // 관계: 작성자
+  userId String
+  user   user_data @relation(fields: [userId], references: [user_id], onDelete: Cascade)
+
+  // 관계: 좋아요
+  likes PostLike[]
+
+  // 관계: 댓글
+  comments PostComment[]
+
+  @@index([activityId])
+  @@index([userId])
+}
+
+// 게시글 좋아요
+model PostLike {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  postId String
+  post   MoimPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  userId String
+  user   user_data @relation(fields: [userId], references: [user_id], onDelete: Cascade)
+
+  // 중복 좋아요 방지
+  @@unique([postId, userId])
+  @@index([postId])
+  @@index([userId])
+}
+
+// 게시글 댓글
+model PostComment {
+  id        String   @id @default(cuid())
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  postId String
+  post   MoimPost @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  userId String
+  user   user_data @relation(fields: [userId], references: [user_id], onDelete: Cascade)
+
+  @@index([postId])
+  @@index([userId])
 }
 
 // 이주한 ⬆️
