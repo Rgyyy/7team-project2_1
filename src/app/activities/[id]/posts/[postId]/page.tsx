@@ -7,7 +7,7 @@ import { notFound } from "next/navigation";
 // params 타입 정의
 type Props = {
   params: Promise<{
-    id: string;
+    postId: string;
   }>;
 };
 
@@ -27,8 +27,8 @@ async function getPost(moimPostid: string) {
 
 export default async function PostDetailPage({ params }: Props) {
   // params를 먼저 await
-  const { id } = await params;
-  const post = await getPost(id);
+  const { postId } = await params;
+  const post = await getPost(postId);
 
   // 게시글이 없으면 404 페이지 표시
   if (!post) {
@@ -78,8 +78,8 @@ export default async function PostDetailPage({ params }: Props) {
 // generateMetadata: 페이지 메타데이터 동적 생성 (SEO)
 export async function generateMetadata({ params }: Props) {
   // params를 먼저 await
-  const { id } = await params;
-  const post = await getPost(id);
+  const { postId } = await params;
+  const post = await getPost(postId);
 
   //const post = await getPost(params.id);
 
