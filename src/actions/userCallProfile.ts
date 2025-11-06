@@ -23,11 +23,39 @@ export async function call_login_records() {
             login_platform: true,
           },
           orderBy: { login_time: "desc" },
-          take: 10,
+          take: 5,
+        },
+        activities: {
+          select: {
+            id: true,
+            title: true,
+            difficultyLevel: true,
+            participants: true,
+            maxParticipants: true,
+          },
+          orderBy: { createdAt: "desc" },
+          take: 5,
+        },
+        participations: {
+          select: {
+            id: true,
+            activityId: true,
+            activity: {
+              select: {
+                id: true,
+                title: true,
+                difficultyLevel: true,
+                participants: true,
+                maxParticipants: true,
+              },
+            },
+          },
+          orderBy: { createdAt: "desc" },
+          take: 5,
         },
       },
     });
-    // console.log(userData);
+    console.log(userData);
     return userData || null;
   } catch (error) {
     return null;
