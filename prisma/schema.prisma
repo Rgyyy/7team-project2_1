@@ -113,6 +113,9 @@ model Activity {
   // 관계: 참여자 목록
   participations Participation[]
 
+  // 관계: 게시글
+  moimPost MoimPost[]
+
   @@index([categoryId])
   @@index([locationId])
   @@index([userId])
@@ -168,6 +171,8 @@ model MoimPost {
   moimPostCat     MoimPostCat
   createdAt       DateTime    @default(now())
   updatedAt       DateTime    @updatedAt
+  activityId      String
+  activity        Activity    @relation(fields: [activityId], references: [id], onDelete: Cascade)
 }
 
 // 이주한 ⬆️
