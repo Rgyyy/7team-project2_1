@@ -11,8 +11,8 @@ export default function NavLinks() {
 
   const navItems = [
     { href: `/activities/${id}`, label: "모임" },
-    { href: `/activities/${id}/posts/`, label: "게시판" },
-    { href: "/", label: "갤러리" },
+    { href: `/activities/${id}/posts`, label: "게시판" },
+    // { href: "/", label: "갤러리" },
   ];
 
   return (
