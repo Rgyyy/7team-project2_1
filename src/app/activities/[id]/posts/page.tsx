@@ -3,9 +3,18 @@
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 
+type Props = {
+  params: Promise<{
+    id: string;
+  }>;
+};
+
 // 특정 필드만 가져오기
-async function getPosts() {
+async function getPosts(activityId: string) {
   const posts = await prisma.moimPost.findMany({
+    where: {
+      activityId, // ✅ 여기서 activityId가 id와 일치하는 게시글만 가져옴
+    },
     select: {
       id: true,
       moimPostCat: true,
@@ -20,8 +29,9 @@ async function getPosts() {
   return posts;
 }
 
-export default async function PostsPage() {
-  const posts = await getPosts();
+export default async function PostsPage({ params }: Props) {
+  const { id } = await params; // URL의 [id]
+  const posts = await getPosts(id); // ✅ id 전달
 
   return (
     <div style={{ padding: "20px", maxWidth: "800px", margin: "0 auto" }}>
@@ -41,7 +51,7 @@ export default async function PostsPage() {
                 borderRadius: "4px",
               }}
             >
-              <Link href={`/posts/${post.id}`}>
+              <Link href={`/activities/${id}/posts/${post.id}`}>
                 <h3>{post.moimPostTitle}</h3>
                 <p style={{ color: "#666", fontSize: "14px" }}>
                   상태: {true ? "공개" : "비공개"} | 작성일:{" "}
