@@ -55,7 +55,7 @@ export async function call_login_records() {
         },
       },
     });
-    console.log(userData);
+    // console.log(userData);
     return userData || null;
   } catch (error) {
     return null;
