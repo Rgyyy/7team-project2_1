@@ -11,11 +11,18 @@ export default async function ChatPage() {
     redirect("/login");
   }
 
-  const userActiveList = [
-    ...(userData?.activities || []).map((activity: any) => activity.id),
-    ...(userData?.participations || []).map(
-      (participation: any) => participation.id
-    ),
+  // 사용자가 생성한 활동과 참여한 활동 정보 모두 가져오기
+  const userActivities = [
+    ...(userData?.activities || []).map((activity: any) => ({
+      id: activity.id,
+      title: activity.title,
+      type: "created", // 생성한 모임
+    })),
+    ...(userData?.participations || []).map((participation: any) => ({
+      id: participation.activity.id,
+      title: participation.activity.title,
+      type: "joined", // 참여한 모임
+    })),
   ];
 
   return (
@@ -31,7 +38,7 @@ export default async function ChatPage() {
           <div className="flex-1 flex flex-col overflow-hidden">
             <ChatContainer
               userName={userName}
-              userActiveList={userActiveList}
+              userActivities={userActivities}
             />
           </div>
         </div>
