@@ -32,13 +32,38 @@ app.prepare().then(() => {
   io.on("connection", (socket) => {
     console.log("클라이언트 연결됨:", socket.id);
 
-    // 사용자 입장 처리
-    socket.on("user-joined", (userName) => {
-      console.log(`${userName}님이 입장했습니다`);
-      socket.broadcast.emit("user-joined", userName);
+    // 모임방 입장 처리
+    socket.on("join-room", (data) => {
+      const { roomId, userName } = data;
+      socket.join(roomId);
+      socket.userName = userName;
+      socket.currentRoom = roomId;
+
+      console.log(`${userName}님이 모임 ${roomId} 채팅방에 입장했습니다`);
+
+      // 같은 모임방의 다른 사용자들에게 입장 알림
+      socket.to(roomId).emit("user-joined", { userName, roomId });
     });
 
-    // 메시지 전송 처리
+    // 모임방 나가기 처리
+    socket.on("leave-room", (roomId) => {
+      if (socket.userName && roomId) {
+        console.log(
+          `${socket.userName}님이 모임 ${roomId} 채팅방에서 나갔습니다`
+        );
+
+        // 같은 모임방의 다른 사용자들에게 퇴장 알림
+        socket.to(roomId).emit("user-left", {
+          userName: socket.userName,
+          roomId,
+        });
+
+        socket.leave(roomId);
+        socket.currentRoom = null;
+      }
+    });
+
+    // 메시지 전송 처리 (특정 모임방에만)
     socket.on("send-message", (messageData) => {
       console.log("메시지 받음:", messageData);
 
@@ -46,7 +71,8 @@ app.prepare().then(() => {
       if (
         !messageData.userName ||
         !messageData.message ||
-        !messageData.timestamp
+        !messageData.timestamp ||
+        !messageData.roomId
       ) {
         console.log("잘못된 메시지 형식");
         return;
@@ -65,11 +91,18 @@ app.prepare().then(() => {
         timestamp: new Date().toISOString(), // 서버에서 타임스탬프 재설정
       };
 
-      // 모든 클라이언트에게 메시지 전송 (본인 포함)
-      io.emit("new-message", completeMessage);
+      // 특정 모임방의 모든 클라이언트에게 메시지 전송 (본인 포함)
+      io.to(messageData.roomId).emit("new-message", completeMessage);
     });
 
     socket.on("disconnect", () => {
+      // 연결 해제 시 현재 참여 중인 방에서 나가기
+      if (socket.userName && socket.currentRoom) {
+        socket.to(socket.currentRoom).emit("user-left", {
+          userName: socket.userName,
+          roomId: socket.currentRoom,
+        });
+      }
       console.log("클라이언트 연결 해제됨:", socket.id);
     });
   });
