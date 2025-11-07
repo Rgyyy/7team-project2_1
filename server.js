@@ -41,9 +41,13 @@ app.prepare().then(() => {
     // 메시지 전송 처리
     socket.on("send-message", (messageData) => {
       console.log("메시지 받음:", messageData);
-      
+
       // 메시지 검증 (서버에서 안전성 확인)
-      if (!messageData.userName || !messageData.message || !messageData.timestamp) {
+      if (
+        !messageData.userName ||
+        !messageData.message ||
+        !messageData.timestamp
+      ) {
         console.log("잘못된 메시지 형식");
         return;
       }
