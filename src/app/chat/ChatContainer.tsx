@@ -12,9 +12,13 @@ interface Message {
 
 interface ChatContainerProps {
   userName: string;
+  userActiveList: string[];
 }
 
-export default function ChatContainer({ userName }: ChatContainerProps) {
+export default function ChatContainer({
+  userName,
+  userActiveList,
+}: ChatContainerProps) {
   const [socket, setSocket] = useState<Socket | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputMessage, setInputMessage] = useState("");
