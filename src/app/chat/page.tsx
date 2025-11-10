@@ -16,12 +16,12 @@ export default async function ChatPage() {
     ...(userData?.activities || []).map((activity: any) => ({
       id: activity.id,
       title: activity.title,
-      type: "created", // 생성한 모임
+      type: "created" as const, // 생성한 모임
     })),
     ...(userData?.participations || []).map((participation: any) => ({
       id: participation.activity.id,
       title: participation.activity.title,
-      type: "joined", // 참여한 모임
+      type: "joined" as const, // 참여한 모임
     })),
   ];
 

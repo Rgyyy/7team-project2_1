@@ -32,6 +32,7 @@ export async function call_login_records() {
             difficultyLevel: true,
             participants: true,
             maxParticipants: true,
+            price: true,
           },
           orderBy: { createdAt: "desc" },
           take: 5,
