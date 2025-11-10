@@ -170,7 +170,7 @@ model MoimPost {
 
   // 관계: 작성자
   userId String
-  user   user_data @relation(fields: [userId], references: [user_id], onDelete: Cascade)
+  user   user_data @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   // 관계: 좋아요
   likes PostLike[]
@@ -191,7 +191,7 @@ model PostLike {
   post   MoimPost @relation(fields: [postId], references: [id], onDelete: Cascade)
 
   userId String
-  user   user_data @relation(fields: [userId], references: [user_id], onDelete: Cascade)
+  user   user_data @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   // 중복 좋아요 방지
   @@unique([postId, userId])
@@ -210,7 +210,7 @@ model PostComment {
   post   MoimPost @relation(fields: [postId], references: [id], onDelete: Cascade)
 
   userId String
-  user   user_data @relation(fields: [userId], references: [user_id], onDelete: Cascade)
+  user   user_data @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@index([postId])
   @@index([userId])
