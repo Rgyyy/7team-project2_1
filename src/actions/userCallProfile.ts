@@ -32,6 +32,7 @@ export async function call_login_records() {
             difficultyLevel: true,
             participants: true,
             maxParticipants: true,
+            price: true,
           },
           orderBy: { createdAt: "desc" },
           take: 5,
@@ -55,7 +56,7 @@ export async function call_login_records() {
         },
       },
     });
-    console.log(userData);
+    // console.log(userData);
     return userData || null;
   } catch (error) {
     return null;
