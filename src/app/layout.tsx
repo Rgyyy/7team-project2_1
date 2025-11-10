@@ -70,13 +70,7 @@ export default function RootLayout({
                   <Link href="/example" className="text-gray-700 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium">
                     로그인
                   </Link>
-                  <Link
-                    href="/create-activity"
-                    className="bg-purple-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-purple-700 whitespace-nowrap flex items-center gap-2"
-                  >
-                    <i className="ri-add-line"></i>
-                    모임 만들기
-                  </Link>
+                 
                 </div>
               </div>
 

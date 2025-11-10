@@ -2,7 +2,7 @@
 
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
-import { getUser } from '@/actions/userAuth';
+import { getUser } from "@/actions/userAuth";
 
 // 참여하기
 export async function joinActivity(activityId: string) {

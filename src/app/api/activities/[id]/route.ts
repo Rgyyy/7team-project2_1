@@ -1,17 +1,26 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { getUser } from '@/actions/userAuth';
 
 // 특정 활동 조회
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const activity = await prisma.activity.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: {
         category: true,
         location: true,
+        user: {
+          select: {
+            id: true,
+            user_name: true,
+            user_email: true,
+          },
+        },
       },
     });
 
@@ -35,10 +44,38 @@ export async function GET(
 // 활동 수정
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const user = await getUser();
+    if (!user?.userId) {
+      return NextResponse.json(
+        { error: '로그인이 필요합니다.' },
+        { status: 401 }
+      );
+    }
+
+    const { id } = await params;
     const data = await request.json();
+
+    // 권한 확인
+    const activity = await prisma.activity.findUnique({
+      where: { id },
+    });
+
+    if (!activity) {
+      return NextResponse.json(
+        { error: '모임을 찾을 수 없습니다.' },
+        { status: 404 }
+      );
+    }
+
+    if (activity.userId !== user.userId) {
+      return NextResponse.json(
+        { error: '수정 권한이 없습니다.' },
+        { status: 403 }
+      );
+    }
 
     const category = await prisma.category.findUnique({
       where: { name: data.category },
@@ -56,7 +93,7 @@ export async function PUT(
     }
 
     const updatedActivity = await prisma.activity.update({
-      where: { id: params.id },
+      where: { id },
       data: {
         title: data.title,
         description: data.description,
@@ -92,11 +129,40 @@ export async function PUT(
 // 활동 삭제
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const user = await getUser();
+    if (!user?.userId) {
+      return NextResponse.json(
+        { error: '로그인이 필요합니다.' },
+        { status: 401 }
+      );
+    }
+
+    const { id } = await params;
+
+    // 권한 확인
+    const activity = await prisma.activity.findUnique({
+      where: { id },
+    });
+
+    if (!activity) {
+      return NextResponse.json(
+        { error: '모임을 찾을 수 없습니다.' },
+        { status: 404 }
+      );
+    }
+
+    if (activity.userId !== user.userId) {
+      return NextResponse.json(
+        { error: '삭제 권한이 없습니다.' },
+        { status: 403 }
+      );
+    }
+
     await prisma.activity.delete({
-      where: { id: params.id },
+      where: { id },
     });
 
     return NextResponse.json({ message: '모임이 삭제되었습니다.' });
