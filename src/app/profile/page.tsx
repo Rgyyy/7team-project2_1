@@ -30,9 +30,12 @@ export default async function Home() {
                   주 사용 지역: {user?.user_main_location || "없음"}
                 </li>
               </div>
-              <button className="bg-blue-500 hover:bg-blue-600 text-white px-2 py-2 rounded-lg mt-2">
+              <Link
+                href="/profile/edit"
+                className="bg-blue-500 hover:bg-blue-600 text-white px-2 py-2 rounded-lg mt-2"
+              >
                 프로필 수정
-              </button>
+              </Link>
             </ul>
           </div>
         ) : (
@@ -45,31 +48,40 @@ export default async function Home() {
         {user && user.activities.length > 0 ? (
           <ul key="user_activities_ul">
             {user.activities.map((activity) => (
-              <li key={`user_activities_li_${activity.id}`} className="m-2">
-                {activity.difficultyLevel === "초급" ? (
-                  <div className="inline bg-blue-100 rounded-lg p-1 mr-2">
-                    {activity.difficultyLevel}
-                  </div>
-                ) : activity.difficultyLevel === "중급" ? (
-                  <div className="inline bg-yellow-100 rounded-lg p-1 mr-2">
-                    {activity.difficultyLevel}
-                  </div>
-                ) : (
-                  <div className="inline bg-red-100 rounded-lg p-1 mr-2">
-                    {activity.difficultyLevel}
-                  </div>
-                )}
+              <li
+                key={`user_activities_li_${activity.id}`}
+                className="m-2 flex items-center justify-between"
+              >
+                <div className="flex items-center">
+                  {activity.difficultyLevel === "초급" ? (
+                    <div className="inline bg-blue-100 rounded-lg p-1 mr-2">
+                      {activity.difficultyLevel}
+                    </div>
+                  ) : activity.difficultyLevel === "중급" ? (
+                    <div className="inline bg-yellow-100 rounded-lg p-1 mr-2">
+                      {activity.difficultyLevel}
+                    </div>
+                  ) : (
+                    <div className="inline bg-red-100 rounded-lg p-1 mr-2">
+                      {activity.difficultyLevel}
+                    </div>
+                  )}
 
-                <div className="bg-purple-100 rounded-lg p-1 inline mr-2">
-                  {activity.participants} / {activity.maxParticipants}
+                  <div className="bg-purple-100 rounded-lg p-1 inline mr-2">
+                    {activity.participants} / {activity.maxParticipants}
+                  </div>
+
+                  <Link
+                    href={`/activities/${activity.id}`}
+                    className="hover:underline"
+                  >
+                    {activity.title}
+                  </Link>
                 </div>
 
-                <Link
-                  href={`/activities/${activity.id}`}
-                  className="hover:underline"
-                >
-                  {activity.title}
-                </Link>
+                <div className="bg-red-100 rounded-lg p-1 hidden sm:block">
+                  비용: {activity.price}원
+                </div>
               </li>
             ))}
           </ul>
@@ -100,12 +112,10 @@ export default async function Home() {
                     {participation.activity.difficultyLevel}
                   </div>
                 )}
-
                 <div className="bg-purple-100 rounded-lg p-1 inline mr-2">
                   {participation.activity.participants} /{" "}
                   {participation.activity.maxParticipants}
                 </div>
-
                 <Link
                   href={`/activities/${participation.activity.id}`}
                   className="hover:underline"
