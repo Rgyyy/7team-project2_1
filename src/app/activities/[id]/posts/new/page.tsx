@@ -1,7 +1,6 @@
 // src/app/activities/[id]/posts/new/page.tsx
 
 import { createPost } from "@/actions/createPost";
-import PostForm from "@/component/PostForm"; // 클라이언트 컴포넌트 분리
 import UploadPage from "@/component/UploadPage"; // 클라이언트 컴포넌트 분리
 import PostFormWithUpload from "@/component/PostFormWithUpload";
 

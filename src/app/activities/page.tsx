@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
+import { useEffect, useState } from "react";
+import Link from "next/link";
 
 interface Activity {
   id: string;
@@ -31,8 +31,8 @@ interface Activity {
 export default function ActivitiesPage() {
   const [activities, setActivities] = useState<Activity[]>([]);
   const [loading, setLoading] = useState(true);
-  const [categoryFilter, setCategoryFilter] = useState('전체');
-  const [locationFilter, setLocationFilter] = useState('전국');
+  const [categoryFilter, setCategoryFilter] = useState("전체");
+  const [locationFilter, setLocationFilter] = useState("전국");
 
   useEffect(() => {
     fetchActivities();
@@ -40,36 +40,70 @@ export default function ActivitiesPage() {
 
   const fetchActivities = async () => {
     try {
-      const response = await fetch('/api/activities');
+      const response = await fetch("/api/activities");
       const data = await response.json();
-      
-      console.log('API Response:', data); // 디버깅용
-      console.log('Is Array?', Array.isArray(data)); // 배열인지 확인
-      
+
+      console.log("API Response:", data); // 디버깅용
+      console.log("Is Array?", Array.isArray(data)); // 배열인지 확인
+
       // 데이터가 배열인지 확인
       if (Array.isArray(data)) {
         setActivities(data);
       } else {
-        console.error('Expected array but got:', data);
+        console.error("Expected array but got:", data);
         setActivities([]);
       }
     } catch (error) {
-      console.error('Error fetching activities:', error);
+      console.error("Error fetching activities:", error);
       setActivities([]);
     } finally {
       setLoading(false);
     }
   };
 
-  const categories = ['전체', '운동', '요리', '독서', '사진', '음악', '미술', '언어', '게임', '여행', '그외'];
-  const locations = ['전국', '서울', '인천', '대전', '대구', '부산', '광주', '울산', '경기도', '강원도', '충청북도', '충청남도', '전라북도', '전라남도', '경상북도', '경상남도', '제주도'];
+  const categories = [
+    "전체",
+    "운동",
+    "요리",
+    "독서",
+    "사진",
+    "음악",
+    "미술",
+    "언어",
+    "게임",
+    "여행",
+    "그외",
+  ];
+  const locations = [
+    "전국",
+    "서울",
+    "인천",
+    "대전",
+    "대구",
+    "부산",
+    "광주",
+    "울산",
+    "경기도",
+    "강원도",
+    "충청북도",
+    "충청남도",
+    "전라북도",
+    "전라남도",
+    "경상북도",
+    "경상남도",
+    "제주도",
+  ];
 
   // 안전하게 필터링 (activities가 배열인지 확인)
-  const filteredActivities = Array.isArray(activities) ? activities.filter(act => {
-    const matchCategory = categoryFilter === '전체' || act.category?.name === categoryFilter;
-    const matchLocation = locationFilter === '전국' || act.location?.name === locationFilter;
-    return matchCategory && matchLocation;
-  }) : [];
+  const filteredActivities = Array.isArray(activities)
+    ? activities.filter((act) => {
+        const matchCategory =
+          categoryFilter === "전체" || act.category?.name === categoryFilter;
+        const matchLocation =
+          locationFilter === "전국" || act.location?.name === locationFilter;
+        return matchCategory && matchLocation;
+      })
+    : [];
 
   if (loading) {
     return (
@@ -92,7 +126,9 @@ export default function ActivitiesPage() {
         <div className="bg-white rounded-lg shadow-sm p-4 mb-6">
           {/* 카테고리 필터 */}
           <div className="mb-4">
-            <h3 className="text-sm font-semibold text-gray-700 mb-2">카테고리</h3>
+            <h3 className="text-sm font-semibold text-gray-700 mb-2">
+              카테고리
+            </h3>
             <div className="flex flex-wrap gap-2">
               {categories.map((cat) => (
                 <button
@@ -100,8 +136,8 @@ export default function ActivitiesPage() {
                   onClick={() => setCategoryFilter(cat)}
                   className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                     categoryFilter === cat
-                      ? 'bg-purple-600 text-white'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      ? "bg-purple-600 text-white"
+                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                   }`}
                 >
                   {cat}
@@ -120,8 +156,8 @@ export default function ActivitiesPage() {
                   onClick={() => setLocationFilter(loc)}
                   className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                     locationFilter === loc
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      ? "bg-blue-600 text-white"
+                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                   }`}
                 >
                   {loc}
@@ -145,7 +181,9 @@ export default function ActivitiesPage() {
         {/* 모임 목록 */}
         {filteredActivities.length === 0 ? (
           <div className="bg-white rounded-lg shadow-sm p-12 text-center">
-            <p className="text-gray-500 text-lg mb-4">아직 생성된 모임이 없습니다</p>
+            <p className="text-gray-500 text-lg mb-4">
+              아직 생성된 모임이 없습니다
+            </p>
             <Link
               href="/create-activity"
               className="inline-block px-6 py-3 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors"
@@ -168,7 +206,7 @@ export default function ActivitiesPage() {
                       {activity.category.name}
                     </span>
                     <span className="text-xs text-gray-500">
-                      {new Date(activity.createdAt).toLocaleDateString('ko-KR')}
+                      {new Date(activity.createdAt).toLocaleDateString("ko-KR")}
                     </span>
                   </div>
 
@@ -205,7 +243,9 @@ export default function ActivitiesPage() {
                         {activity.difficultyLevel}
                       </span>
                       <span className="text-sm font-semibold text-purple-600">
-                        {activity.price === 0 ? '무료' : `${activity.price.toLocaleString()}원`}
+                        {activity.price === 0
+                          ? "무료"
+                          : `${activity.price.toLocaleString()}원`}
                       </span>
                     </div>
                     <span className="text-sm text-purple-600 hover:text-purple-700 font-medium">
