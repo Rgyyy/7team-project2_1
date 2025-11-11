@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { io, Socket } from "socket.io-client";
+import Link from "next/link";
 import { call_login_records } from "@/actions/userCallProfile";
 
 interface Message {
@@ -301,35 +302,50 @@ export default function ChattingRoom() {
             {activities.map((activity) => (
               <div
                 key={activity.id}
-                className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer"
-                onClick={() => handleJoinRoom(activity)}
+                className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow"
               >
-                <div className="flex justify-between items-start mb-2">
-                  <h3 className="text-lg font-semibold text-gray-900">
-                    {activity.title}
-                  </h3>
-                  <span
-                    className={`px-2 py-1 rounded text-sm ${
-                      activity.role === "organizer"
-                        ? "bg-blue-100 text-blue-800"
-                        : "bg-green-100 text-green-800"
-                    }`}
-                  >
-                    {activity.role === "organizer" ? "주최자" : "참여자"}
-                  </span>
-                </div>
-
-                <p className="text-gray-600 text-sm mb-2">
-                  난이도: {activity.difficultyLevel}
-                  {activity.price && activity.price > 0 && (
-                    <span className="ml-2">
-                      • 참가비: {activity.price.toLocaleString()}원
+                <Link
+                  href={`/activities/${activity.id}`}
+                  className="block cursor-pointer"
+                >
+                  <div className="flex justify-between items-start mb-2">
+                    <h3 className="text-lg font-semibold text-gray-900 hover:underline">
+                      {activity.title}
+                    </h3>
+                    <span
+                      className={`px-2 py-1 rounded text-sm ${
+                        activity.role === "organizer"
+                          ? "bg-blue-100 text-blue-800"
+                          : "bg-green-100 text-green-800"
+                      }`}
+                    >
+                      {activity.role === "organizer" ? "주최자" : "참여자"}
                     </span>
-                  )}
-                </p>
+                  </div>
+
+                  <p className="text-gray-600 text-sm mb-2">
+                    난이도: {activity.difficultyLevel}
+                    {activity.price !== undefined &&
+                      activity.price !== null && (
+                        <span className="ml-2">
+                          • 참가비:{" "}
+                          {activity.price === 0
+                            ? "무료"
+                            : `${activity.price.toLocaleString()}원`}
+                        </span>
+                      )}
+                  </p>
+                </Link>
 
                 <div className="mt-3 text-right">
-                  <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-3 rounded text-sm">
+                  <button
+                    className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-3 rounded text-sm"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      handleJoinRoom(activity);
+                    }}
+                  >
                     채팅방 입장
                   </button>
                 </div>
