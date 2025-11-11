@@ -79,10 +79,12 @@ export default function RootLayout({
               {/* 모임 만들기 버튼 (데스크탑) */}
               <div className="hidden md:block">
                 <div className="ml-4 flex items-center md:ml-6 space-x-4">
-                  <Link href="/example" className="text-gray-700 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium">
+                  <Link
+                    href="/example"
+                    className="text-gray-700 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium"
+                  >
                     로그인
                   </Link>
-                 
                 </div>
               </div>
 
