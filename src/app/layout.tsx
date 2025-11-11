@@ -68,10 +68,10 @@ export default function RootLayout({
                     모임 게시판
                   </Link>
                   <Link
-                    href="/create-activity"
+                    href="/chatting"
                     className="text-gray-700 hover:text-purple-600 px-3 py-2 rounded-md text-sm font-medium"
                   >
-                    모임 만들기
+                    채팅 참여하기
                   </Link>
                 </div>
               </div>
