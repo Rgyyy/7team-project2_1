@@ -1,5 +1,6 @@
-import { NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { NextResponse } from 'next/server';
+import { prisma } from '@/lib/prisma';
+import { getUser } from '@/actions/userAuth';
 import { getUserIdNameEmail } from "@/actions/userDataCall";
 
 // 특정 활동 조회
@@ -47,10 +48,10 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const user = await getUserIdNameEmail();
+    const user = await getUser();
     if (!user?.userId) {
       return NextResponse.json(
-        { error: "로그인이 필요합니다." },
+        { error: '로그인이 필요합니다.' },
         { status: 401 }
       );
     }
@@ -65,14 +66,14 @@ export async function PUT(
 
     if (!activity) {
       return NextResponse.json(
-        { error: "활동을 찾을 수 없습니다." },
+        { error: '모임을 찾을 수 없습니다.' },
         { status: 404 }
       );
     }
 
     if (activity.userId !== user.userId) {
       return NextResponse.json(
-        { error: "수정 권한이 없습니다." },
+        { error: '수정 권한이 없습니다.' },
         { status: 403 }
       );
     }
@@ -132,10 +133,10 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const user = await getUserIdNameEmail();
+    const user = await getUser();
     if (!user?.userId) {
       return NextResponse.json(
-        { error: "로그인이 필요합니다." },
+        { error: '로그인이 필요합니다.' },
         { status: 401 }
       );
     }
@@ -149,14 +150,14 @@ export async function DELETE(
 
     if (!activity) {
       return NextResponse.json(
-        { error: "활동을 찾을 수 없습니다." },
+        { error: '모임을 찾을 수 없습니다.' },
         { status: 404 }
       );
     }
 
     if (activity.userId !== user.userId) {
       return NextResponse.json(
-        { error: "삭제 권한이 없습니다." },
+        { error: '삭제 권한이 없습니다.' },
         { status: 403 }
       );
     }

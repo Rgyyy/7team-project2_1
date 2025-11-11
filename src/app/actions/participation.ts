@@ -1,7 +1,8 @@
 "use server";
 
-import { prisma } from "@/lib/prisma";
-import { revalidatePath } from "next/cache";
+import { prisma } from '@/lib/prisma';
+import { revalidatePath } from 'next/cache';
+import { getUser } from "@/actions/userAuth";
 import { getUserIdNameEmail } from "@/actions/userDataCall";
 
 // 참여하기
