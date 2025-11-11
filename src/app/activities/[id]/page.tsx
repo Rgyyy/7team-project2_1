@@ -61,8 +61,6 @@ export default function ActivityDetailPage({ params }: { params: Promise<{ id: s
       const response = await fetch(`/api/activities/${activityId}`);
       if (response.ok) {
         const data = await response.json();
-        console.log('Activity User ID:', data.userId);  // 추가
-        console.log('Activity Data:', data);  // 추가
         setActivity(data);
       } else {
         alert('모임을 찾을 수 없습니다.');
@@ -87,10 +85,7 @@ export default function ActivityDetailPage({ params }: { params: Promise<{ id: s
     } catch (error) {
       console.error('Error checking user:', error);
     }
-  } catch (error) {
-    console.error('❌ Error in checkCurrentUser:', error);
-  }
-};
+  };
 
   const checkParticipationStatus = async () => {
     try {
@@ -103,7 +98,6 @@ export default function ActivityDetailPage({ params }: { params: Promise<{ id: s
       console.error('Error:', error);
     }
   };
-
 
   const handleJoin = async () => {
     if (!currentUserId) {
