@@ -31,11 +31,6 @@ model user_data {
   
   // 관계: 참여한 활동들
   participations  Participation[]
-
-  //   Moim       Moim[]
-  //   MoimPost   MoimPost[]
-  //   MoimGallery MoimGallery[]
-  //   MoimMember MoimMember[]
 }
 
 model login_record {
