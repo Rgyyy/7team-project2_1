@@ -24,6 +24,11 @@ export async function loginUser(prevState: any, formData: FormData) {
       return { error: "존재하지 않는 사용자입니다." };
     }
 
+    // 회원 상태 확인 (0: 정상, 1: 탈퇴)
+    if (user.user_state === "1") {
+      return { error: "탈퇴한 회원입니다." };
+    }
+
     const isPasswordValid = await bcrypt.compare(
       userPassword,
       user.user_password
@@ -44,7 +49,7 @@ export async function loginUser(prevState: any, formData: FormData) {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax", // ✅ strict → lax 로 변경
-      path: "/",        // ✅ 전체 경로에서 쿠키 접근 
+      path: "/", // ✅ 전체 경로에서 쿠키 접근
       maxAge: 60 * 60 * 24, // 24시간
     });
 
