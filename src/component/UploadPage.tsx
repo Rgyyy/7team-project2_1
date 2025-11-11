@@ -1,17 +1,22 @@
-// app/upload/page.js
 "use client";
-import { useState } from "react";
+import { useState, ChangeEvent } from "react";
+
+interface UploadResponse {
+  success: boolean;
+  key: string;
+  url: string;
+}
 
 export default function UploadPage() {
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [preview, setPreview] = useState("");
-  const [uploading, setUploading] = useState(false);
-  const [uploadedUrl, setUploadedUrl] = useState("");
-  const [error, setError] = useState("");
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [preview, setPreview] = useState<string>("");
+  const [uploading, setUploading] = useState<boolean>(false);
+  const [uploadedUrl, setUploadedUrl] = useState<string>("");
+  const [error, setError] = useState<string>("");
 
   // 파일 선택했을 때
-  const handleFileSelect = (e) => {
-    const file = e.target.files[0];
+  const handleFileSelect = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
 
     if (!file) {
       return;
@@ -36,7 +41,7 @@ export default function UploadPage() {
     // 미리보기 생성
     const reader = new FileReader();
     reader.onloadend = () => {
-      setPreview(reader.result);
+      setPreview(reader.result as string);
     };
     reader.readAsDataURL(file);
   };
@@ -66,7 +71,7 @@ export default function UploadPage() {
         throw new Error("업로드 실패");
       }
 
-      const data = await response.json();
+      const data: UploadResponse = await response.json();
       setUploadedUrl(data.url);
 
       // 성공 후 초기화
