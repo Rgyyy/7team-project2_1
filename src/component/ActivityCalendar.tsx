@@ -32,6 +32,13 @@ export default function ActivityCalendar({
   const thisMonth = new Date(currentYear, currentMonth, 1);
   const nextMonth = new Date(currentYear, currentMonth + 1, 1);
 
+  // 모달 상태 관리
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedDateActivities, setSelectedDateActivities] = useState<
+    Activity[]
+  >([]);
+  const [selectedDate, setSelectedDate] = useState<string>("");
+
   // 모든 활동들을 합치기
   const allActivities = [
     ...activities,
@@ -82,6 +89,19 @@ export default function ActivityCalendar({
       today.getMonth() === date.getMonth() &&
       today.getFullYear() === date.getFullYear()
     );
+  };
+
+  // 날짜 클릭 핸들러
+  const handleDateClick = (date: Date, dayActivities: Activity[]) => {
+    if (dayActivities.length === 1) {
+      // 활동이 하나면 바로 이동
+      window.location.href = `/activities/${dayActivities[0].id}`;
+    } else if (dayActivities.length > 1) {
+      // 활동이 여러개면 모달 열기
+      setSelectedDateActivities(dayActivities);
+      setSelectedDate(date.toLocaleDateString("ko-KR"));
+      setIsModalOpen(true);
+    }
   };
 
   // 단일 캘린더 컴포넌트
@@ -141,8 +161,8 @@ export default function ActivityCalendar({
             return (
               <div key={index} className="relative">
                 {hasActivities ? (
-                  <Link
-                    href={`/activities/${dayActivities[0].id}`}
+                  <button
+                    onClick={() => handleDateClick(date, dayActivities)}
                     className={`
                       block w-full rounded text-center font-medium
                       transition-all duration-200 cursor-pointer flex items-center justify-center
@@ -156,7 +176,7 @@ export default function ActivityCalendar({
                     title={`${dayActivities.map((a) => a.title).join(", ")}`}
                   >
                     {date.getDate()}
-                  </Link>
+                  </button>
                 ) : (
                   <div
                     className={`
@@ -193,27 +213,100 @@ export default function ActivityCalendar({
   };
 
   return (
-    <div className={`space-y-3 ${className}`}>
-      <Calendar month={thisMonth} isCurrentMonth={true} />
+    <>
+      <div className={`space-y-3 ${className}`}>
+        <Calendar month={thisMonth} isCurrentMonth={true} />
 
-      <div className="grid grid-cols-2 gap-2">
-        <Calendar month={prevMonth} isSmall={true} />
-        <Calendar month={nextMonth} isSmall={true} />
-      </div>
+        <div className="grid grid-cols-2 gap-2">
+          <Calendar month={prevMonth} isSmall={true} />
+          <Calendar month={nextMonth} isSmall={true} />
+        </div>
 
-      {/* 활동 범례 */}
-      <div className="bg-gray-50 rounded-lg p-2">
-        <div className="text-xs text-gray-600 flex items-center justify-center space-x-4">
-          <div className="flex items-center">
-            <div className="w-2 h-2 bg-red-300 rounded mr-1"></div>
-            <span>모임</span>
-          </div>
-          <div className="flex items-center">
-            <div className="w-2 h-2 bg-blue-500 rounded mr-1"></div>
-            <span>오늘</span>
+        {/* 활동 범례 */}
+        <div className="bg-gray-50 rounded-lg p-2">
+          <div className="text-xs text-gray-600 flex items-center justify-center space-x-4">
+            <div className="flex items-center">
+              <div className="w-2 h-2 bg-red-300 rounded mr-1"></div>
+              <span>모임</span>
+            </div>
+            <div className="flex items-center">
+              <div className="w-2 h-2 bg-blue-500 rounded mr-1"></div>
+              <span>오늘</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+
+      {/* 활동 선택 모달 */}
+      {isModalOpen && (
+        <div className="fixed inset-0 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4 max-h-96 overflow-y-auto shadow-xl">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-lg font-bold text-gray-800">
+                {selectedDate} 활동 목록
+              </h3>
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="text-gray-500 hover:text-gray-700 text-xl font-bold cursor-pointer hover:bg-gray-100 rounded-full w-8 h-8 flex items-center justify-center transition-colors"
+              >
+                ×
+              </button>
+            </div>
+
+            <div className="space-y-3">
+              {selectedDateActivities.map((activity, index) => (
+                <div
+                  key={activity.id}
+                  className="border border-gray-200 rounded-lg p-3 hover:bg-gray-50"
+                >
+                  <Link
+                    href={`/activities/${activity.id}`}
+                    onClick={() => setIsModalOpen(false)}
+                    className="block"
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex-1">
+                        <h4 className="font-semibold text-gray-800 hover:text-blue-600">
+                          {activity.title}
+                        </h4>
+                        <div className="flex items-center gap-2 mt-1">
+                          <span
+                            className={`px-2 py-1 rounded text-xs ${
+                              activity.difficultyLevel === "초급"
+                                ? "bg-blue-100 text-blue-800"
+                                : activity.difficultyLevel === "중급"
+                                ? "bg-yellow-100 text-yellow-800"
+                                : "bg-red-100 text-red-800"
+                            }`}
+                          >
+                            {activity.difficultyLevel}
+                          </span>
+                          <span className="text-xs text-gray-500">
+                            {activity.participants}/{activity.maxParticipants}명
+                          </span>
+                          <span className="text-xs text-gray-500">
+                            {activity.price.toLocaleString()}원
+                          </span>
+                        </div>
+                      </div>
+                      <div className="text-gray-400">→</div>
+                    </div>
+                  </Link>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-4 text-center">
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors"
+              >
+                닫기
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }

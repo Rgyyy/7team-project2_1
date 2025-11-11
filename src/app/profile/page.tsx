@@ -146,14 +146,22 @@ export default async function Home() {
                       </div>
                       <Link
                         href={`/activities/${activity.id}`}
-                        className="hover:underline text-blue-600"
+                        className="hover:underline text-gray-600"
                       >
                         {activity.title}
                       </Link>
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="bg-red-100 rounded-lg px-2 py-1 text-xs hidden sm:block">
-                        {activity.price.toLocaleString()}원
+                        {activity.price === 0
+                          ? "무료"
+                          : activity.price.toLocaleString() + "원"}
+                      </div>
+                      <div className="bg-gray-100 rounded-lg px-2 py-1 text-xs hidden sm:block">
+                        생성:{" "}
+                        {new Date(activity.createdAt).toLocaleDateString(
+                          "ko-KR"
+                        )}
                       </div>
                     </div>
                   </li>
@@ -196,14 +204,23 @@ export default async function Home() {
                       </div>
                       <Link
                         href={`/activities/${participation.activity.id}`}
-                        className="hover:underline text-blue-600"
+                        className="hover:underline text-gray-600"
                       >
                         {participation.activity.title}
                       </Link>
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="bg-red-100 rounded-lg px-2 py-1 text-xs hidden sm:block">
-                        {participation.activity.price.toLocaleString()}원
+                        {participation.activity.price === 0
+                          ? "무료"
+                          : participation.activity.price.toLocaleString() +
+                            "원"}
+                      </div>
+                      <div className="bg-orange-100 rounded-lg px-2 py-1 text-xs hidden sm:block">
+                        가입:{" "}
+                        {new Date(participation.createdAt).toLocaleDateString(
+                          "ko-KR"
+                        )}
                       </div>
                     </div>
                   </li>

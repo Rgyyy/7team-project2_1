@@ -25,7 +25,13 @@ interface Activity {
   role: "organizer" | "participant";
 }
 
-export default function ChattingRoom() {
+interface ChattingRoomProps {
+  onJoinStatusChange?: (isJoined: boolean) => void;
+}
+
+export default function ChattingRoom({
+  onJoinStatusChange,
+}: ChattingRoomProps) {
   const [socket, setSocket] = useState<Socket | null>(null);
   const [isJoined, setIsJoined] = useState(false);
   const [nickname, setNickname] = useState("");
@@ -218,6 +224,7 @@ export default function ChattingRoom() {
       setIsJoined(true);
       roomRef.current = roomName;
       isJoinedRef.current = true;
+      onJoinStatusChange?.(true);
     }
   };
 
@@ -339,7 +346,7 @@ export default function ChattingRoom() {
 
                 <div className="mt-3 text-right">
                   <button
-                    className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-3 rounded text-sm"
+                    className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-3 rounded text-sm cursor-pointer"
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
@@ -366,6 +373,7 @@ export default function ChattingRoom() {
       setMessages([]);
       roomRef.current = "";
       isJoinedRef.current = false;
+      onJoinStatusChange?.(false);
     }
   };
 

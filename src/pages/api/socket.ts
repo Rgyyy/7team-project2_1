@@ -23,22 +23,16 @@ async function getUserFromSocket(cookieHeader: string | undefined) {
       return null;
     }
 
-    console.log("토큰 발견:", token.substring(0, 20) + "...");
-
     // JWT 토큰 검증 (userAuth.ts의 getUser 로직과 동일)
     const decoded = jwt.verify(token, process.env.JWT_SECRET!) as {
       userId: string;
     };
-
-    console.log("토큰 디코드 성공, userId:", decoded.userId);
 
     // 사용자 이름 조회 (userAuth.ts의 getUserName 로직과 동일)
     const userData = await prisma.user_data.findUnique({
       where: { user_id: decoded.userId },
       select: { user_name: true },
     });
-
-    console.log("DB 조회 결과:", userData?.user_name);
 
     return userData?.user_name || null;
   } catch (error) {
@@ -80,14 +74,12 @@ const SocketHandler = (req: NextApiRequest, res: NextApiResponse) => {
 
         // 소켓 요청에서 쿠키를 통해 사용자 정보 가져오기
         const cookieHeader = socket.handshake.headers.cookie;
-        console.log("쿠키 헤더:", cookieHeader);
 
         // userAuth.ts와 동일한 로직으로 사용자 이름 조회
         const userName = await getUserFromSocket(cookieHeader);
 
         if (userName) {
           nickname = userName;
-          console.log("로그인 사용자:", userName);
         } else {
           nickname = `게스트${new Date().getSeconds()}`;
           console.log("게스트 사용자");
