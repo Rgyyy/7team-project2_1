@@ -21,12 +21,14 @@ export async function createPost(
     const category = formData.get("category") as MoimPostCat;
     const title = formData.get("title") as string;
     const content = formData.get("content") as string;
+    const imageUrl = formData.get("imageUrl") as string | null;
 
     await prisma.moimPost.create({
       data: {
         moimPostCat: category,
         moimPostTitle: title,
         moimPostContent: content,
+        image: imageUrl,
         activityId: activityId,
         userId: user.userId, // ✅ user_data.id (PK)
       },

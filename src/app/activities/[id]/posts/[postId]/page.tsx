@@ -3,6 +3,7 @@
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 
 type Props = {
   params: Promise<{
@@ -20,6 +21,7 @@ async function getPost(postId: string) {
       moimPostCat: true,
       moimPostTitle: true,
       moimPostContent: true,
+      image: true,
       createdAt: true,
       updatedAt: true,
       activityId: true,
@@ -181,6 +183,22 @@ export default async function PostDetailPage({ params }: Props) {
               })}
             </time>
           </div>
+
+          {/* 이미지 */}
+          {post.image && (
+            <div className="max-w-3xl w-full bg-white rounded-lg shadow p-6">
+              <div className="relative w-full aspect-[3/2] rounded overflow-hidden">
+                <Image
+                  src={post.image}
+                  alt="Demo image"
+                  fill // 부모 컨테이너에 맞춰 채움 (position: absolute 필요)
+                  sizes="(max-width: 768px) 100vw, 800px"
+                  style={{ objectFit: "cover" }}
+                  priority
+                />
+              </div>
+            </div>
+          )}
 
           {/* 본문 */}
           <div className="prose max-w-none mb-8">

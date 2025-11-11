@@ -14,6 +14,7 @@ export async function GET(
         id: true,
         moimPostCat: true,
         moimPostTitle: true,
+        image: true,
         moimPostContent: true,
         createdAt: true,
         _count: { select: { likes: true, comments: true } },

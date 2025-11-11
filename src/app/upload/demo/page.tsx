@@ -4,7 +4,7 @@ import Image from "next/image";
 export default function ImageDemoPage() {
   // 예시 이미지 URL (원하시는 주소로 변경)
   const imageUrl =
-    "https://7team-bucket-yjh.s3.ap-northeast-2.amazonaws.com/uploads/1762735285416-img_s.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAYYS7T5X7NF3SPL66%2F20251110%2Fap-northeast-2%2Fs3%2Faws4_request&X-Amz-Date=20251110T004125Z&X-Amz-Expires=60&X-Amz-Signature=de11452dd4abcb056b0b078558bf471c351f298a81b9d9b0dfb72ba768747859&X-Amz-SignedHeaders=host&x-amz-checksum-mode=ENABLED&x-id=GetObject";
+    "https://7team-bucket-yjh.s3.ap-northeast-2.amazonaws.com/uploads/1762762171981-img_m.png";
 
   return (
     <main className="min-h-screen bg-gray-50 flex items-center justify-center p-8">
