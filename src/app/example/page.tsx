@@ -1,4 +1,4 @@
-import { getUserName, getUserId } from "@/actions/userAuth";
+import { getUserId } from "@/actions/userAuth";
 import AuthButtons from "@/component/auth_buttons";
 import ButtonLogout from "@/component/button_logout";
 
