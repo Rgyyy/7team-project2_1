@@ -1,10 +1,10 @@
 "use server";
 
-import { prisma } from "@/lib/prisma";
-import { revalidatePath } from "next/cache";
-import { getUserIdNameEmail } from "@/actions/userDataCall";
-const User = await getUserIdNameEmail();
-console.log(User?.userId);
+import { prisma } from '@/lib/prisma';
+import { revalidatePath } from 'next/cache';
+import { getUser } from "@/actions/userAuth";
+  const User = await getUser();
+  console.log(User?.userId);
 
 interface ActivityData {
   title: string;
@@ -26,9 +26,9 @@ interface ActivityData {
 export async function createActivity(data: ActivityData) {
   try {
     // 로그인 확인
-    const user = await getUserIdNameEmail();
+    const user = await getUser();
 
-    console.log("User from getUserIdNameEmail():", user);
+    console.log('User from getUser():', user);
 
     if (!user?.userId) {
       return { success: false, error: "로그인이 필요합니다." };
@@ -52,9 +52,9 @@ export async function createActivity(data: ActivityData) {
       return { success: false, error: "유효하지 않은 지역입니다." };
     }
 
-    console.log("Creating activity with userId:", user.userId);
-    console.log("Category ID:", category.id);
-    console.log("Location ID:", location.id);
+    console.log('Creating activity with userId:', user.userId); 
+    console.log('Category ID:', category.id); 
+    console.log('Location ID:', location.id);
 
     // 활동(모임) 생성
     const activity = await prisma.activity.create({
@@ -82,8 +82,8 @@ export async function createActivity(data: ActivityData) {
     });
 
     // 캐시 갱신
-    revalidatePath("/activities");
-
+    revalidatePath('/activities');
+    
     return { success: true, data: activity };
   } catch (error) {
     console.error("Activity creation error:", error);

@@ -61,8 +61,6 @@ export default function ActivityDetailPage({ params }: { params: Promise<{ id: s
       const response = await fetch(`/api/activities/${activityId}`);
       if (response.ok) {
         const data = await response.json();
-        console.log('Activity User ID:', data.userId);  // 추가
-        console.log('Activity Data:', data);  // 추가
         setActivity(data);
       } else {
         alert('모임을 찾을 수 없습니다.');
@@ -75,26 +73,19 @@ export default function ActivityDetailPage({ params }: { params: Promise<{ id: s
     }
   };
 
-const checkCurrentUser = async () => {
-  try {
-    console.log('=== Checking current user ==='); // 시작 확인
-    const response = await fetch('/api/auth/current-user');
-    console.log('Response status:', response.status);
-    console.log('Response ok:', response.ok);
-    
-    const data = await response.json();
-    console.log('Full API response:', JSON.stringify(data)); // JSON으로 출력
-    
-    if (data && data.userId) {
-      console.log('✅ Found userId:', data.userId);
-      setCurrentUserId(data.userId);
-    } else {
-      console.log('❌ No userId in response, data:', data);
+  const checkCurrentUser = async () => {
+    try {
+      const response = await fetch('/api/auth/current-user');
+      if (response.ok) {
+        const data = await response.json();
+        if (data.userId) {
+          setCurrentUserId(data.userId);
+        }
+      }
+    } catch (error) {
+      console.error('Error checking user:', error);
     }
-  } catch (error) {
-    console.error('❌ Error in checkCurrentUser:', error);
-  }
-};
+  };
 
   const checkParticipationStatus = async () => {
     try {
@@ -107,7 +98,6 @@ const checkCurrentUser = async () => {
       console.error('Error:', error);
     }
   };
-
 
   const handleJoin = async () => {
     if (!currentUserId) {
@@ -122,7 +112,7 @@ const checkCurrentUser = async () => {
     if (result.success) {
       alert(result.message);
       setIsParticipating(true);
-      fetchActivity(); // 참가자 수 업데이트
+      fetchActivity();
     } else {
       alert(result.error);
     }
@@ -138,7 +128,7 @@ const checkCurrentUser = async () => {
     if (result.success) {
       alert(result.message);
       setIsParticipating(false);
-      fetchActivity(); // 참가자 수 업데이트
+      fetchActivity();
     } else {
       alert(result.error);
     }
@@ -186,7 +176,6 @@ const checkCurrentUser = async () => {
   return (
     <div className="bg-gray-50 min-h-screen py-12">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* 뒤로가기 */}
         <Link
           href="/activities"
           className="inline-flex items-center text-gray-600 hover:text-gray-900 mb-6"
@@ -195,9 +184,7 @@ const checkCurrentUser = async () => {
           목록으로 돌아가기
         </Link>
 
-        {/* 상세 내용 */}
         <div className="bg-white rounded-lg shadow-sm overflow-hidden">
-          {/* 헤더 */}
           <div className="bg-gradient-to-r from-purple-600 to-purple-700 px-8 py-6">
             <div className="flex items-center gap-3 mb-3">
               <span className="px-3 py-1 bg-white/20 text-white text-sm font-medium rounded-full">
@@ -211,9 +198,7 @@ const checkCurrentUser = async () => {
             <p className="text-purple-100">주최자: {activity.organizer}</p>
           </div>
 
-          {/* 본문 */}
           <div className="p-8">
-            {/* 모임 설명 */}
             <div className="mb-8">
               <h2 className="text-xl font-semibold text-gray-900 mb-3">모임 소개</h2>
               <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">
@@ -221,7 +206,6 @@ const checkCurrentUser = async () => {
               </p>
             </div>
 
-            {/* 일정 정보 */}
             <div className="mb-8">
               <h2 className="text-xl font-semibold text-gray-900 mb-4">일정 및 장소</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -251,7 +235,6 @@ const checkCurrentUser = async () => {
               </div>
             </div>
 
-            {/* 모임 정보 */}
             <div className="mb-8">
               <h2 className="text-xl font-semibold text-gray-900 mb-4">모임 정보</h2>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -278,7 +261,6 @@ const checkCurrentUser = async () => {
               </div>
             </div>
 
-            {/* 주최자 정보 */}
             <div className="mb-8 bg-purple-50 rounded-lg p-6">
               <h2 className="text-xl font-semibold text-gray-900 mb-4">주최자 정보</h2>
               <div className="space-y-2">
@@ -297,27 +279,24 @@ const checkCurrentUser = async () => {
               </div>
             </div>
 
-            {/* 버튼 */}
             <div className="pt-6 border-t space-y-4">
-              {/* 작성자인 경우 - 수정/삭제 버튼 */}
               {isOwner && activityId && (
                 <div className="flex gap-4">
                   <button
                     onClick={() => router.push(`/activities/${activityId}/edit`)}
-                    className="flex-1 px-6 py-3 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors"
+                    className="flex-1 px-6 py-3 bg-blue-400 text-white rounded-md hover:bg-blue-700 transition-colors"
                   >
                     수정하기
                   </button>
                   <button
                     onClick={handleDelete}
-                    className="flex-1 px-6 py-3 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
+                    className="flex-1 px-6 py-3 bg-red-400 text-white rounded-md hover:bg-red-700 transition-colors"
                   >
                     삭제하기
                   </button>
                 </div>
               )}
 
-              {/* 로그인 유저가 작성자가 아닌 경우 - 참여 버튼 */}
               {currentUserId && !isOwner && activityId && (
                 <div>
                   {isParticipating ? (
@@ -341,7 +320,6 @@ const checkCurrentUser = async () => {
                 </div>
               )}
 
-              {/* 비로그인 유저 - 로그인 안내 */}
               {!currentUserId && (
                 <button
                   onClick={() => {
