@@ -1,14 +1,28 @@
+import ButtonLogin from "./button_login";
+import ButtonRegister from "./button_register";
+import ButtonLogout from "@/component/button_logout";
+import { getUserName } from "@/actions/userAuth";
 import Link from "next/link";
 
-export default function AuthButtons() {
+export default async function AuthButtons() {
+  const userName = await getUserName();
   return (
     <div>
-      <Link href="/login">
-        <button>로그인</button>
-      </Link>
-      <Link href="/register">
-        <button>회원가입</button>
-      </Link>
+      {userName ? (
+        <div>
+          <div className="flex gap-2 items-center justify-end">
+            <Link href="/profile" className="hover:underline">
+              {userName}
+            </Link>
+            <ButtonLogout />
+          </div>
+        </div>
+      ) : (
+        <div className="flex gap-2">
+          <ButtonLogin />
+          <ButtonRegister />
+        </div>
+      )}
     </div>
   );
 }
