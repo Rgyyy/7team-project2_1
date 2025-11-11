@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Image from "next/image";
+import { getUserId } from "@/actions/userAuth"; // 현재 로그인 한 유저의 아이디 값 불러오기
 
 type Props = {
   params: Promise<{
@@ -68,6 +69,7 @@ export default async function PostDetailPage({ params }: Props) {
   const { id, postId } = await params;
   const post = await getPost(postId);
   const comments = await getComments(postId);
+  const userId = await getUserId(); // 현재 로그인 한 유저의 아이디값
 
   if (!post) {
     notFound();
@@ -110,14 +112,16 @@ export default async function PostDetailPage({ params }: Props) {
             </div>
 
             {/* 수정/삭제 버튼 */}
-            <div className="flex items-center gap-2">
-              <button className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
-                수정
-              </button>
-              <button className="px-4 py-2 text-sm font-medium text-red-600 bg-red-50 hover:bg-red-100 rounded-lg transition-colors">
-                삭제
-              </button>
-            </div>
+            {userId === post.userId && (
+              <div className="flex items-center gap-2">
+                <button className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
+                  수정
+                </button>
+                <button className="px-4 py-2 text-sm font-medium text-red-600 bg-red-50 hover:bg-red-100 rounded-lg transition-colors">
+                  삭제
+                </button>
+              </div>
+            )}
           </div>
 
           {/* 제목 */}
