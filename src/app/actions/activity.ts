@@ -3,7 +3,9 @@
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { getUserIdNameEmail } from "@/actions/userDataCall";
+
 const User = await getUserIdNameEmail();
+
 console.log(User?.userId);
 
 interface ActivityData {
@@ -78,6 +80,14 @@ export async function createActivity(data: ActivityData) {
       include: {
         category: true,
         location: true,
+      },
+    });
+
+    // Participation에 작성자(userId) 추가 이주한 25/11/12
+    await prisma.participation.create({
+      data: {
+        activityId: activity.id,
+        userId: user.userId,
       },
     });
 
