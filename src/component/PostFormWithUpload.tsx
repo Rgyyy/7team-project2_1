@@ -1,4 +1,4 @@
-// src/components/PostFormWithUpload.tsx
+// src/component/PostFormWithUpload.tsx
 "use client";
 
 import { useState, useTransition } from "react";
