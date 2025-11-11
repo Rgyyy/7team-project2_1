@@ -354,7 +354,7 @@ export default function Home() {
       <section className="max-w-6xl mx-auto mt-4 px-4 text-center">
         <h1 className="text-3xl sm:text-4xl font-bold">함께하는 모임공간</h1>
         <p className="text-gray-600 mt-2">
-          실제 사용자분들의 휘기들을 모아보았어요{" "}
+          실제 사용자분들의 후기들을 모아보았어요{" "}
         </p>
       </section>
     </div>
