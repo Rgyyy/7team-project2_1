@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { getUser } from '@/actions/userAuth';
+import { getUserIdNameEmail } from "@/actions/userDataCall";
 
 // 특정 활동 조회
 export async function GET(
@@ -26,16 +27,16 @@ export async function GET(
 
     if (!activity) {
       return NextResponse.json(
-        { error: '모임을 찾을 수 없습니다.' },
+        { error: "활동을 찾을 수 없습니다." },
         { status: 404 }
       );
     }
 
     return NextResponse.json(activity);
   } catch (error) {
-    console.error('GET Error:', error);
+    console.error("GET Error:", error);
     return NextResponse.json(
-      { error: '모임을 가져오는데 실패했습니다.' },
+      { error: "활동을 가져오는데 실패했습니다." },
       { status: 500 }
     );
   }
@@ -87,7 +88,7 @@ export async function PUT(
 
     if (!category || !location) {
       return NextResponse.json(
-        { error: '유효하지 않은 카테고리 또는 지역입니다.' },
+        { error: "유효하지 않은 카테고리 또는 지역입니다." },
         { status: 400 }
       );
     }
@@ -103,7 +104,7 @@ export async function PUT(
         duration: parseInt(data.duration),
         maxParticipants: parseInt(data.maxParticipants),
         difficultyLevel: data.difficultyLevel,
-        price: parseInt(data.price || '0'),
+        price: parseInt(data.price || "0"),
         organizer: data.organizer,
         phone: data.phone,
         email: data.email,
@@ -118,9 +119,9 @@ export async function PUT(
 
     return NextResponse.json(updatedActivity);
   } catch (error) {
-    console.error('PUT Error:', error);
+    console.error("PUT Error:", error);
     return NextResponse.json(
-      { error: '모임 수정에 실패했습니다.' },
+      { error: "활동 수정에 실패했습니다." },
       { status: 500 }
     );
   }
@@ -165,11 +166,11 @@ export async function DELETE(
       where: { id },
     });
 
-    return NextResponse.json({ message: '모임이 삭제되었습니다.' });
+    return NextResponse.json({ message: "활동이 삭제되었습니다." });
   } catch (error) {
-    console.error('DELETE Error:', error);
+    console.error("DELETE Error:", error);
     return NextResponse.json(
-      { error: '모임 삭제에 실패했습니다.' },
+      { error: "활동 삭제에 실패했습니다." },
       { status: 500 }
     );
   }

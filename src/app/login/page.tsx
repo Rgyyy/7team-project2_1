@@ -2,6 +2,8 @@
 
 import { loginUser } from "@/actions/userLogin";
 import { useActionState, useEffect, useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
 
 const initialState = { error: "" };
 
@@ -20,7 +22,7 @@ export default function Login() {
         },
         (error) => {
           setLocationInfo("GPS 비허용");
-          console.error("Error fetching GPS location:", error);
+          // console.error("Error fetching GPS location:", error);
         },
         {
           timeout: 10000,
@@ -63,25 +65,31 @@ export default function Login() {
   };
 
   return (
-    <div>
-      <h1>로그인</h1>
-      <form action={handleSubmit}>
+    <div className="flex flex-col items-center">
+      <form
+        className="border-2 rounded-lg border-purple-600 p-4 m-4 w-full max-w-lg"
+        action={handleSubmit}
+      >
         {state.error && (
-          <div
-            style={{ color: "red", border: "1px solid red", padding: "10px" }}
-          >
+          <div className="text-red-500 border-1 p-2 border-red-500 bg-red-50 w-full">
             {state.error}
           </div>
         )}
-
-        <div>
-          <label>사용자 ID</label>
-          <input name="userId" type="text" required placeholder="사용자 ID" />
-        </div>
-
-        <div>
-          <label>비밀번호</label>
+        <div className="flex flex-col items-center m-4">
+          <Link href="/">
+            <Image src="/img_b.png" alt="Logo" width={150} height={100} />
+          </Link>
+          <h1 className="text-2xl font-bold m-4">로그인</h1>
           <input
+            className="p-2 border-1 bg-gray-50 focus:bg-gray-200 border-gray-300 rounded-t-lg "
+            name="userId"
+            type="text"
+            required
+            placeholder="ID"
+          />
+
+          <input
+            className="p-2 border-1 bg-gray-50 focus:bg-gray-200 border-gray-300 rounded-b-lg"
             name="userPassword"
             type="password"
             required
@@ -91,7 +99,15 @@ export default function Login() {
 
         <input type="hidden" name="gpsLocation" value={locationInfo} />
         <input type="hidden" name="deviceInfo" value={deviceInfo} />
-        <button type="submit">로그인</button>
+
+        <div className="flex justify-end">
+          <button
+            className="bg-purple-600 hover:bg-purple-700 active:bg-purple-600 text-white rounded-lg p-2 m-2"
+            type="submit"
+          >
+            로그인
+          </button>
+        </div>
       </form>
     </div>
   );

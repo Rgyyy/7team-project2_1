@@ -1,6 +1,6 @@
-import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
-import { getUser } from '@/actions/userAuth';
+import { NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
+import { getUserIdNameEmail } from "@/actions/userDataCall";
 
 // 모든 활동 조회 (페이지네이션 & 필터링 & 정렬)
 export async function GET(request: Request) {
@@ -94,9 +94,9 @@ export async function GET(request: Request) {
       totalCount,
     });
   } catch (error) {
-    console.error('GET Error:', error);
+    console.error("GET Error:", error);
     return NextResponse.json(
-      { error: '활동 목록을 가져오는데 실패했습니다.' },
+      { error: "활동 목록을 가져오는데 실패했습니다." },
       { status: 500 }
     );
   }
@@ -108,7 +108,7 @@ export async function POST(request: Request) {
     const user = await getUser();
     if (!user?.userId) {
       return NextResponse.json(
-        { error: '로그인이 필요합니다.' },
+        { error: "로그인이 필요합니다." },
         { status: 401 }
       );
     }
@@ -121,7 +121,7 @@ export async function POST(request: Request) {
     
     if (!category) {
       return NextResponse.json(
-        { error: '유효하지 않은 카테고리입니다.' },
+        { error: "유효하지 않은 카테고리입니다." },
         { status: 400 }
       );
     }
@@ -132,7 +132,7 @@ export async function POST(request: Request) {
     
     if (!location) {
       return NextResponse.json(
-        { error: '유효하지 않은 지역입니다.' },
+        { error: "유효하지 않은 지역입니다." },
         { status: 400 }
       );
     }
@@ -147,7 +147,7 @@ export async function POST(request: Request) {
         duration: parseInt(data.duration),
         maxParticipants: parseInt(data.maxParticipants),
         difficultyLevel: data.difficultyLevel,
-        price: parseInt(data.price || '0'),
+        price: parseInt(data.price || "0"),
         organizer: data.organizer,
         phone: data.phone,
         email: data.email,
@@ -169,9 +169,9 @@ export async function POST(request: Request) {
     
     return NextResponse.json(newActivity, { status: 201 });
   } catch (error) {
-    console.error('POST Error:', error);
+    console.error("POST Error:", error);
     return NextResponse.json(
-      { error: '활동 생성에 실패했습니다.' },
+      { error: "활동 생성에 실패했습니다." },
       { status: 500 }
     );
   }
