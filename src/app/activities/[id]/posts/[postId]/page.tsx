@@ -4,7 +4,8 @@ import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import { getUserId } from "@/actions/userAuth"; // 현재 로그인 한 유저의 아이디 값 불러오기
+import { getUserId } from "@/actions/userAuth";
+import PostActionButtons from "@/component/PostActionButtons";
 
 type Props = {
   params: Promise<{
@@ -69,7 +70,7 @@ export default async function PostDetailPage({ params }: Props) {
   const { id, postId } = await params;
   const post = await getPost(postId);
   const comments = await getComments(postId);
-  const userId = await getUserId(); // 현재 로그인 한 유저의 아이디값
+  const userId = await getUserId();
 
   if (!post) {
     notFound();
@@ -111,16 +112,9 @@ export default async function PostDetailPage({ params }: Props) {
               </span>
             </div>
 
-            {/* 수정/삭제 버튼 */}
+            {/* 수정/삭제 버튼 - 클라이언트 컴포넌트로 분리 */}
             {userId === post.userId && (
-              <div className="flex items-center gap-2">
-                <button className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
-                  수정
-                </button>
-                <button className="px-4 py-2 text-sm font-medium text-red-600 bg-red-50 hover:bg-red-100 rounded-lg transition-colors">
-                  삭제
-                </button>
-              </div>
+              <PostActionButtons postId={postId} activityId={id} />
             )}
           </div>
 
@@ -195,7 +189,7 @@ export default async function PostDetailPage({ params }: Props) {
                 <Image
                   src={post.image}
                   alt="Demo image"
-                  fill // 부모 컨테이너에 맞춰 채움 (position: absolute 필요)
+                  fill
                   sizes="(max-width: 768px) 100vw, 800px"
                   style={{ objectFit: "cover" }}
                   priority
