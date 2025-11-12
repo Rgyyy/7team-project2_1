@@ -1,3 +1,31 @@
+-- CreateEnum
+CREATE TYPE "MoimPostCat" AS ENUM ('전체', '모임후기', '가입인사', '자유', '공지');
+
+-- CreateTable
+CREATE TABLE "user_data" (
+    "id" TEXT NOT NULL,
+    "user_id" TEXT NOT NULL,
+    "user_password" TEXT NOT NULL,
+    "user_state" TEXT NOT NULL DEFAULT '0',
+    "user_main_location" TEXT,
+    "user_name" TEXT NOT NULL,
+    "user_email" TEXT NOT NULL,
+
+    CONSTRAINT "user_data_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "login_record" (
+    "id" TEXT NOT NULL,
+    "user_id" TEXT NOT NULL,
+    "login_time" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "login_location" TEXT,
+    "login_ip" TEXT,
+    "login_platform" TEXT,
+
+    CONSTRAINT "login_record_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
@@ -69,6 +97,27 @@ CREATE TABLE "Participation" (
     CONSTRAINT "Participation_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "MoimPost" (
+    "id" TEXT NOT NULL,
+    "moimPostTitle" TEXT NOT NULL,
+    "moimPostContent" TEXT NOT NULL,
+    "moimPostCat" "MoimPostCat" NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "MoimPost_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateIndex
+CREATE UNIQUE INDEX "user_data_user_id_key" ON "user_data"("user_id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "user_data_user_name_key" ON "user_data"("user_name");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "user_data_user_email_key" ON "user_data"("user_email");
+
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
@@ -97,16 +146,19 @@ CREATE INDEX "Participation_userId_idx" ON "Participation"("userId");
 CREATE UNIQUE INDEX "Participation_activityId_userId_key" ON "Participation"("activityId", "userId");
 
 -- AddForeignKey
+ALTER TABLE "login_record" ADD CONSTRAINT "login_record_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "user_data"("user_id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "Activity" ADD CONSTRAINT "Activity_categoryId_fkey" FOREIGN KEY ("categoryId") REFERENCES "Category"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Activity" ADD CONSTRAINT "Activity_locationId_fkey" FOREIGN KEY ("locationId") REFERENCES "Location"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Activity" ADD CONSTRAINT "Activity_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Activity" ADD CONSTRAINT "Activity_userId_fkey" FOREIGN KEY ("userId") REFERENCES "user_data"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Participation" ADD CONSTRAINT "Participation_activityId_fkey" FOREIGN KEY ("activityId") REFERENCES "Activity"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Participation" ADD CONSTRAINT "Participation_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Participation" ADD CONSTRAINT "Participation_userId_fkey" FOREIGN KEY ("userId") REFERENCES "user_data"("id") ON DELETE CASCADE ON UPDATE CASCADE;

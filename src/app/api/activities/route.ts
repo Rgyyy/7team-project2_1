@@ -2,10 +2,70 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getUserIdNameEmail } from "@/actions/userDataCall";
 
-// 모든 활동 조회
-export async function GET() {
+// 모든 활동 조회 (페이지네이션 & 필터링 & 정렬)
+export async function GET(request: Request) {
   try {
+    const { searchParams } = new URL(request.url);
+    
+    // 페이지네이션 파라미터
+    const page = parseInt(searchParams.get('page') || '1');
+    const limit = parseInt(searchParams.get('limit') || '9');
+    const skip = (page - 1) * limit;
+    
+    // 필터 파라미터
+    const categoryFilter = searchParams.get('category');
+    const locationFilter = searchParams.get('location');
+    const sortBy = searchParams.get('sortBy') || 'latest';
+    const searchQuery = searchParams.get('search');
+    
+    // where 조건 구성
+    const whereCondition: any = {};
+    
+    if (categoryFilter && categoryFilter !== '전체') {
+      const category = await prisma.category.findUnique({
+        where: { name: categoryFilter },
+      });
+      if (category) {
+        whereCondition.categoryId = category.id;
+      }
+    }
+    
+    if (locationFilter && locationFilter !== '전국') {
+      const location = await prisma.location.findUnique({
+        where: { name: locationFilter },
+      });
+      if (location) {
+        whereCondition.locationId = location.id;
+      }
+    }
+    
+    // 정렬 조건 구성
+    let orderBy: any;
+    switch (sortBy) {
+      case 'latest':
+        orderBy = { createdAt: 'desc' };
+        break;
+      case 'oldest':
+        orderBy = { createdAt: 'asc' };
+        break;
+      case 'date-asc':
+        orderBy = [{ date: 'asc' }, { time: 'asc' }];
+        break;
+      case 'date-desc':
+        orderBy = [{ date: 'desc' }, { time: 'desc' }];
+        break;
+      default:
+        orderBy = { createdAt: 'desc' };
+    }
+    
+    // 전체 개수 조회
+    const totalCount = await prisma.activity.count({
+      where: whereCondition,
+    });
+    
+    // 페이지네이션된 데이터 조회
     const activities = await prisma.activity.findMany({
+      where: whereCondition,
       include: {
         category: true,
         location: true,
@@ -17,13 +77,22 @@ export async function GET() {
           },
         },
       },
-      orderBy: {
-        createdAt: "desc",
-      },
+      orderBy,
+      skip,
+      take: limit,
     });
-
-    console.log("Fetched activities:", activities.length);
-    return NextResponse.json(activities);
+    
+    // 총 페이지 수 계산
+    const totalPages = Math.ceil(totalCount / limit);
+    
+    console.log(`Fetched ${activities.length} activities (page ${page}/${totalPages}, sort: ${sortBy})`);
+    
+    return NextResponse.json({
+      activities,
+      totalPages,
+      currentPage: page,
+      totalCount,
+    });
   } catch (error) {
     console.error("GET Error:", error);
     return NextResponse.json(
@@ -36,7 +105,7 @@ export async function GET() {
 // 새 활동 생성
 export async function POST(request: Request) {
   try {
-    const user = await getUserIdNameEmail();
+    const user = await getUser();
     if (!user?.userId) {
       return NextResponse.json(
         { error: "로그인이 필요합니다." },
@@ -45,11 +114,11 @@ export async function POST(request: Request) {
     }
 
     const data = await request.json();
-
+    
     const category = await prisma.category.findUnique({
       where: { name: data.category },
     });
-
+    
     if (!category) {
       return NextResponse.json(
         { error: "유효하지 않은 카테고리입니다." },
@@ -60,14 +129,14 @@ export async function POST(request: Request) {
     const location = await prisma.location.findUnique({
       where: { name: data.location },
     });
-
+    
     if (!location) {
       return NextResponse.json(
         { error: "유효하지 않은 지역입니다." },
         { status: 400 }
       );
     }
-
+    
     const newActivity = await prisma.activity.create({
       data: {
         title: data.title,
@@ -97,7 +166,7 @@ export async function POST(request: Request) {
         },
       },
     });
-
+    
     return NextResponse.json(newActivity, { status: 201 });
   } catch (error) {
     console.error("POST Error:", error);

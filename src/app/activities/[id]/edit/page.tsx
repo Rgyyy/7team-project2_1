@@ -219,7 +219,7 @@ export default function EditActivityPage({ params }: { params: Promise<{ id: str
                   htmlFor="description"
                   className="block text-sm font-medium text-gray-700 mb-2"
                 >
-                  활동 설명 *
+                 
                 </label>
                 <textarea
                   id="description"

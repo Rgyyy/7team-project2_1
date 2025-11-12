@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { createActivity } from "@/app/actions/activity";
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { createActivity } from '@/app/actions/activity';
+import { getUser } from "@/actions/userAuth";
 import { getUserIdNameEmail } from "@/actions/userDataCall";
 
 export default function CreateActivityPage() {
@@ -122,7 +123,7 @@ export default function CreateActivityPage() {
                   htmlFor="description"
                   className="block text-sm font-medium text-gray-700 mb-2"
                 >
-                  활동 설명 *
+                  모임 설명 *
                 </label>
                 <textarea
                   id="description"
