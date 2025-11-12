@@ -8,7 +8,6 @@ export async function GET() {
     if (!user?.userId) {
       return NextResponse.json({ userId: null }, { status: 200 });
     }
-
     return NextResponse.json({ userId: user.userId });
   } catch (error) {
     console.error("Get current user error:", error);

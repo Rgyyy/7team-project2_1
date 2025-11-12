@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useEffect, useState, useRef } from 'react';
 import Link from 'next/link';
@@ -144,7 +144,7 @@ export default function ActivitiesPage() {
         setActivities([]);
       }
     } catch (error) {
-      console.error('Error fetching activities:', error);
+      console.error("Error fetching activities:", error);
       setActivities([]);
     } finally {
       setLoading(false);
@@ -279,8 +279,8 @@ export default function ActivitiesPage() {
                   onClick={() => handleCategoryChange(cat)}
                   className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                     categoryFilter === cat
-                      ? 'bg-purple-600 text-white'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      ? "bg-purple-600 text-white"
+                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                   }`}
                 >
                   {cat}
