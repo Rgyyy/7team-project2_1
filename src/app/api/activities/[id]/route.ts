@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { getUser } from "@/actions/userAuth";
+//import { getUser } from "@/actions/userAuth";
 import { getUserIdNameEmail } from "@/actions/userDataCall";
 
 // 특정 활동 조회
@@ -48,7 +48,7 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const user = await getUser();
+    const user = await getUserIdNameEmail();
     if (!user?.userId) {
       return NextResponse.json(
         { error: "로그인이 필요합니다." },
@@ -133,7 +133,7 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const user = await getUser();
+    const user = await getUserIdNameEmail();
     if (!user?.userId) {
       return NextResponse.json(
         { error: "로그인이 필요합니다." },
