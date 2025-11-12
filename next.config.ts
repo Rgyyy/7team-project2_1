@@ -14,6 +14,7 @@ const nextConfig: NextConfig = {
       // 필요하다면 다른 도메인도 여기에 추가할 수 있습니다.
     ],
   },
+  serverExternalPackages: ["socket.io"],
 };
 
 export default nextConfig;
