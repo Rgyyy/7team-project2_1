@@ -54,6 +54,9 @@ export async function getUserId() {
   } catch (error) {
     console.error("Error fetching user name:", error);
     return null;
+  }
+}
+
 export async function deleteUser() {
   try {
     const user = await getUser();
