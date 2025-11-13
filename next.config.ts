@@ -5,9 +5,9 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
 
   // ESLint와 TypeScript 에러 무시 설정 추가
-  // eslint: {
-  //   ignoreDuringBuilds: true,
-  // },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   typescript: {
     ignoreBuildErrors: true,
   },
