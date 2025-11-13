@@ -297,12 +297,12 @@ export default function ChattingRoom({
         {activities.length === 0 ? (
           <div className="text-center py-8">
             <p className="text-gray-600 mb-4">참여한 모임이 없습니다.</p>
-            <a
+            <Link
               href="/activities"
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             >
               모임 둘러보기
-            </a>
+            </Link>
           </div>
         ) : (
           <div className="grid gap-4">

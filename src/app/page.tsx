@@ -335,8 +335,9 @@ export default function Home() {
 
           <div className="faqPanel px-5 pb-5 text-gray-700">
             <p>
-              로그인 후 메뉴 화면의 '모임 만들기' 를 눌러 모임 제목, 일정, 장소,
-              참가 인원 수 및 간단한 설명을 입력하면 모임이 생성됩니다.
+              로그인 후 메뉴 화면의 &apos;모임 만들기&apos; 를 눌러 모임 제목,
+              일정, 장소, 참가 인원 수 및 간단한 설명을 입력하면 모임이
+              생성됩니다.
             </p>
           </div>
         </details>
