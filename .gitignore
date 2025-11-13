@@ -31,7 +31,7 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # env files (can opt-in for committing if needed)
-.env*
+# .env* (비공개 저장소이므로 주석 처리)
 !.env.example
 # vercel
 .vercel
