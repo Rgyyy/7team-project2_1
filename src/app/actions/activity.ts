@@ -83,13 +83,14 @@ export async function createActivity(data: ActivityData) {
       },
     });
 
-    // Participation에 작성자(userId) 추가 이주한 25/11/12
-    await prisma.participation.create({
-      data: {
-        activityId: activity.id,
-        userId: user.userId,
-      },
-    });
+    // // Participation에 작성자(userId) 추가 이주한 25/11/12
+    // // 에러 발생으로 제외 25.11.13. 17:01
+    // await prisma.participation.create({
+    //   data: {
+    //     activityId: activity.id,
+    //     userId: user.userId,
+    //   },
+    // });
 
     // 캐시 갱신
     revalidatePath("/activities");
