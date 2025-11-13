@@ -2,13 +2,12 @@
 
 import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
-import { getUser } from "@/actions/userAuth";
-import { getUserIdNameEmail } from "@/actions/userDataCall";
+import { getUser } from "@/actions/userDataCall";
 
 // 참여하기
 export async function joinActivity(activityId: string) {
   try {
-    const user = await getUserIdNameEmail();
+    const user = await getUser();
     if (!user?.userId) {
       return { success: false, error: "로그인이 필요합니다." };
     }
@@ -83,7 +82,7 @@ export async function joinActivity(activityId: string) {
 // 참여 취소
 export async function cancelParticipation(activityId: string) {
   try {
-    const user = await getUserIdNameEmail();
+    const user = await getUser();
     if (!user?.userId) {
       return { success: false, error: "로그인이 필요합니다." };
     }
@@ -131,7 +130,7 @@ export async function cancelParticipation(activityId: string) {
 // 참여 여부 확인
 export async function checkParticipation(activityId: string) {
   try {
-    const user = await getUserIdNameEmail();
+    const user = await getUser();
     if (!user?.userId) {
       return { isParticipating: false };
     }

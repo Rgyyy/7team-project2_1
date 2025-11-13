@@ -4,7 +4,7 @@ import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 import { prisma } from "@/lib/prisma";
 
-export async function getUserIdNameEmail() {
+export async function getUser() {
   try {
     const cookieStore = await cookies();
     const token = cookieStore.get("token")?.value;
@@ -14,23 +14,23 @@ export async function getUserIdNameEmail() {
     const decoded = jwt.verify(token, process.env.JWT_SECRET!) as {
       userId: string;
     };
-
+    
     // ✅ user_id로 user_data 찾아서 실제 id 반환
     const userData = await prisma.user_data.findUnique({
       where: { user_id: decoded.userId },
-      select: {
-        id: true, // ← 이게 중요!
+      select: { 
+        id: true,           // ← 이게 중요!
         user_name: true,
         user_email: true,
       },
     });
-
+    
     if (!userData) {
       return null;
     }
-
+    
     return {
-      userId: userData.id, // ✅ user_data.id 반환 (user_id 아님!)
+      userId: userData.id,  // ✅ user_data.id 반환 (user_id 아님!)
       userName: userData.user_name,
       userEmail: userData.user_email,
     };
@@ -42,7 +42,7 @@ export async function getUserIdNameEmail() {
 
 export async function getUserName() {
   try {
-    const user = await getUserIdNameEmail();
+    const user = await getUser();
     if (!user) {
       return null;
     }

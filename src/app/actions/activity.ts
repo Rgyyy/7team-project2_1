@@ -2,9 +2,9 @@
 
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
-import { getUserIdNameEmail } from "@/actions/userDataCall";
+import { getUser } from "@/actions/userDataCall";
 
-const User = await getUserIdNameEmail();
+const User = await getUser();
 
 console.log(User?.userId);
 
@@ -28,7 +28,7 @@ interface ActivityData {
 export async function createActivity(data: ActivityData) {
   try {
     // 로그인 확인
-    const user = await getUserIdNameEmail();
+    const user = await getUser();
 
     console.log("User from getUser():", user);
 

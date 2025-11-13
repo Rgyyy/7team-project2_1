@@ -3,7 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
 import AuthButtons from "@/component/auth_buttons";
-import CreateMoimButton from "@/component/create_moim_button";
+import MobileMenu from "@/component/mobile_menu";
+import { getUserName } from "@/actions/userAuth";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,11 +21,13 @@ export const metadata: Metadata = {
   description: "지역 기반 취미활동 공유 플랫폼",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const userName = await getUserName();
+  
   return (
     <html lang="ko">
       <head>
@@ -51,7 +54,6 @@ export default function RootLayout({
                   </span>
                 </Link>
               </div>
-
               {/* 네비게이션 (데스크탑) */}
               <div className="hidden md:block">
                 <div className="ml-10 flex items-baseline space-x-8">
@@ -75,29 +77,17 @@ export default function RootLayout({
                   </Link>
                 </div>
               </div>
-
-              {/* 모임 만들기 버튼 (데스크탑) */}
+              {/* 인증 버튼 (데스크탑) */}
               <div className="hidden md:block">
-                <div className="ml-4 flex items-center md:ml-6 space-x-4">
+                <div className="ml-4 flex items-center md:ml-6">
                   <AuthButtons />
-                  <CreateMoimButton />
                 </div>
               </div>
-
               {/* 모바일 메뉴 버튼 */}
-              <div className="md:hidden">
-                <button
-                  className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-purple-600 
-                  hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-purple-500"
-                >
-                  <span className="sr-only">Open main menu</span>
-                  <i className="ri-menu-line text-xl"></i>
-                </button>
-              </div>
+              <MobileMenu userName={userName} />
             </div>
           </nav>
         </header>
-
         {/* 메인 콘텐츠 */}
         <main className="flex-grow">{children}</main>
 

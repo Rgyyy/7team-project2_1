@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { getUserIdNameEmail } from "@/actions/userDataCall";
+import { getUser } from "@/actions/userDataCall";
 
 // 모든 활동 조회 (페이지네이션 & 필터링 & 정렬)
 export async function GET(request: Request) {

@@ -1,13 +1,13 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { getUserIdNameEmail } from "@/actions/userDataCall";
+import { getUser } from "@/actions/userDataCall";
 
 export async function GET(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const user = await getUserIdNameEmail();
+    const user = await getUser();
     const { id } = await params;
 
     if (!user?.userId) {

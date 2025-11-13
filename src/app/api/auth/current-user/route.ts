@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import { getUserIdNameEmail } from "@/actions/userDataCall";
+import { getUser } from "@/actions/userDataCall";
 
 export async function GET() {
   try {
-    const user = await getUserIdNameEmail();
+    const user = await getUser();
 
     if (!user?.userId) {
       return NextResponse.json({ userId: null }, { status: 200 });
