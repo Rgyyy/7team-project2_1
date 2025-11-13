@@ -3,7 +3,7 @@
 import { prisma } from "@/lib/prisma";
 import { MoimPostCat } from "@prisma/client";
 import { redirect } from "next/navigation";
-import { getUserIdNameEmail } from "@/actions/userDataCall"; // ✅ 이거 사용
+import { getUser } from "@/actions/userDataCall"; // ✅ 이거 사용
 
 export async function createPost(
   activityId: string,
@@ -12,7 +12,7 @@ export async function createPost(
 ) {
   try {
     // ✅ 올바른 userId 가져오기
-    const user = await getUserIdNameEmail();
+    const user = await getUser();
 
     if (!user) {
       return { error: "로그인이 필요합니다." };
