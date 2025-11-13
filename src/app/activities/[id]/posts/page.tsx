@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -32,6 +32,12 @@ export default function PostsPage({
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
   const [isParticipating, setIsParticipating] = useState<boolean>(false);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [cursor, setCursor] = useState<string | null>(null);
+  const [hasMore, setHasMore] = useState(true);
+
+  // Intersection Observer를 위한 ref
+  const observerTarget = useRef<HTMLDivElement>(null);
 
   // URL 파라미터 로드
   useEffect(() => {
@@ -81,13 +87,17 @@ export default function PostsPage({
     }
   };
 
-  // 게시글 목록 가져오기
+  // 게시글 목록 가져오기 (초기 로드)
   const fetchPosts = async () => {
     try {
-      const res = await fetch(`/api/activities/${activityId}/posts`);
+      const res = await fetch(`/api/activities/${activityId}/posts?limit=10`);
       if (res.ok) {
         const data = await res.json();
-        setPosts(data);
+        setPosts(data.posts || data);
+        setCursor(data.nextCursor || null);
+        setHasMore(
+          data.hasMore !== undefined ? data.hasMore : data.length === 10
+        );
       } else {
         console.error("Failed to fetch posts");
       }
@@ -95,6 +105,53 @@ export default function PostsPage({
       console.error("Error fetching posts:", error);
     }
   };
+
+  // 더 많은 게시글 로드
+  const loadMorePosts = useCallback(async () => {
+    if (!hasMore || loadingMore || !cursor) return;
+
+    setLoadingMore(true);
+    try {
+      const res = await fetch(
+        `/api/activities/${activityId}/posts?limit=10&cursor=${cursor}`
+      );
+      if (res.ok) {
+        const data = await res.json();
+        setPosts((prev) => [...prev, ...(data.posts || data)]);
+        setCursor(data.nextCursor || null);
+        setHasMore(
+          data.hasMore !== undefined ? data.hasMore : data.length === 10
+        );
+      }
+    } catch (error) {
+      console.error("Error loading more posts:", error);
+    } finally {
+      setLoadingMore(false);
+    }
+  }, [hasMore, loadingMore, cursor, activityId]);
+
+  // Intersection Observer 설정
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && hasMore && !loadingMore) {
+          loadMorePosts();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    const currentTarget = observerTarget.current;
+    if (currentTarget) {
+      observer.observe(currentTarget);
+    }
+
+    return () => {
+      if (currentTarget) {
+        observer.unobserve(currentTarget);
+      }
+    };
+  }, [hasMore, loadingMore, loadMorePosts]);
 
   // 로딩 중
   if (loading) {
@@ -150,136 +207,176 @@ export default function PostsPage({
             <p className="text-gray-400 mt-2">첫 번째 게시글을 작성해보세요!</p>
           </div>
         ) : (
-          <div className="space-y-4">
-            {posts.map((post) => (
-              <Link
-                key={post.id}
-                href={`/activities/${activityId}/posts/${post.id}`}
-                className="block"
-              >
-                <article className="bg-white rounded-lg shadow hover:shadow-md transition-shadow p-6">
-                  {/* 상단 블록: 카테고리, 제목, 내용, 이미지 */}
-                  <div className="flex gap-4 mb-4">
-                    {/* 왼쪽: 텍스트 콘텐츠 (75%) */}
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                          {post.moimPostCat}
-                        </span>
+          <>
+            <div className="space-y-4">
+              {posts.map((post) => (
+                <Link
+                  key={post.id}
+                  href={`/activities/${activityId}/posts/${post.id}`}
+                  className="block"
+                >
+                  <article className="bg-white rounded-lg shadow hover:shadow-md transition-shadow p-6 h-52 flex flex-col">
+                    {/* 상단 블록: 카테고리, 제목, 내용, 이미지 */}
+                    <div className="flex gap-4 flex-1 min-h-0">
+                      {/* 왼쪽: 텍스트 콘텐츠 */}
+                      <div className="flex-1 flex flex-col min-w-0">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                            {post.moimPostCat}
+                          </span>
+                        </div>
+                        <h2 className="text-xl font-semibold text-gray-900 hover:text-blue-600 transition-colors mb-2 line-clamp-1">
+                          {post.moimPostTitle}
+                        </h2>
+                        <p className="text-gray-600 line-clamp-3 flex-1">
+                          {post.moimPostContent}
+                        </p>
                       </div>
-                      <h2 className="text-xl font-semibold text-gray-900 hover:text-blue-600 transition-colors mb-2">
-                        {post.moimPostTitle}
-                      </h2>
-                      <p className="text-gray-600 line-clamp-2">
-                        {post.moimPostContent}
-                      </p>
+
+                      {/* 오른쪽: 이미지 (있을 때만) */}
+                      {post.image && (
+                        <div className="w-32 h-32 flex-shrink-0">
+                          <div className="relative w-full h-full rounded-lg overflow-hidden">
+                            <Image
+                              src={post.image}
+                              alt={post.moimPostTitle}
+                              fill
+                              sizes="128px"
+                              style={{ objectFit: "cover" }}
+                              priority
+                            />
+                          </div>
+                        </div>
+                      )}
                     </div>
 
-                    {/* 오른쪽: 이미지 (25%) */}
-                    {post.image && (
-                      <div className="w-1/4 flex-shrink-0">
-                        <div className="relative w-full aspect-square rounded-lg overflow-hidden">
-                          <Image
-                            src={post.image}
-                            alt={post.moimPostTitle}
-                            fill
-                            sizes="(max-width: 768px) 25vw, 200px"
-                            style={{ objectFit: "cover" }}
-                            priority
-                          />
+                    {/* 하단 블록: 작성자, 날짜, 좋아요, 댓글 */}
+                    <div className="flex items-center justify-between pt-4 mt-4 border-t border-gray-100">
+                      <div className="flex items-center gap-4 text-sm text-gray-500">
+                        <div className="flex items-center gap-1.5">
+                          <svg
+                            className="w-4 h-4"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                            />
+                          </svg>
+                          <span className="font-medium">
+                            {post.user.user_id}
+                          </span>
+                        </div>
+
+                        <div className="flex items-center gap-1.5">
+                          <svg
+                            className="w-4 h-4"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                            />
+                          </svg>
+                          <time>
+                            {new Date(post.createdAt).toLocaleDateString(
+                              "ko-KR",
+                              {
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                              }
+                            )}
+                          </time>
                         </div>
                       </div>
-                    )}
-                  </div>
 
-                  {/* 하단 블록: 작성자, 날짜, 좋아요, 댓글 */}
-                  <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                    <div className="flex items-center gap-4 text-sm text-gray-500">
-                      <div className="flex items-center gap-1.5">
-                        <svg
-                          className="w-4 h-4"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                          />
-                        </svg>
-                        <span className="font-medium">{post.user.user_id}</span>
-                      </div>
-
-                      <div className="flex items-center gap-1.5">
-                        <svg
-                          className="w-4 h-4"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                          />
-                        </svg>
-                        <time>
-                          {new Date(post.createdAt).toLocaleDateString(
-                            "ko-KR",
-                            {
-                              year: "numeric",
-                              month: "long",
-                              day: "numeric",
-                            }
-                          )}
-                        </time>
+                      <div className="flex items-center gap-4 text-sm">
+                        <div className="flex items-center gap-1.5 text-gray-500">
+                          <svg
+                            className="w-4 h-4"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                            />
+                          </svg>
+                          <span className="font-medium">
+                            {post._count.likes}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-1.5 text-gray-500">
+                          <svg
+                            className="w-4 h-4"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
+                            />
+                          </svg>
+                          <span className="font-medium">
+                            {post._count.comments}
+                          </span>
+                        </div>
                       </div>
                     </div>
+                  </article>
+                </Link>
+              ))}
+            </div>
 
-                    <div className="flex items-center gap-4 text-sm">
-                      <div className="flex items-center gap-1.5 text-gray-500">
-                        <svg
-                          className="w-4 h-4"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                          />
-                        </svg>
-                        <span className="font-medium">{post._count.likes}</span>
-                      </div>
-                      <div className="flex items-center gap-1.5 text-gray-500">
-                        <svg
-                          className="w-4 h-4"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
-                          />
-                        </svg>
-                        <span className="font-medium">
-                          {post._count.comments}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </article>
-              </Link>
-            ))}
-          </div>
+            {/* Intersection Observer 타겟 & 로딩 인디케이터 */}
+            <div ref={observerTarget} className="mt-8 flex justify-center py-4">
+              {loadingMore && (
+                <div className="flex items-center gap-2 text-gray-500">
+                  <svg
+                    className="animate-spin h-6 w-6"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                    ></path>
+                  </svg>
+                  <span>로딩 중...</span>
+                </div>
+              )}
+              {!hasMore && posts.length > 0 && (
+                <p className="text-gray-400 text-sm">
+                  모든 게시글을 불러왔습니다.
+                </p>
+              )}
+            </div>
+          </>
         )}
 
         {/* 참가자만 글쓰기 버튼 */}
