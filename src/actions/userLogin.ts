@@ -84,10 +84,10 @@ export async function loginUser(prevState: any, formData: FormData) {
         login_platform: finalPlatform,
       },
     });
+
+    return { success: true };
   } catch (error: any) {
     console.error("로그인 에러:", error);
     return { error: "로그인 중 오류가 발생했습니다." };
   }
-
-  redirect("/");
 }

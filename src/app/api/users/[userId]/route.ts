@@ -10,7 +10,7 @@ export async function GET(
 
     const user = await prisma.user_data.findUnique({
       where: {
-        user_id: userId,
+        id: userId, // ✅ id로 조회 (user_id가 아님)
         user_state: "0", // 정상 회원만 조회
       },
       select: {

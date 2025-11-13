@@ -1,10 +1,20 @@
 "use client";
 
 import { logoutUser } from "@/actions/userLogout";
+import { useAuth } from "@/contexts/AuthContext";
+import { useRouter } from "next/navigation";
 
 export default function ButtonLogout() {
+  const { refreshUser } = useAuth();
+  const router = useRouter();
+
   const handleLogout = async () => {
-    await logoutUser();
+    const result = await logoutUser();
+    if (result.success) {
+      await refreshUser();
+      router.push("/");
+      router.refresh();
+    }
   };
 
   return (

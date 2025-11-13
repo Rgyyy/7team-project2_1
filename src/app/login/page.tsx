@@ -2,6 +2,8 @@
 
 import { loginUser } from "@/actions/userLogin";
 import { useActionState, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/contexts/AuthContext";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -11,6 +13,17 @@ export default function Login() {
   const [state, formAction] = useActionState(loginUser, initialState);
   const [locationInfo, setLocationInfo] = useState<string>("");
   const [deviceInfo, setDeviceInfo] = useState<string>("");
+  const router = useRouter();
+  const { refreshUser } = useAuth();
+
+  useEffect(() => {
+    // 로그인 성공 시 처리
+    if (state && "success" in state && state.success) {
+      refreshUser().then(() => {
+        router.push("/");
+      });
+    }
+  }, [state, router, refreshUser]);
 
   useEffect(() => {
     // GPS 정보 수집

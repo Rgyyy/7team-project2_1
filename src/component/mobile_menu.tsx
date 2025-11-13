@@ -2,38 +2,13 @@
 import ButtonLogin from "./button_login";
 import ButtonRegister from "./button_register";
 import ButtonLogout from "@/component/button_logout";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
+import { useAuth } from "@/contexts/AuthContext";
 
 export default function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
-  const [userName, setUserName] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchUser() {
-      try {
-        const response = await fetch("/api/auth/current-user");
-        const data = await response.json();
-
-        if (data.userId) {
-          // userId가 있으면 사용자 이름 가져오기
-          const userResponse = await fetch(`/api/users/${data.userId}`);
-          const userData = await userResponse.json();
-          setUserName(userData.userName || null);
-        } else {
-          setUserName(null);
-        }
-      } catch (error) {
-        console.error("Failed to fetch user:", error);
-        setUserName(null);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchUser();
-  }, []);
+  const { userName } = useAuth();
 
   return (
     <>

@@ -1,7 +1,6 @@
 "use server";
 
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 
 export async function logoutUser() {
   try {
@@ -10,9 +9,9 @@ export async function logoutUser() {
     cookieStore.delete("token");
 
     console.log("로그아웃 성공");
+    return { success: true };
   } catch (error) {
     console.error("로그아웃 에러:", error);
+    return { success: false, error: "로그아웃 중 오류가 발생했습니다." };
   }
-
-  redirect("/"); // 메인 페이지로 리다이렉트
 }
