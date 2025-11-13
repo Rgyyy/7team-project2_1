@@ -2,18 +2,38 @@
 import ButtonLogin from "./button_login";
 import ButtonRegister from "./button_register";
 import ButtonLogout from "@/component/button_logout";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 
-interface MobileMenuProps {
-  userName?: string | null;
-}
-
-export default function MobileMenu({ userName }: MobileMenuProps) {
+export default function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
-  
-  // 디버깅: userName 값 확인
-  console.log("MobileMenu userName:", userName);
+  const [userName, setUserName] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchUser() {
+      try {
+        const response = await fetch("/api/auth/current-user");
+        const data = await response.json();
+
+        if (data.userId) {
+          // userId가 있으면 사용자 이름 가져오기
+          const userResponse = await fetch(`/api/users/${data.userId}`);
+          const userData = await userResponse.json();
+          setUserName(userData.userName || null);
+        } else {
+          setUserName(null);
+        }
+      } catch (error) {
+        console.error("Failed to fetch user:", error);
+        setUserName(null);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchUser();
+  }, []);
 
   return (
     <>
@@ -25,7 +45,11 @@ export default function MobileMenu({ userName }: MobileMenuProps) {
           className="text-gray-500 hover:text-purple-600 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-purple-500 inline-flex items-center justify-center p-2 rounded-md"
           aria-label="Toggle mobile menu"
         >
-          <i className={isOpen ? "ri-close-line text-xl" : "ri-menu-line text-xl"}></i>
+          <i
+            className={
+              isOpen ? "ri-close-line text-xl" : "ri-menu-line text-xl"
+            }
+          ></i>
         </button>
       </div>
 
@@ -59,20 +83,23 @@ export default function MobileMenu({ userName }: MobileMenuProps) {
                   채팅 참여하기
                 </Link>
               </div>
-               {/* 오른쪽: 인증 버튼 */}
+              {/* 오른쪽: 인증 버튼 */}
               <div className="flex flex-col gap-2 min-w-[100px]">
                 {userName ? (
-                    <div className="flex flex-col gap-2 items-center justify-between">
-                        <Link href="/profile" className="hover:underline text-lg font-medium">
-                            {userName}
-                        </Link>
-                        <ButtonLogout />
-                    </div>
+                  <div className="flex flex-col gap-2 items-center justify-between">
+                    <Link
+                      href="/profile"
+                      className="hover:underline text-lg font-medium"
+                    >
+                      {userName}
+                    </Link>
+                    <ButtonLogout />
+                  </div>
                 ) : (
-                    <div className="flex flex-col gap-2">
-                        <ButtonLogin />
-                        <ButtonRegister />
-                    </div>
+                  <div className="flex flex-col gap-2">
+                    <ButtonLogin />
+                    <ButtonRegister />
+                  </div>
                 )}
               </div>
             </div>

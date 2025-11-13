@@ -21,6 +21,13 @@ const nextConfig: NextConfig = {
     ],
   },
   serverExternalPackages: ["socket.io"],
+
+  // 프로덕션 환경 최적화
+  experimental: {
+    serverActions: {
+      bodySizeLimit: "2mb",
+    },
+  },
 };
 
 export default nextConfig;

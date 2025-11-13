@@ -4,7 +4,6 @@ import Link from "next/link";
 import "./globals.css";
 import AuthButtons from "@/component/auth_buttons";
 import MobileMenu from "@/component/mobile_menu";
-import { getUserName } from "@/actions/userAuth";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -21,13 +20,14 @@ export const metadata: Metadata = {
   description: "지역 기반 취미활동 공유 플랫폼",
 };
 
+// 동적 렌더링 강제
+export const dynamic = "force-dynamic";
+
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const userName = await getUserName();
-  
   return (
     <html lang="ko">
       <head>
@@ -84,7 +84,7 @@ export default async function RootLayout({
                 </div>
               </div>
               {/* 모바일 메뉴 버튼 */}
-              <MobileMenu userName={userName} />
+              <MobileMenu />
             </div>
           </nav>
         </header>

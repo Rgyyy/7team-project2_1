@@ -16,6 +16,7 @@ export async function getUser() {
     };
     return decoded;
   } catch (error) {
+    console.error("Error in getUser:", error);
     return null;
   }
 }
