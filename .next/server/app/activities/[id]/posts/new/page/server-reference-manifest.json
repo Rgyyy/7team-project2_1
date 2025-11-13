@@ -1,6 +1,6 @@
 {
   "node": {
-    "00d0b65cc6bfb399fbc62f4e926cf25cfa389ab386": {
+    "0033443898160a084cd7ef1392a40e07e0fc0f48b6": {
       "workers": {
         "app/activities/[id]/posts/new/page": {
           "moduleId": "6652",
@@ -15,7 +15,7 @@
       "exportedName": "logoutUser",
       "filename": "src/actions/userLogout.ts"
     },
-    "7003775911154544dd89e525b09762c3a53a953496": {
+    "701e035dca2435a1eb3663a8004c341853c79ac0e4": {
       "workers": {
         "app/activities/[id]/posts/new/page": {
           "moduleId": "6652",
