@@ -1,0 +1,95 @@
+{
+  "node": {
+    "00d0b65cc6bfb399fbc62f4e926cf25cfa389ab386": {
+      "workers": {
+        "app/profile/page": {
+          "moduleId": "87210",
+          "async": false,
+          "exportedName": "logoutUser",
+          "filename": "src/actions/userLogout.ts"
+        }
+      },
+      "layer": {
+        "app/profile/page": "action-browser"
+      },
+      "exportedName": "logoutUser",
+      "filename": "src/actions/userLogout.ts"
+    },
+    "00bf62ec32653a359112d73db1efe597f16bae41c8": {
+      "workers": {
+        "app/profile/page": {
+          "moduleId": "87210",
+          "async": false,
+          "exportedName": "call_login_records",
+          "filename": "src/actions/userCallProfile.ts"
+        }
+      },
+      "layer": {
+        "app/profile/page": "rsc"
+      },
+      "exportedName": "call_login_records",
+      "filename": "src/actions/userCallProfile.ts"
+    },
+    "001747d15527750e48e9d2d6f120571628764487e6": {
+      "workers": {
+        "app/profile/page": {
+          "moduleId": "87210",
+          "async": false,
+          "exportedName": "deleteUser",
+          "filename": "src/actions/userAuth.ts"
+        }
+      },
+      "layer": {
+        "app/profile/page": "action-browser"
+      },
+      "exportedName": "deleteUser",
+      "filename": "src/actions/userAuth.ts"
+    },
+    "004fc0c2de8a4868ddeaf3eda3f6c8ca0988593ee8": {
+      "workers": {
+        "app/profile/page": {
+          "moduleId": "87210",
+          "async": false,
+          "exportedName": "getUserName",
+          "filename": "src/actions/userAuth.ts"
+        }
+      },
+      "layer": {
+        "app/profile/page": "rsc"
+      },
+      "exportedName": "getUserName",
+      "filename": "src/actions/userAuth.ts"
+    },
+    "0064def240999a77f4d5f7ea6f3561371e7276d5ff": {
+      "workers": {
+        "app/profile/page": {
+          "moduleId": "87210",
+          "async": false,
+          "exportedName": "getUserId",
+          "filename": "src/actions/userAuth.ts"
+        }
+      },
+      "layer": {
+        "app/profile/page": "rsc"
+      },
+      "exportedName": "getUserId",
+      "filename": "src/actions/userAuth.ts"
+    },
+    "00bb7fa5fceb804b2409c11890ae0ab257c9313817": {
+      "workers": {
+        "app/profile/page": {
+          "moduleId": "87210",
+          "async": false,
+          "exportedName": "getUser",
+          "filename": "src/actions/userAuth.ts"
+        }
+      },
+      "layer": {
+        "app/profile/page": "rsc"
+      },
+      "exportedName": "getUser",
+      "filename": "src/actions/userAuth.ts"
+    }
+  },
+  "edge": {}
+}

@@ -1,0 +1,35 @@
+{
+  "node": {
+    "00d0b65cc6bfb399fbc62f4e926cf25cfa389ab386": {
+      "workers": {
+        "app/activities/[id]/posts/new/page": {
+          "moduleId": "6652",
+          "async": false,
+          "exportedName": "logoutUser",
+          "filename": "src/actions/userLogout.ts"
+        }
+      },
+      "layer": {
+        "app/activities/[id]/posts/new/page": "action-browser"
+      },
+      "exportedName": "logoutUser",
+      "filename": "src/actions/userLogout.ts"
+    },
+    "7003775911154544dd89e525b09762c3a53a953496": {
+      "workers": {
+        "app/activities/[id]/posts/new/page": {
+          "moduleId": "6652",
+          "async": false,
+          "exportedName": "createPost",
+          "filename": "src/actions/createPost.ts"
+        }
+      },
+      "layer": {
+        "app/activities/[id]/posts/new/page": "action-browser"
+      },
+      "exportedName": "createPost",
+      "filename": "src/actions/createPost.ts"
+    }
+  },
+  "edge": {}
+}

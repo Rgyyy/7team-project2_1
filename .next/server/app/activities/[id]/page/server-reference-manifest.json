@@ -1,0 +1,50 @@
+{
+  "node": {
+    "00d0b65cc6bfb399fbc62f4e926cf25cfa389ab386": {
+      "workers": {
+        "app/activities/[id]/page": {
+          "moduleId": "75291",
+          "async": false,
+          "exportedName": "logoutUser",
+          "filename": "src/actions/userLogout.ts"
+        }
+      },
+      "layer": {
+        "app/activities/[id]/page": "action-browser"
+      },
+      "exportedName": "logoutUser",
+      "filename": "src/actions/userLogout.ts"
+    },
+    "40db0beef633cd2c64a8f647c305e25ba2ce3fcce2": {
+      "workers": {
+        "app/activities/[id]/page": {
+          "moduleId": "75291",
+          "async": false,
+          "exportedName": "joinActivity",
+          "filename": "src/app/actions/participation.ts"
+        }
+      },
+      "layer": {
+        "app/activities/[id]/page": "action-browser"
+      },
+      "exportedName": "joinActivity",
+      "filename": "src/app/actions/participation.ts"
+    },
+    "40d4b17a891ce87c9efd525f59d21162ecf28f6bb0": {
+      "workers": {
+        "app/activities/[id]/page": {
+          "moduleId": "75291",
+          "async": false,
+          "exportedName": "cancelParticipation",
+          "filename": "src/app/actions/participation.ts"
+        }
+      },
+      "layer": {
+        "app/activities/[id]/page": "action-browser"
+      },
+      "exportedName": "cancelParticipation",
+      "filename": "src/app/actions/participation.ts"
+    }
+  },
+  "edge": {}
+}

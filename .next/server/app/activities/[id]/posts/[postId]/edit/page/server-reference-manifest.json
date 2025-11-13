@@ -1,0 +1,80 @@
+{
+  "node": {
+    "00d0b65cc6bfb399fbc62f4e926cf25cfa389ab386": {
+      "workers": {
+        "app/activities/[id]/posts/[postId]/edit/page": {
+          "moduleId": "16124",
+          "async": false,
+          "exportedName": "logoutUser",
+          "filename": "src/actions/userLogout.ts"
+        }
+      },
+      "layer": {
+        "app/activities/[id]/posts/[postId]/edit/page": "action-browser"
+      },
+      "exportedName": "logoutUser",
+      "filename": "src/actions/userLogout.ts"
+    },
+    "001747d15527750e48e9d2d6f120571628764487e6": {
+      "workers": {
+        "app/activities/[id]/posts/[postId]/edit/page": {
+          "moduleId": "16124",
+          "async": false,
+          "exportedName": "deleteUser",
+          "filename": "src/actions/userAuth.ts"
+        }
+      },
+      "layer": {
+        "app/activities/[id]/posts/[postId]/edit/page": "rsc"
+      },
+      "exportedName": "deleteUser",
+      "filename": "src/actions/userAuth.ts"
+    },
+    "004fc0c2de8a4868ddeaf3eda3f6c8ca0988593ee8": {
+      "workers": {
+        "app/activities/[id]/posts/[postId]/edit/page": {
+          "moduleId": "16124",
+          "async": false,
+          "exportedName": "getUserName",
+          "filename": "src/actions/userAuth.ts"
+        }
+      },
+      "layer": {
+        "app/activities/[id]/posts/[postId]/edit/page": "rsc"
+      },
+      "exportedName": "getUserName",
+      "filename": "src/actions/userAuth.ts"
+    },
+    "0064def240999a77f4d5f7ea6f3561371e7276d5ff": {
+      "workers": {
+        "app/activities/[id]/posts/[postId]/edit/page": {
+          "moduleId": "16124",
+          "async": false,
+          "exportedName": "getUserId",
+          "filename": "src/actions/userAuth.ts"
+        }
+      },
+      "layer": {
+        "app/activities/[id]/posts/[postId]/edit/page": "rsc"
+      },
+      "exportedName": "getUserId",
+      "filename": "src/actions/userAuth.ts"
+    },
+    "00bb7fa5fceb804b2409c11890ae0ab257c9313817": {
+      "workers": {
+        "app/activities/[id]/posts/[postId]/edit/page": {
+          "moduleId": "16124",
+          "async": false,
+          "exportedName": "getUser",
+          "filename": "src/actions/userAuth.ts"
+        }
+      },
+      "layer": {
+        "app/activities/[id]/posts/[postId]/edit/page": "rsc"
+      },
+      "exportedName": "getUser",
+      "filename": "src/actions/userAuth.ts"
+    }
+  },
+  "edge": {}
+}

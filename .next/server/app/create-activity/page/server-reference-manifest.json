@@ -1,0 +1,35 @@
+{
+  "node": {
+    "00d0b65cc6bfb399fbc62f4e926cf25cfa389ab386": {
+      "workers": {
+        "app/create-activity/page": {
+          "moduleId": "51585",
+          "async": true,
+          "exportedName": "logoutUser",
+          "filename": "src/actions/userLogout.ts"
+        }
+      },
+      "layer": {
+        "app/create-activity/page": "action-browser"
+      },
+      "exportedName": "logoutUser",
+      "filename": "src/actions/userLogout.ts"
+    },
+    "40ea682880fd5b0297d11c6711471bdb1a3af35ca7": {
+      "workers": {
+        "app/create-activity/page": {
+          "moduleId": "51585",
+          "async": true,
+          "exportedName": "createActivity",
+          "filename": "src/app/actions/activity.ts"
+        }
+      },
+      "layer": {
+        "app/create-activity/page": "action-browser"
+      },
+      "exportedName": "createActivity",
+      "filename": "src/app/actions/activity.ts"
+    }
+  },
+  "edge": {}
+}

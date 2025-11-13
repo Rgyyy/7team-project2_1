@@ -1,0 +1,35 @@
+{
+  "node": {
+    "00d0b65cc6bfb399fbc62f4e926cf25cfa389ab386": {
+      "workers": {
+        "app/chatting/page": {
+          "moduleId": "47426",
+          "async": false,
+          "exportedName": "logoutUser",
+          "filename": "src/actions/userLogout.ts"
+        }
+      },
+      "layer": {
+        "app/chatting/page": "action-browser"
+      },
+      "exportedName": "logoutUser",
+      "filename": "src/actions/userLogout.ts"
+    },
+    "00bf62ec32653a359112d73db1efe597f16bae41c8": {
+      "workers": {
+        "app/chatting/page": {
+          "moduleId": "47426",
+          "async": false,
+          "exportedName": "call_login_records",
+          "filename": "src/actions/userCallProfile.ts"
+        }
+      },
+      "layer": {
+        "app/chatting/page": "action-browser"
+      },
+      "exportedName": "call_login_records",
+      "filename": "src/actions/userCallProfile.ts"
+    }
+  },
+  "edge": {}
+}
