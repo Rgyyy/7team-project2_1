@@ -1,6 +1,6 @@
 {
   "node": {
-    "00382cd68f3bd744983f7d813af84c482d62770930": {
+    "00b7a57c14b2684975b2c912dfa8f62e85d5d7f389": {
       "workers": {
         "app/register/page": {
           "moduleId": "32012",
@@ -15,7 +15,7 @@
       "exportedName": "logoutUser",
       "filename": "src/actions/userLogout.ts"
     },
-    "60ac57eb9fa1125f9ea31f096b963dd6f85a676a36": {
+    "60f9dbfdb5815d32e2351b56c1b0a264c283372cdf": {
       "workers": {
         "app/register/page": {
           "moduleId": "32012",

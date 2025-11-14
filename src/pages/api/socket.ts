@@ -141,11 +141,11 @@ const SocketHandler = (req: NextApiRequest, res: NextApiResponse) => {
       });
 
       socket.on("leave-room", ({ room, nickname }) => {
-        socket.leave(room);
-        io.to(room).emit("user-left", {
+        socket.to(room).emit("user-left", {
           nickname,
           message: `${nickname}님이 퇴장했습니다.`,
         });
+        socket.leave(room);
       });
 
       // 다른 커스텀 이벤트들도 자유롭게 추가 가능

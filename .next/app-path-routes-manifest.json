@@ -16,6 +16,7 @@
   "/api/locations/route": "/api/locations",
   "/api/posts/[postId]/route": "/api/posts/[postId]",
   "/api/upload/route": "/api/upload",
+  "/api/user/profile/route": "/api/user/profile",
   "/api/users/[userId]/route": "/api/users/[userId]",
   "/chatting/page": "/chatting",
   "/create-activity/page": "/create-activity",
