@@ -1,6 +1,6 @@
 {
   "node": {
-    "0033443898160a084cd7ef1392a40e07e0fc0f48b6": {
+    "00701f95291f4b8845b45e3bf2180dc21b8c928751": {
       "workers": {
         "app/chatting/page": {
           "moduleId": "47426",
@@ -15,7 +15,7 @@
       "exportedName": "logoutUser",
       "filename": "src/actions/userLogout.ts"
     },
-    "00a745ace0a8ca0808fba9c76f3a465200d0062d32": {
+    "00c0d2d7ea4038fce84e63f2c31cf42436e9e2e88f": {
       "workers": {
         "app/chatting/page": {
           "moduleId": "47426",

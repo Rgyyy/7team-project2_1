@@ -1,6 +1,6 @@
 {
   "node": {
-    "0033443898160a084cd7ef1392a40e07e0fc0f48b6": {
+    "00701f95291f4b8845b45e3bf2180dc21b8c928751": {
       "workers": {
         "app/login/page": {
           "moduleId": "66701",
@@ -15,7 +15,7 @@
       "exportedName": "logoutUser",
       "filename": "src/actions/userLogout.ts"
     },
-    "6067ad61e2a47d118b2ff7990c3045b20b92b68304": {
+    "60f8b33a7016035d60b28ac8b2a458044940ad9a05": {
       "workers": {
         "app/login/page": {
           "moduleId": "66701",
