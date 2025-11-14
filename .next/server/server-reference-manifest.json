@@ -2,128 +2,148 @@
   "node": {
     "00b7a57c14b2684975b2c912dfa8f62e85d5d7f389": {
       "workers": {
-        "app/_not-found/page": {
-          "moduleId": "9174",
-          "async": false,
-          "exportedName": "logoutUser",
-          "filename": "src/actions/userLogout.ts"
-        },
-        "app/activities/[id]/edit/page": {
-          "moduleId": "96644",
-          "async": false,
-          "exportedName": "logoutUser",
-          "filename": "src/actions/userLogout.ts"
-        },
         "app/activities/[id]/page": {
-          "moduleId": "75291",
-          "async": false,
-          "exportedName": "logoutUser",
-          "filename": "src/actions/userLogout.ts"
-        },
-        "app/activities/[id]/posts/[postId]/edit/page": {
-          "moduleId": "16124",
-          "async": false,
-          "exportedName": "logoutUser",
-          "filename": "src/actions/userLogout.ts"
-        },
-        "app/activities/[id]/posts/[postId]/page": {
-          "moduleId": "93571",
-          "async": false,
-          "exportedName": "logoutUser",
-          "filename": "src/actions/userLogout.ts"
-        },
-        "app/activities/[id]/posts/new/page": {
-          "moduleId": "6652",
-          "async": false,
-          "exportedName": "logoutUser",
-          "filename": "src/actions/userLogout.ts"
-        },
-        "app/activities/[id]/posts/page": {
-          "moduleId": "68935",
-          "async": false,
-          "exportedName": "logoutUser",
-          "filename": "src/actions/userLogout.ts"
-        },
-        "app/activities/page": {
-          "moduleId": "65956",
+          "moduleId": "[project]/.next-internal/server/app/activities/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/actions/userLogout.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/src/app/actions/participation.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
           "exportedName": "logoutUser",
           "filename": "src/actions/userLogout.ts"
         },
         "app/chatting/page": {
-          "moduleId": "47426",
-          "async": false,
-          "exportedName": "logoutUser",
-          "filename": "src/actions/userLogout.ts"
-        },
-        "app/create-activity/page": {
-          "moduleId": "51585",
-          "async": false,
-          "exportedName": "logoutUser",
-          "filename": "src/actions/userLogout.ts"
-        },
-        "app/example/page": {
-          "moduleId": "93207",
+          "moduleId": "[project]/.next-internal/server/app/chatting/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/actions/userLogout.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/src/actions/userCallProfile.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
           "exportedName": "logoutUser",
           "filename": "src/actions/userLogout.ts"
         },
         "app/login/page": {
-          "moduleId": "66701",
+          "moduleId": "[project]/.next-internal/server/app/login/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/actions/userLogout.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/src/actions/userLogin.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
           "exportedName": "logoutUser",
           "filename": "src/actions/userLogout.ts"
         },
         "app/page": {
-          "moduleId": "20458",
-          "async": false,
-          "exportedName": "logoutUser",
-          "filename": "src/actions/userLogout.ts"
-        },
-        "app/profile/edit/page": {
-          "moduleId": "83796",
+          "moduleId": "[project]/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/actions/userLogout.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
           "exportedName": "logoutUser",
           "filename": "src/actions/userLogout.ts"
         },
         "app/profile/page": {
-          "moduleId": "87210",
-          "async": false,
-          "exportedName": "logoutUser",
-          "filename": "src/actions/userLogout.ts"
-        },
-        "app/register/page": {
-          "moduleId": "32012",
+          "moduleId": "[project]/.next-internal/server/app/profile/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/actions/userLogout.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/src/actions/userCallProfile.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE2 => \"[project]/src/actions/userAuth.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
           "exportedName": "logoutUser",
           "filename": "src/actions/userLogout.ts"
         }
       },
       "layer": {
-        "app/_not-found/page": "action-browser",
-        "app/activities/[id]/edit/page": "action-browser",
         "app/activities/[id]/page": "action-browser",
-        "app/activities/[id]/posts/[postId]/edit/page": "action-browser",
-        "app/activities/[id]/posts/[postId]/page": "action-browser",
-        "app/activities/[id]/posts/new/page": "action-browser",
-        "app/activities/[id]/posts/page": "action-browser",
-        "app/activities/page": "action-browser",
         "app/chatting/page": "action-browser",
-        "app/create-activity/page": "action-browser",
-        "app/example/page": "action-browser",
         "app/login/page": "action-browser",
         "app/page": "action-browser",
-        "app/profile/edit/page": "action-browser",
-        "app/profile/page": "action-browser",
-        "app/register/page": "action-browser"
+        "app/profile/page": "action-browser"
       },
       "filename": "src/actions/userLogout.ts",
       "exportedName": "logoutUser"
     },
+    "6061d53a51fcdc6bdce578a9776d8bfbde70a413a1": {
+      "workers": {
+        "app/login/page": {
+          "moduleId": "[project]/.next-internal/server/app/login/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/actions/userLogout.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/src/actions/userLogin.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "loginUser",
+          "filename": "src/actions/userLogin.ts"
+        }
+      },
+      "layer": {
+        "app/login/page": "action-browser"
+      },
+      "filename": "src/actions/userLogin.ts",
+      "exportedName": "loginUser"
+    },
+    "005eedc454307c5e6bb44211c701593d64fc84271f": {
+      "workers": {
+        "app/chatting/page": {
+          "moduleId": "[project]/.next-internal/server/app/chatting/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/actions/userLogout.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/src/actions/userCallProfile.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "call_login_records",
+          "filename": "src/actions/userCallProfile.ts"
+        },
+        "app/profile/page": {
+          "moduleId": "[project]/.next-internal/server/app/profile/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/actions/userLogout.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/src/actions/userCallProfile.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE2 => \"[project]/src/actions/userAuth.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "call_login_records",
+          "filename": "src/actions/userCallProfile.ts"
+        }
+      },
+      "layer": {
+        "app/chatting/page": "action-browser",
+        "app/profile/page": "rsc"
+      },
+      "filename": "src/actions/userCallProfile.ts",
+      "exportedName": "call_login_records"
+    },
+    "000a2bac3d7127b8cc9968b168117c754b7f405374": {
+      "workers": {
+        "app/profile/page": {
+          "moduleId": "[project]/.next-internal/server/app/profile/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/actions/userLogout.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/src/actions/userCallProfile.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE2 => \"[project]/src/actions/userAuth.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "getUser",
+          "filename": "src/actions/userAuth.ts"
+        }
+      },
+      "layer": {
+        "app/profile/page": "rsc"
+      },
+      "filename": "src/actions/userAuth.ts",
+      "exportedName": "getUser"
+    },
+    "001c02a6d91571d7198663363cbc61a27579b1b6bb": {
+      "workers": {
+        "app/profile/page": {
+          "moduleId": "[project]/.next-internal/server/app/profile/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/actions/userLogout.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/src/actions/userCallProfile.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE2 => \"[project]/src/actions/userAuth.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "getUserId",
+          "filename": "src/actions/userAuth.ts"
+        }
+      },
+      "layer": {
+        "app/profile/page": "rsc"
+      },
+      "filename": "src/actions/userAuth.ts",
+      "exportedName": "getUserId"
+    },
+    "00212827235ea9c07f9f7bd0fb51db5b9293bb714b": {
+      "workers": {
+        "app/profile/page": {
+          "moduleId": "[project]/.next-internal/server/app/profile/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/actions/userLogout.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/src/actions/userCallProfile.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE2 => \"[project]/src/actions/userAuth.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "getUserName",
+          "filename": "src/actions/userAuth.ts"
+        }
+      },
+      "layer": {
+        "app/profile/page": "rsc"
+      },
+      "filename": "src/actions/userAuth.ts",
+      "exportedName": "getUserName"
+    },
+    "007c377a3ea984af9e269b96039cf3aa87e64829f9": {
+      "workers": {
+        "app/profile/page": {
+          "moduleId": "[project]/.next-internal/server/app/profile/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/actions/userLogout.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/src/actions/userCallProfile.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE2 => \"[project]/src/actions/userAuth.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "deleteUser",
+          "filename": "src/actions/userAuth.ts"
+        }
+      },
+      "layer": {
+        "app/profile/page": "action-browser"
+      },
+      "filename": "src/actions/userAuth.ts",
+      "exportedName": "deleteUser"
+    },
     "402d7598771653f5eca731e3b25e4363277e258ee7": {
       "workers": {
         "app/activities/[id]/page": {
-          "moduleId": "75291",
+          "moduleId": "[project]/.next-internal/server/app/activities/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/actions/userLogout.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/src/app/actions/participation.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
           "exportedName": "joinActivity",
           "filename": "src/app/actions/participation.ts"
@@ -138,7 +158,7 @@
     "4027d3de037d521d44de8927825bdbbc90786725fd": {
       "workers": {
         "app/activities/[id]/page": {
-          "moduleId": "75291",
+          "moduleId": "[project]/.next-internal/server/app/activities/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/actions/userLogout.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/src/app/actions/participation.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
           "exportedName": "cancelParticipation",
           "filename": "src/app/actions/participation.ts"
@@ -149,282 +169,6 @@
       },
       "filename": "src/app/actions/participation.ts",
       "exportedName": "cancelParticipation"
-    },
-    "7008b151044865d41949dee997c4a21031a45bff04": {
-      "workers": {
-        "app/activities/[id]/posts/new/page": {
-          "moduleId": "6652",
-          "async": false,
-          "exportedName": "createPost",
-          "filename": "src/actions/createPost.ts"
-        }
-      },
-      "layer": {
-        "app/activities/[id]/posts/new/page": "action-browser"
-      },
-      "filename": "src/actions/createPost.ts",
-      "exportedName": "createPost"
-    },
-    "005eedc454307c5e6bb44211c701593d64fc84271f": {
-      "workers": {
-        "app/chatting/page": {
-          "moduleId": "47426",
-          "async": false,
-          "exportedName": "call_login_records",
-          "filename": "src/actions/userCallProfile.ts"
-        },
-        "app/profile/edit/page": {
-          "moduleId": "83796",
-          "async": false,
-          "exportedName": "call_login_records",
-          "filename": "src/actions/userCallProfile.ts"
-        },
-        "app/profile/page": {
-          "moduleId": "87210",
-          "async": false,
-          "exportedName": "call_login_records",
-          "filename": "src/actions/userCallProfile.ts"
-        }
-      },
-      "layer": {
-        "app/chatting/page": "action-browser",
-        "app/profile/edit/page": "rsc",
-        "app/profile/page": "rsc"
-      },
-      "filename": "src/actions/userCallProfile.ts",
-      "exportedName": "call_login_records"
-    },
-    "000a2bac3d7127b8cc9968b168117c754b7f405374": {
-      "workers": {
-        "app/activities/[id]/posts/[postId]/edit/page": {
-          "moduleId": "16124",
-          "async": false,
-          "exportedName": "getUser",
-          "filename": "src/actions/userAuth.ts"
-        },
-        "app/activities/[id]/posts/[postId]/page": {
-          "moduleId": "93571",
-          "async": false,
-          "exportedName": "getUser",
-          "filename": "src/actions/userAuth.ts"
-        },
-        "app/example/page": {
-          "moduleId": "93207",
-          "async": false,
-          "exportedName": "getUser",
-          "filename": "src/actions/userAuth.ts"
-        },
-        "app/profile/edit/page": {
-          "moduleId": "83796",
-          "async": false,
-          "exportedName": "getUser",
-          "filename": "src/actions/userAuth.ts"
-        },
-        "app/profile/page": {
-          "moduleId": "87210",
-          "async": false,
-          "exportedName": "getUser",
-          "filename": "src/actions/userAuth.ts"
-        }
-      },
-      "layer": {
-        "app/activities/[id]/posts/[postId]/edit/page": "rsc",
-        "app/activities/[id]/posts/[postId]/page": "rsc",
-        "app/example/page": "rsc",
-        "app/profile/edit/page": "rsc",
-        "app/profile/page": "rsc"
-      },
-      "filename": "src/actions/userAuth.ts",
-      "exportedName": "getUser"
-    },
-    "001c02a6d91571d7198663363cbc61a27579b1b6bb": {
-      "workers": {
-        "app/activities/[id]/posts/[postId]/edit/page": {
-          "moduleId": "16124",
-          "async": false,
-          "exportedName": "getUserId",
-          "filename": "src/actions/userAuth.ts"
-        },
-        "app/activities/[id]/posts/[postId]/page": {
-          "moduleId": "93571",
-          "async": false,
-          "exportedName": "getUserId",
-          "filename": "src/actions/userAuth.ts"
-        },
-        "app/example/page": {
-          "moduleId": "93207",
-          "async": false,
-          "exportedName": "getUserId",
-          "filename": "src/actions/userAuth.ts"
-        },
-        "app/profile/edit/page": {
-          "moduleId": "83796",
-          "async": false,
-          "exportedName": "getUserId",
-          "filename": "src/actions/userAuth.ts"
-        },
-        "app/profile/page": {
-          "moduleId": "87210",
-          "async": false,
-          "exportedName": "getUserId",
-          "filename": "src/actions/userAuth.ts"
-        }
-      },
-      "layer": {
-        "app/activities/[id]/posts/[postId]/edit/page": "rsc",
-        "app/activities/[id]/posts/[postId]/page": "rsc",
-        "app/example/page": "rsc",
-        "app/profile/edit/page": "rsc",
-        "app/profile/page": "rsc"
-      },
-      "filename": "src/actions/userAuth.ts",
-      "exportedName": "getUserId"
-    },
-    "00212827235ea9c07f9f7bd0fb51db5b9293bb714b": {
-      "workers": {
-        "app/activities/[id]/posts/[postId]/edit/page": {
-          "moduleId": "16124",
-          "async": false,
-          "exportedName": "getUserName",
-          "filename": "src/actions/userAuth.ts"
-        },
-        "app/activities/[id]/posts/[postId]/page": {
-          "moduleId": "93571",
-          "async": false,
-          "exportedName": "getUserName",
-          "filename": "src/actions/userAuth.ts"
-        },
-        "app/example/page": {
-          "moduleId": "93207",
-          "async": false,
-          "exportedName": "getUserName",
-          "filename": "src/actions/userAuth.ts"
-        },
-        "app/profile/edit/page": {
-          "moduleId": "83796",
-          "async": false,
-          "exportedName": "getUserName",
-          "filename": "src/actions/userAuth.ts"
-        },
-        "app/profile/page": {
-          "moduleId": "87210",
-          "async": false,
-          "exportedName": "getUserName",
-          "filename": "src/actions/userAuth.ts"
-        }
-      },
-      "layer": {
-        "app/activities/[id]/posts/[postId]/edit/page": "rsc",
-        "app/activities/[id]/posts/[postId]/page": "rsc",
-        "app/example/page": "rsc",
-        "app/profile/edit/page": "rsc",
-        "app/profile/page": "rsc"
-      },
-      "filename": "src/actions/userAuth.ts",
-      "exportedName": "getUserName"
-    },
-    "007c377a3ea984af9e269b96039cf3aa87e64829f9": {
-      "workers": {
-        "app/activities/[id]/posts/[postId]/edit/page": {
-          "moduleId": "16124",
-          "async": false,
-          "exportedName": "deleteUser",
-          "filename": "src/actions/userAuth.ts"
-        },
-        "app/activities/[id]/posts/[postId]/page": {
-          "moduleId": "93571",
-          "async": false,
-          "exportedName": "deleteUser",
-          "filename": "src/actions/userAuth.ts"
-        },
-        "app/example/page": {
-          "moduleId": "93207",
-          "async": false,
-          "exportedName": "deleteUser",
-          "filename": "src/actions/userAuth.ts"
-        },
-        "app/profile/edit/page": {
-          "moduleId": "83796",
-          "async": false,
-          "exportedName": "deleteUser",
-          "filename": "src/actions/userAuth.ts"
-        },
-        "app/profile/page": {
-          "moduleId": "87210",
-          "async": false,
-          "exportedName": "deleteUser",
-          "filename": "src/actions/userAuth.ts"
-        }
-      },
-      "layer": {
-        "app/activities/[id]/posts/[postId]/edit/page": "rsc",
-        "app/activities/[id]/posts/[postId]/page": "rsc",
-        "app/example/page": "rsc",
-        "app/profile/edit/page": "rsc",
-        "app/profile/page": "action-browser"
-      },
-      "filename": "src/actions/userAuth.ts",
-      "exportedName": "deleteUser"
-    },
-    "6061d53a51fcdc6bdce578a9776d8bfbde70a413a1": {
-      "workers": {
-        "app/login/page": {
-          "moduleId": "66701",
-          "async": false,
-          "exportedName": "loginUser",
-          "filename": "src/actions/userLogin.ts"
-        }
-      },
-      "layer": {
-        "app/login/page": "action-browser"
-      },
-      "filename": "src/actions/userLogin.ts",
-      "exportedName": "loginUser"
-    },
-    "401a8807c457ba1bdc764c10100f678cb862b931c5": {
-      "workers": {
-        "app/create-activity/page": {
-          "moduleId": "51585",
-          "async": false,
-          "exportedName": "createActivity",
-          "filename": "src/app/actions/activity.ts"
-        }
-      },
-      "layer": {
-        "app/create-activity/page": "action-browser"
-      },
-      "filename": "src/app/actions/activity.ts",
-      "exportedName": "createActivity"
-    },
-    "60f9dbfdb5815d32e2351b56c1b0a264c283372cdf": {
-      "workers": {
-        "app/register/page": {
-          "moduleId": "32012",
-          "async": false,
-          "exportedName": "registerUser",
-          "filename": "src/actions/userRegister.ts"
-        }
-      },
-      "layer": {
-        "app/register/page": "action-browser"
-      },
-      "filename": "src/actions/userRegister.ts",
-      "exportedName": "registerUser"
-    },
-    "40d5bbf17fea1a2d6779ee4e6c4c8a7ac93bbb6d66": {
-      "workers": {
-        "app/profile/edit/page": {
-          "moduleId": "83796",
-          "async": false,
-          "exportedName": "editUserProfile",
-          "filename": "src/actions/userProfileEdit.ts"
-        }
-      },
-      "layer": {
-        "app/profile/edit/page": "rsc"
-      },
-      "filename": "src/actions/userProfileEdit.ts",
-      "exportedName": "editUserProfile"
     }
   },
   "edge": {},

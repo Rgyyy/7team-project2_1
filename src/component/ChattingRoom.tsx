@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from "react";
 import { io, Socket } from "socket.io-client";
 import Link from "next/link";
-import { call_login_records } from "@/actions/userCallProfile";
 
 interface Message {
   nickname: string;
@@ -54,7 +53,9 @@ export default function ChattingRoom({
   const fetchUserActivities = async () => {
     try {
       setLoading(true);
-      const userData = await call_login_records();
+      const response = await fetch("/api/user/profile");
+      const data = await response.json();
+      const userData = data.user;
 
       if (!userData) {
         setError("로그인이 필요합니다. 로그인 후 다시 시도해주세요.");
@@ -62,22 +63,26 @@ export default function ChattingRoom({
       }
 
       // 사용자가 만든 활동들과 참여한 활동들을 합치기
-      const createdActivities = userData.activities.map((activity) => ({
+      const createdActivities = userData.activities.map((activity: any) => ({
         ...activity,
-        createdAt: activity.createdAt.toISOString(),
+        createdAt: activity.createdAt.toISOString
+          ? activity.createdAt.toISOString()
+          : activity.createdAt,
         role: "organizer" as const,
       }));
 
-      const participatedActivities = userData.participations.map((p) => ({
+      const participatedActivities = userData.participations.map((p: any) => ({
         ...p.activity,
-        createdAt: p.activity.createdAt.toISOString(),
+        createdAt: p.activity.createdAt.toISOString
+          ? p.activity.createdAt.toISOString()
+          : p.activity.createdAt,
         role: "participant" as const,
       }));
 
       // 모든 활동 합치기 및 중복 제거
       const allActivities = [...createdActivities, ...participatedActivities];
       const uniqueActivities = allActivities.reduce((acc, activity) => {
-        const existing = acc.find((a) => a.id === activity.id);
+        const existing = acc.find((a: Activity) => a.id === activity.id);
         if (!existing) {
           acc.push(activity);
         } else if (
@@ -85,7 +90,7 @@ export default function ChattingRoom({
           existing.role === "participant"
         ) {
           // 주최자 역할로 덮어쓰기
-          const index = acc.findIndex((a) => a.id === activity.id);
+          const index = acc.findIndex((a: Activity) => a.id === activity.id);
           acc[index] = activity;
         }
         return acc;
@@ -366,7 +371,7 @@ export default function ChattingRoom({
 
   const handleLeaveRoom = () => {
     if (socket && room) {
-      socket.emit("leave-room", { room });
+      socket.emit("leave-room", { room, nickname });
       setIsJoined(false);
       setRoom("");
       setSelectedActivity(null);

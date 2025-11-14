@@ -3,8 +3,6 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createActivity } from "@/app/actions/activity";
-import { getUser } from "@/actions/userAuth";
-import { getUserIdNameEmail } from "@/actions/userDataCall";
 
 export default function CreateActivityPage() {
   const router = useRouter();

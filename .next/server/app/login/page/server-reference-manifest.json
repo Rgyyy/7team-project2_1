@@ -3,7 +3,7 @@
     "00b7a57c14b2684975b2c912dfa8f62e85d5d7f389": {
       "workers": {
         "app/login/page": {
-          "moduleId": "66701",
+          "moduleId": "[project]/.next-internal/server/app/login/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/actions/userLogout.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/src/actions/userLogin.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
           "exportedName": "logoutUser",
           "filename": "src/actions/userLogout.ts"
@@ -18,7 +18,7 @@
     "6061d53a51fcdc6bdce578a9776d8bfbde70a413a1": {
       "workers": {
         "app/login/page": {
-          "moduleId": "66701",
+          "moduleId": "[project]/.next-internal/server/app/login/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/actions/userLogout.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/src/actions/userLogin.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
           "exportedName": "loginUser",
           "filename": "src/actions/userLogin.ts"

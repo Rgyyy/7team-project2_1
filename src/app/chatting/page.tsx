@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import ChattingRoom from "@/component/ChattingRoom";
-import { call_login_records } from "@/actions/userCallProfile";
 import ActivityCalendar from "@/component/ActivityCalendar";
 
 interface User {
@@ -23,11 +22,12 @@ export default function ChattingPage() {
   // 컴포넌트 마운트 시 사용자 데이터 가져오기
   useEffect(() => {
     const fetchUser = async () => {
-      const userData = await call_login_records();
-      setUser(userData);
+      const response = await fetch("/api/user/profile");
+      const data = await response.json();
+      setUser(data.user);
       setIsLoading(false);
 
-      if (!userData) {
+      if (!data.user) {
         window.location.href = "/login";
       }
     };
