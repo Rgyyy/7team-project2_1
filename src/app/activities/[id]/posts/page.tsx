@@ -31,15 +31,15 @@ export default function PostsPage({
   const [activityId, setActivityId] = useState<string>("");
   const [currentUserId, setCurrentUserId] = useState<string | null>(null);
   const [isParticipating, setIsParticipating] = useState<boolean>(false);
+  const [isOrganizer, setIsOrganizer] = useState<boolean>(false);
   const [loading, setLoading] = useState(true);
+  const [checkComplete, setCheckComplete] = useState(false);
   const [loadingMore, setLoadingMore] = useState(false);
   const [cursor, setCursor] = useState<string | null>(null);
   const [hasMore, setHasMore] = useState(true);
 
-  // Intersection Observer를 위한 ref
   const observerTarget = useRef<HTMLDivElement>(null);
 
-  // URL 파라미터 로드
   useEffect(() => {
     const loadParams = async () => {
       const resolved = await params;
@@ -48,15 +48,27 @@ export default function PostsPage({
     loadParams();
   }, [params]);
 
-  // 로그인 사용자, 참가 여부, 게시글 가져오기
   useEffect(() => {
     if (activityId) {
       checkCurrentUser();
-      checkParticipation();
     }
   }, [activityId]);
 
-  // 현재 로그인 사용자 가져오기
+  useEffect(() => {
+    if (activityId && currentUserId) {
+      checkBoth();
+    }
+  }, [activityId, currentUserId]);
+
+  const checkBoth = async () => {
+    await Promise.all([checkParticipation(), checkOrganizer()]);
+    setCheckComplete(true);
+    setLoading(false); // 모든 체크가 끝난 후 로딩 해제
+
+    // 체크 완료 후 게시글 불러오기
+    fetchPosts();
+  };
+
   const checkCurrentUser = async () => {
     try {
       const res = await fetch("/api/auth/current-user");
@@ -67,27 +79,33 @@ export default function PostsPage({
     } catch (error) {
       console.error("Error checking current user:", error);
     }
+    // setLoading을 여기서 제거 - checkBoth가 끝난 후에 처리
   };
 
-  // 참가 여부 확인
   const checkParticipation = async () => {
     try {
       const res = await fetch(`/api/activities/${activityId}/participation`);
       const data = await res.json();
       setIsParticipating(data.isParticipating);
-
-      // 참가자만 게시글 불러오기
-      if (data.isParticipating) {
-        fetchPosts();
-      }
     } catch (error) {
       console.error("Error checking participation:", error);
-    } finally {
-      setLoading(false);
     }
   };
 
-  // 게시글 목록 가져오기 (초기 로드)
+  const checkOrganizer = async () => {
+    try {
+      const res = await fetch(`/api/activities/${activityId}`);
+      const data = await res.json();
+
+      // Activity의 userId와 현재 로그인한 userId 비교
+      if (currentUserId && data.userId === currentUserId) {
+        setIsOrganizer(true);
+      }
+    } catch (error) {
+      console.error("Error checking organizer:", error);
+    }
+  };
+
   const fetchPosts = async () => {
     try {
       const res = await fetch(`/api/activities/${activityId}/posts?limit=10`);
@@ -106,7 +124,6 @@ export default function PostsPage({
     }
   };
 
-  // 더 많은 게시글 로드
   const loadMorePosts = useCallback(async () => {
     if (!hasMore || loadingMore || !cursor) return;
 
@@ -130,7 +147,6 @@ export default function PostsPage({
     }
   }, [hasMore, loadingMore, cursor, activityId]);
 
-  // Intersection Observer 설정
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -153,7 +169,6 @@ export default function PostsPage({
     };
   }, [hasMore, loadingMore, loadMorePosts]);
 
-  // 로딩 중
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen text-gray-600">
@@ -162,7 +177,6 @@ export default function PostsPage({
     );
   }
 
-  // 비로그인
   if (!currentUserId) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen text-gray-700">
@@ -177,8 +191,7 @@ export default function PostsPage({
     );
   }
 
-  // 비참가자
-  if (!isParticipating) {
+  if (!isParticipating && !isOrganizer) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen text-gray-700">
         <p className="mb-4">이 모임의 참가자만 게시판을 볼 수 있습니다.</p>
@@ -192,7 +205,6 @@ export default function PostsPage({
     );
   }
 
-  // 참가자만 게시글 목록 표시
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-4xl mx-auto px-4">
@@ -216,9 +228,7 @@ export default function PostsPage({
                   className="block"
                 >
                   <article className="bg-white rounded-lg shadow hover:shadow-md transition-shadow p-6 h-52 flex flex-col">
-                    {/* 상단 블록: 카테고리, 제목, 내용, 이미지 */}
                     <div className="flex gap-4 flex-1 min-h-0">
-                      {/* 왼쪽: 텍스트 콘텐츠 */}
                       <div className="flex-1 flex flex-col min-w-0">
                         <div className="flex items-center gap-2 mb-2">
                           <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
@@ -233,16 +243,15 @@ export default function PostsPage({
                         </p>
                       </div>
 
-                      {/* 오른쪽: 이미지 (있을 때만) */}
                       {post.image && (
-                        <div className="w-32 h-32 flex-shrink-0">
+                        <div className="w-32 h-32 flex-shrink-0 bg-gray-100 rounded-lg">
                           <div className="relative w-full h-full rounded-lg overflow-hidden">
                             <Image
                               src={post.image}
                               alt={post.moimPostTitle}
                               fill
                               sizes="128px"
-                              style={{ objectFit: "cover" }}
+                              style={{ objectFit: "contain" }}
                               priority
                             />
                           </div>
@@ -250,7 +259,6 @@ export default function PostsPage({
                       )}
                     </div>
 
-                    {/* 하단 블록: 작성자, 날짜, 좋아요, 댓글 */}
                     <div className="flex items-center justify-between pt-4 mt-4 border-t border-gray-100">
                       <div className="flex items-center gap-4 text-sm text-gray-500">
                         <div className="flex items-center gap-1.5">
@@ -343,7 +351,6 @@ export default function PostsPage({
               ))}
             </div>
 
-            {/* Intersection Observer 타겟 & 로딩 인디케이터 */}
             <div ref={observerTarget} className="mt-8 flex justify-center py-4">
               {loadingMore && (
                 <div className="flex items-center gap-2 text-gray-500">
@@ -379,8 +386,7 @@ export default function PostsPage({
           </>
         )}
 
-        {/* 참가자만 글쓰기 버튼 */}
-        {isParticipating && (
+        {(isParticipating || isOrganizer) && (
           <Link
             href={`/activities/${activityId}/posts/new`}
             className="fixed bottom-8 right-8 md:right-auto md:left-[calc(50%+272px)] bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 md:px-8 md:py-4 rounded-full shadow-lg hover:shadow-xl transition-all flex items-center gap-2 group"
