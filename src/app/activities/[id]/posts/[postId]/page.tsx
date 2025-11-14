@@ -14,7 +14,6 @@ type Props = {
   }>;
 };
 
-// 게시글 상세 정보 가져오기
 async function getPost(postId: string) {
   const post = await prisma.moimPost.findUnique({
     where: { id: postId },
@@ -44,7 +43,6 @@ async function getPost(postId: string) {
   return post;
 }
 
-// 댓글 목록 가져오기
 async function getComments(postId: string) {
   const comments = await prisma.postComment.findMany({
     where: { postId },
@@ -79,7 +77,6 @@ export default async function PostDetailPage({ params }: Props) {
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-4xl mx-auto px-4">
-        {/* 상단 네비게이션 */}
         <div className="mb-6">
           <Link
             href={`/activities/${id}/posts`}
@@ -102,9 +99,7 @@ export default async function PostDetailPage({ params }: Props) {
           </Link>
         </div>
 
-        {/* 게시글 카드 */}
         <article className="bg-white rounded-lg shadow-md p-6 md:p-8 mb-6">
-          {/* 헤더: 카테고리와 버튼 */}
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6 pb-6 border-b border-gray-200">
             <div className="flex items-center gap-3">
               <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
@@ -112,20 +107,16 @@ export default async function PostDetailPage({ params }: Props) {
               </span>
             </div>
 
-            {/* 수정/삭제 버튼 - 클라이언트 컴포넌트로 분리 */}
             {userId === post.userId && (
               <PostActionButtons postId={postId} activityId={id} />
             )}
           </div>
 
-          {/* 제목 */}
           <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-6">
             {post.moimPostTitle}
           </h1>
 
-          {/* 작성자 정보 */}
           <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-6">
-            {/* 작성자 */}
             <div className="flex items-center gap-2">
               <svg
                 className="w-5 h-5"
@@ -147,7 +138,6 @@ export default async function PostDetailPage({ params }: Props) {
 
             <span className="text-gray-400">·</span>
 
-            {/* 작성 날짜 */}
             <div className="flex items-center gap-2">
               <svg
                 className="w-5 h-5"
@@ -173,7 +163,6 @@ export default async function PostDetailPage({ params }: Props) {
 
             <span className="text-gray-400">·</span>
 
-            {/* 작성 시간 */}
             <time>
               {new Date(post.createdAt).toLocaleTimeString("ko-KR", {
                 hour: "2-digit",
@@ -182,32 +171,28 @@ export default async function PostDetailPage({ params }: Props) {
             </time>
           </div>
 
-          {/* 이미지 */}
           {post.image && (
-            <div className="max-w-3xl w-full bg-white rounded-lg shadow p-6">
+            <div className="max-w-3xl w-full bg-gray-100 rounded-lg shadow p-6 mb-6">
               <div className="relative w-full aspect-[3/2] rounded overflow-hidden">
                 <Image
                   src={post.image}
-                  alt="Demo image"
+                  alt="Post image"
                   fill
                   sizes="(max-width: 768px) 100vw, 800px"
-                  style={{ objectFit: "cover" }}
+                  style={{ objectFit: "contain" }}
                   priority
                 />
               </div>
             </div>
           )}
 
-          {/* 본문 */}
           <div className="prose max-w-none mb-8">
             <p className="text-gray-700 leading-relaxed whitespace-pre-wrap">
               {post.moimPostContent}
             </p>
           </div>
 
-          {/* 좋아요 & 댓글 수 */}
           <div className="flex items-center gap-6 pt-6 border-t border-gray-200">
-            {/* 좋아요 버튼 */}
             <button className="flex items-center gap-2 text-gray-600 hover:text-red-500 transition-colors">
               <svg
                 className="w-6 h-6"
@@ -225,7 +210,6 @@ export default async function PostDetailPage({ params }: Props) {
               <span className="font-medium">{post._count.likes}</span>
             </button>
 
-            {/* 댓글 수 */}
             <div className="flex items-center gap-2 text-gray-600">
               <svg
                 className="w-6 h-6"
@@ -245,13 +229,11 @@ export default async function PostDetailPage({ params }: Props) {
           </div>
         </article>
 
-        {/* 댓글 섹션 */}
         <div className="bg-white rounded-lg shadow-md p-6 md:p-8">
           <h2 className="text-xl font-bold text-gray-900 mb-6">
             댓글 {comments.length}개
           </h2>
 
-          {/* 댓글 작성란 */}
           <div className="mb-8">
             <form className="space-y-4">
               <textarea
@@ -271,7 +253,6 @@ export default async function PostDetailPage({ params }: Props) {
             </form>
           </div>
 
-          {/* 댓글 목록 */}
           <div className="space-y-6">
             {comments.length === 0 ? (
               <div className="text-center py-12">
@@ -283,7 +264,6 @@ export default async function PostDetailPage({ params }: Props) {
                   key={comment.id}
                   className="border-b border-gray-200 last:border-0 pb-6 last:pb-0"
                 >
-                  {/* 댓글 헤더 */}
                   <div className="flex items-start justify-between mb-3">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">
@@ -325,7 +305,6 @@ export default async function PostDetailPage({ params }: Props) {
                       </div>
                     </div>
 
-                    {/* 댓글 수정/삭제 버튼 */}
                     <div className="flex items-center gap-2">
                       <button className="text-sm text-gray-600 hover:text-gray-900">
                         수정
@@ -337,7 +316,6 @@ export default async function PostDetailPage({ params }: Props) {
                     </div>
                   </div>
 
-                  {/* 댓글 내용 */}
                   <p className="text-gray-700 leading-relaxed ml-13">
                     {comment.content}
                   </p>
@@ -351,7 +329,6 @@ export default async function PostDetailPage({ params }: Props) {
   );
 }
 
-// 메타데이터 생성
 export async function generateMetadata({ params }: Props) {
   const { postId } = await params;
   const post = await getPost(postId);
