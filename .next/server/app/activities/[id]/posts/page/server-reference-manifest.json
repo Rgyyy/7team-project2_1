@@ -1,6 +1,6 @@
 {
   "node": {
-    "00b7a57c14b2684975b2c912dfa8f62e85d5d7f389": {
+    "00382cd68f3bd744983f7d813af84c482d62770930": {
       "workers": {
         "app/activities/[id]/posts/page": {
           "moduleId": "68935",

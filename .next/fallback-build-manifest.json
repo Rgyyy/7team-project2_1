@@ -6,8 +6,13 @@
   "ampDevFiles": [],
   "polyfillFiles": [],
   "lowPriorityFiles": [
+<<<<<<< HEAD
     "static/development/_ssgManifest.js",
     "static/development/_buildManifest.js"
+=======
+    "static/vYAWr1GC24Kiz6s-hnz4d/_ssgManifest.js",
+    "static/vYAWr1GC24Kiz6s-hnz4d/_buildManifest.js"
+>>>>>>> 77909386bccfbc8bbaadcf5020f0b0abbe602459
   ],
   "rootMainFiles": [],
   "ampFirstPages": []
