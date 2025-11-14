@@ -1,6 +1,6 @@
 {
   "node": {
-    "00701f95291f4b8845b45e3bf2180dc21b8c928751": {
+    "00b7a57c14b2684975b2c912dfa8f62e85d5d7f389": {
       "workers": {
         "app/activities/[id]/page": {
           "moduleId": "75291",
@@ -15,7 +15,7 @@
       "exportedName": "logoutUser",
       "filename": "src/actions/userLogout.ts"
     },
-    "40fc1cf49534e3905986fc2a9ed24ed76b16a4d534": {
+    "402d7598771653f5eca731e3b25e4363277e258ee7": {
       "workers": {
         "app/activities/[id]/page": {
           "moduleId": "75291",
@@ -30,7 +30,7 @@
       "exportedName": "joinActivity",
       "filename": "src/app/actions/participation.ts"
     },
-    "40d10c5f303fb7c90b616e10f6e0beed7bd65244a1": {
+    "4027d3de037d521d44de8927825bdbbc90786725fd": {
       "workers": {
         "app/activities/[id]/page": {
           "moduleId": "75291",

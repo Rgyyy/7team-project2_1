@@ -1,6 +1,6 @@
 {
   "node": {
-    "00701f95291f4b8845b45e3bf2180dc21b8c928751": {
+    "00b7a57c14b2684975b2c912dfa8f62e85d5d7f389": {
       "workers": {
         "app/_not-found/page": {
           "moduleId": "9174",
@@ -58,7 +58,7 @@
         },
         "app/create-activity/page": {
           "moduleId": "51585",
-          "async": true,
+          "async": false,
           "exportedName": "logoutUser",
           "filename": "src/actions/userLogout.ts"
         },
@@ -120,7 +120,7 @@
       "filename": "src/actions/userLogout.ts",
       "exportedName": "logoutUser"
     },
-    "40fc1cf49534e3905986fc2a9ed24ed76b16a4d534": {
+    "402d7598771653f5eca731e3b25e4363277e258ee7": {
       "workers": {
         "app/activities/[id]/page": {
           "moduleId": "75291",
@@ -135,7 +135,7 @@
       "filename": "src/app/actions/participation.ts",
       "exportedName": "joinActivity"
     },
-    "40d10c5f303fb7c90b616e10f6e0beed7bd65244a1": {
+    "4027d3de037d521d44de8927825bdbbc90786725fd": {
       "workers": {
         "app/activities/[id]/page": {
           "moduleId": "75291",
@@ -150,50 +150,51 @@
       "filename": "src/app/actions/participation.ts",
       "exportedName": "cancelParticipation"
     },
-    "00bbe9120e2a523c13128a411f974170efbef75ec4": {
+    "7008b151044865d41949dee997c4a21031a45bff04": {
       "workers": {
-        "app/activities/[id]/posts/[postId]/edit/page": {
-          "moduleId": "16124",
+        "app/activities/[id]/posts/new/page": {
+          "moduleId": "6652",
           "async": false,
-          "exportedName": "deleteUser",
-          "filename": "src/actions/userAuth.ts"
-        },
-        "app/activities/[id]/posts/[postId]/page": {
-          "moduleId": "93571",
+          "exportedName": "createPost",
+          "filename": "src/actions/createPost.ts"
+        }
+      },
+      "layer": {
+        "app/activities/[id]/posts/new/page": "action-browser"
+      },
+      "filename": "src/actions/createPost.ts",
+      "exportedName": "createPost"
+    },
+    "005eedc454307c5e6bb44211c701593d64fc84271f": {
+      "workers": {
+        "app/chatting/page": {
+          "moduleId": "47426",
           "async": false,
-          "exportedName": "deleteUser",
-          "filename": "src/actions/userAuth.ts"
-        },
-        "app/example/page": {
-          "moduleId": "93207",
-          "async": false,
-          "exportedName": "deleteUser",
-          "filename": "src/actions/userAuth.ts"
+          "exportedName": "call_login_records",
+          "filename": "src/actions/userCallProfile.ts"
         },
         "app/profile/edit/page": {
           "moduleId": "83796",
           "async": false,
-          "exportedName": "deleteUser",
-          "filename": "src/actions/userAuth.ts"
+          "exportedName": "call_login_records",
+          "filename": "src/actions/userCallProfile.ts"
         },
         "app/profile/page": {
           "moduleId": "87210",
           "async": false,
-          "exportedName": "deleteUser",
-          "filename": "src/actions/userAuth.ts"
+          "exportedName": "call_login_records",
+          "filename": "src/actions/userCallProfile.ts"
         }
       },
       "layer": {
-        "app/activities/[id]/posts/[postId]/edit/page": "rsc",
-        "app/activities/[id]/posts/[postId]/page": "rsc",
-        "app/example/page": "rsc",
+        "app/chatting/page": "action-browser",
         "app/profile/edit/page": "rsc",
-        "app/profile/page": "action-browser"
+        "app/profile/page": "rsc"
       },
-      "filename": "src/actions/userAuth.ts",
-      "exportedName": "deleteUser"
+      "filename": "src/actions/userCallProfile.ts",
+      "exportedName": "call_login_records"
     },
-    "00cec34bb6926b9631f575ed93f470d9fb1a2a0eec": {
+    "000a2bac3d7127b8cc9968b168117c754b7f405374": {
       "workers": {
         "app/activities/[id]/posts/[postId]/edit/page": {
           "moduleId": "16124",
@@ -236,50 +237,7 @@
       "filename": "src/actions/userAuth.ts",
       "exportedName": "getUser"
     },
-    "00cfabc2e4926450122b55eb542025d8fc9239be5b": {
-      "workers": {
-        "app/activities/[id]/posts/[postId]/edit/page": {
-          "moduleId": "16124",
-          "async": false,
-          "exportedName": "getUserName",
-          "filename": "src/actions/userAuth.ts"
-        },
-        "app/activities/[id]/posts/[postId]/page": {
-          "moduleId": "93571",
-          "async": false,
-          "exportedName": "getUserName",
-          "filename": "src/actions/userAuth.ts"
-        },
-        "app/example/page": {
-          "moduleId": "93207",
-          "async": false,
-          "exportedName": "getUserName",
-          "filename": "src/actions/userAuth.ts"
-        },
-        "app/profile/edit/page": {
-          "moduleId": "83796",
-          "async": false,
-          "exportedName": "getUserName",
-          "filename": "src/actions/userAuth.ts"
-        },
-        "app/profile/page": {
-          "moduleId": "87210",
-          "async": false,
-          "exportedName": "getUserName",
-          "filename": "src/actions/userAuth.ts"
-        }
-      },
-      "layer": {
-        "app/activities/[id]/posts/[postId]/edit/page": "rsc",
-        "app/activities/[id]/posts/[postId]/page": "rsc",
-        "app/example/page": "rsc",
-        "app/profile/edit/page": "rsc",
-        "app/profile/page": "rsc"
-      },
-      "filename": "src/actions/userAuth.ts",
-      "exportedName": "getUserName"
-    },
-    "00ed5e225036c052df52c964426a9b50f68649b54d": {
+    "001c02a6d91571d7198663363cbc61a27579b1b6bb": {
       "workers": {
         "app/activities/[id]/posts/[postId]/edit/page": {
           "moduleId": "16124",
@@ -322,66 +280,93 @@
       "filename": "src/actions/userAuth.ts",
       "exportedName": "getUserId"
     },
-    "707f9cc4223b9fa6f0624611e857a219d3cf479be4": {
+    "00212827235ea9c07f9f7bd0fb51db5b9293bb714b": {
       "workers": {
-        "app/activities/[id]/posts/new/page": {
-          "moduleId": "6652",
+        "app/activities/[id]/posts/[postId]/edit/page": {
+          "moduleId": "16124",
           "async": false,
-          "exportedName": "createPost",
-          "filename": "src/actions/createPost.ts"
-        }
-      },
-      "layer": {
-        "app/activities/[id]/posts/new/page": "action-browser"
-      },
-      "filename": "src/actions/createPost.ts",
-      "exportedName": "createPost"
-    },
-    "00c0d2d7ea4038fce84e63f2c31cf42436e9e2e88f": {
-      "workers": {
-        "app/chatting/page": {
-          "moduleId": "47426",
+          "exportedName": "getUserName",
+          "filename": "src/actions/userAuth.ts"
+        },
+        "app/activities/[id]/posts/[postId]/page": {
+          "moduleId": "93571",
           "async": false,
-          "exportedName": "call_login_records",
-          "filename": "src/actions/userCallProfile.ts"
+          "exportedName": "getUserName",
+          "filename": "src/actions/userAuth.ts"
+        },
+        "app/example/page": {
+          "moduleId": "93207",
+          "async": false,
+          "exportedName": "getUserName",
+          "filename": "src/actions/userAuth.ts"
         },
         "app/profile/edit/page": {
           "moduleId": "83796",
           "async": false,
-          "exportedName": "call_login_records",
-          "filename": "src/actions/userCallProfile.ts"
+          "exportedName": "getUserName",
+          "filename": "src/actions/userAuth.ts"
         },
         "app/profile/page": {
           "moduleId": "87210",
           "async": false,
-          "exportedName": "call_login_records",
-          "filename": "src/actions/userCallProfile.ts"
+          "exportedName": "getUserName",
+          "filename": "src/actions/userAuth.ts"
         }
       },
       "layer": {
-        "app/chatting/page": "action-browser",
+        "app/activities/[id]/posts/[postId]/edit/page": "rsc",
+        "app/activities/[id]/posts/[postId]/page": "rsc",
+        "app/example/page": "rsc",
         "app/profile/edit/page": "rsc",
         "app/profile/page": "rsc"
       },
-      "filename": "src/actions/userCallProfile.ts",
-      "exportedName": "call_login_records"
+      "filename": "src/actions/userAuth.ts",
+      "exportedName": "getUserName"
     },
-    "40cc76411e03763cc0943baefd5c2e425609cfbb98": {
+    "007c377a3ea984af9e269b96039cf3aa87e64829f9": {
       "workers": {
-        "app/create-activity/page": {
-          "moduleId": "51585",
-          "async": true,
-          "exportedName": "createActivity",
-          "filename": "src/app/actions/activity.ts"
+        "app/activities/[id]/posts/[postId]/edit/page": {
+          "moduleId": "16124",
+          "async": false,
+          "exportedName": "deleteUser",
+          "filename": "src/actions/userAuth.ts"
+        },
+        "app/activities/[id]/posts/[postId]/page": {
+          "moduleId": "93571",
+          "async": false,
+          "exportedName": "deleteUser",
+          "filename": "src/actions/userAuth.ts"
+        },
+        "app/example/page": {
+          "moduleId": "93207",
+          "async": false,
+          "exportedName": "deleteUser",
+          "filename": "src/actions/userAuth.ts"
+        },
+        "app/profile/edit/page": {
+          "moduleId": "83796",
+          "async": false,
+          "exportedName": "deleteUser",
+          "filename": "src/actions/userAuth.ts"
+        },
+        "app/profile/page": {
+          "moduleId": "87210",
+          "async": false,
+          "exportedName": "deleteUser",
+          "filename": "src/actions/userAuth.ts"
         }
       },
       "layer": {
-        "app/create-activity/page": "action-browser"
+        "app/activities/[id]/posts/[postId]/edit/page": "rsc",
+        "app/activities/[id]/posts/[postId]/page": "rsc",
+        "app/example/page": "rsc",
+        "app/profile/edit/page": "rsc",
+        "app/profile/page": "action-browser"
       },
-      "filename": "src/app/actions/activity.ts",
-      "exportedName": "createActivity"
+      "filename": "src/actions/userAuth.ts",
+      "exportedName": "deleteUser"
     },
-    "60f8b33a7016035d60b28ac8b2a458044940ad9a05": {
+    "6061d53a51fcdc6bdce578a9776d8bfbde70a413a1": {
       "workers": {
         "app/login/page": {
           "moduleId": "66701",
@@ -396,22 +381,22 @@
       "filename": "src/actions/userLogin.ts",
       "exportedName": "loginUser"
     },
-    "4058491be4710718cab0baf3be21412c75a2840f85": {
+    "401a8807c457ba1bdc764c10100f678cb862b931c5": {
       "workers": {
-        "app/profile/edit/page": {
-          "moduleId": "83796",
+        "app/create-activity/page": {
+          "moduleId": "51585",
           "async": false,
-          "exportedName": "editUserProfile",
-          "filename": "src/actions/userProfileEdit.ts"
+          "exportedName": "createActivity",
+          "filename": "src/app/actions/activity.ts"
         }
       },
       "layer": {
-        "app/profile/edit/page": "rsc"
+        "app/create-activity/page": "action-browser"
       },
-      "filename": "src/actions/userProfileEdit.ts",
-      "exportedName": "editUserProfile"
+      "filename": "src/app/actions/activity.ts",
+      "exportedName": "createActivity"
     },
-    "6014a0308e5f3a518aa62ce66436faa34db6a72666": {
+    "60f9dbfdb5815d32e2351b56c1b0a264c283372cdf": {
       "workers": {
         "app/register/page": {
           "moduleId": "32012",
@@ -425,8 +410,23 @@
       },
       "filename": "src/actions/userRegister.ts",
       "exportedName": "registerUser"
+    },
+    "40d5bbf17fea1a2d6779ee4e6c4c8a7ac93bbb6d66": {
+      "workers": {
+        "app/profile/edit/page": {
+          "moduleId": "83796",
+          "async": false,
+          "exportedName": "editUserProfile",
+          "filename": "src/actions/userProfileEdit.ts"
+        }
+      },
+      "layer": {
+        "app/profile/edit/page": "rsc"
+      },
+      "filename": "src/actions/userProfileEdit.ts",
+      "exportedName": "editUserProfile"
     }
   },
   "edge": {},
-  "encryptionKey": "sXq4k9xOJteCYlCuctNHoivxxt97VNlZVJKRhh+m+w8="
+  "encryptionKey": "VfLMPnKHFaj/D9dBLjETs23FBCGp77/qrTrsfdvyn3E="
 }

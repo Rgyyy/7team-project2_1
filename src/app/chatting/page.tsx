@@ -18,12 +18,18 @@ interface User {
 export default function ChattingPage() {
   const [isInChatRoom, setIsInChatRoom] = useState(false);
   const [user, setUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   // 컴포넌트 마운트 시 사용자 데이터 가져오기
   useEffect(() => {
     const fetchUser = async () => {
       const userData = await call_login_records();
       setUser(userData);
+      setIsLoading(false);
+
+      if (!userData) {
+        window.location.href = "/login";
+      }
     };
     fetchUser();
   }, []);
@@ -32,12 +38,16 @@ export default function ChattingPage() {
     setIsInChatRoom(isJoined);
   };
 
-  if (!user) {
+  if (isLoading) {
     return (
       <div className="flex items-center justify-center h-full">
         <p>로딩 중...</p>
       </div>
     );
+  }
+
+  if (!user) {
+    return null;
   }
 
   return (

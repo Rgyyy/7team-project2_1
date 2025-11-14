@@ -4,10 +4,6 @@ import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
 import { getUser } from "@/actions/userDataCall";
 
-const User = await getUser();
-
-console.log(User?.userId);
-
 interface ActivityData {
   title: string;
   category: string;
