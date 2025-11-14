@@ -103,7 +103,7 @@
         "transform": "lodash/{{member}}"
       }
     },
-    "outputFileTracingRoot": "/home/imsi/251114/imsi",
+    "outputFileTracingRoot": "/home/last_build/imsi",
     "experimental": {
       "useSkewCookie": false,
       "cacheLife": {
@@ -299,10 +299,10 @@
       "socket.io"
     ],
     "turbopack": {
-      "root": "/home/imsi/251114/imsi"
+      "root": "/home/last_build/imsi"
     }
   },
-  "appDir": "/home/imsi/251114/imsi",
+  "appDir": "/home/last_build/imsi",
   "relativeAppDir": "",
   "files": [
     ".next/routes-manifest.json",

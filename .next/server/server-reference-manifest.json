@@ -1,6 +1,6 @@
 {
   "node": {
-    "00382cd68f3bd744983f7d813af84c482d62770930": {
+    "00bf9bc1e293f156175d3d49e4edd92075726affdf": {
       "workers": {
         "app/_not-found/page": {
           "moduleId": "9174",
@@ -120,37 +120,7 @@
       "filename": "src/actions/userLogout.ts",
       "exportedName": "logoutUser"
     },
-    "40c810e59de0ab5c0c8b052b3d7ca5175851e41690": {
-      "workers": {
-        "app/activities/[id]/page": {
-          "moduleId": "75291",
-          "async": false,
-          "exportedName": "joinActivity",
-          "filename": "src/app/actions/participation.ts"
-        }
-      },
-      "layer": {
-        "app/activities/[id]/page": "action-browser"
-      },
-      "filename": "src/app/actions/participation.ts",
-      "exportedName": "joinActivity"
-    },
-    "40b143f7f54187bcfb48074ee6ffd294241179b185": {
-      "workers": {
-        "app/activities/[id]/page": {
-          "moduleId": "75291",
-          "async": false,
-          "exportedName": "cancelParticipation",
-          "filename": "src/app/actions/participation.ts"
-        }
-      },
-      "layer": {
-        "app/activities/[id]/page": "action-browser"
-      },
-      "filename": "src/app/actions/participation.ts",
-      "exportedName": "cancelParticipation"
-    },
-    "002e7b5c31f1d5c9e9ffbc13cb7542adf97a620955": {
+    "00015dbee12d7908d089217079a4e72d5156799e5b": {
       "workers": {
         "app/activities/[id]/posts/[postId]/edit/page": {
           "moduleId": "16124",
@@ -193,50 +163,7 @@
       "filename": "src/actions/userAuth.ts",
       "exportedName": "getUserName"
     },
-    "0076a5f51df04de8cde300c458c94c2bfa350236c3": {
-      "workers": {
-        "app/activities/[id]/posts/[postId]/edit/page": {
-          "moduleId": "16124",
-          "async": false,
-          "exportedName": "deleteUser",
-          "filename": "src/actions/userAuth.ts"
-        },
-        "app/activities/[id]/posts/[postId]/page": {
-          "moduleId": "93571",
-          "async": false,
-          "exportedName": "deleteUser",
-          "filename": "src/actions/userAuth.ts"
-        },
-        "app/example/page": {
-          "moduleId": "93207",
-          "async": false,
-          "exportedName": "deleteUser",
-          "filename": "src/actions/userAuth.ts"
-        },
-        "app/profile/edit/page": {
-          "moduleId": "83796",
-          "async": false,
-          "exportedName": "deleteUser",
-          "filename": "src/actions/userAuth.ts"
-        },
-        "app/profile/page": {
-          "moduleId": "87210",
-          "async": false,
-          "exportedName": "deleteUser",
-          "filename": "src/actions/userAuth.ts"
-        }
-      },
-      "layer": {
-        "app/activities/[id]/posts/[postId]/edit/page": "rsc",
-        "app/activities/[id]/posts/[postId]/page": "rsc",
-        "app/example/page": "rsc",
-        "app/profile/edit/page": "rsc",
-        "app/profile/page": "action-browser"
-      },
-      "filename": "src/actions/userAuth.ts",
-      "exportedName": "deleteUser"
-    },
-    "00f965acd9a546d62fdab1033ce4b028137ef8707d": {
+    "001a9ae53cd88677b0495aa77354b1ce40f310291b": {
       "workers": {
         "app/activities/[id]/posts/[postId]/edit/page": {
           "moduleId": "16124",
@@ -279,7 +206,50 @@
       "filename": "src/actions/userAuth.ts",
       "exportedName": "getUser"
     },
-    "00fc13c40b730f7edcf2f80827377ccbbc19e88c2d": {
+    "00b5aaa146a4260f8b5ecf6a7cff27b9ace00e7dc9": {
+      "workers": {
+        "app/activities/[id]/posts/[postId]/edit/page": {
+          "moduleId": "16124",
+          "async": false,
+          "exportedName": "deleteUser",
+          "filename": "src/actions/userAuth.ts"
+        },
+        "app/activities/[id]/posts/[postId]/page": {
+          "moduleId": "93571",
+          "async": false,
+          "exportedName": "deleteUser",
+          "filename": "src/actions/userAuth.ts"
+        },
+        "app/example/page": {
+          "moduleId": "93207",
+          "async": false,
+          "exportedName": "deleteUser",
+          "filename": "src/actions/userAuth.ts"
+        },
+        "app/profile/edit/page": {
+          "moduleId": "83796",
+          "async": false,
+          "exportedName": "deleteUser",
+          "filename": "src/actions/userAuth.ts"
+        },
+        "app/profile/page": {
+          "moduleId": "87210",
+          "async": false,
+          "exportedName": "deleteUser",
+          "filename": "src/actions/userAuth.ts"
+        }
+      },
+      "layer": {
+        "app/activities/[id]/posts/[postId]/edit/page": "rsc",
+        "app/activities/[id]/posts/[postId]/page": "rsc",
+        "app/example/page": "rsc",
+        "app/profile/edit/page": "rsc",
+        "app/profile/page": "action-browser"
+      },
+      "filename": "src/actions/userAuth.ts",
+      "exportedName": "deleteUser"
+    },
+    "00d012890103ff7de57a95e7edabbd73f851b4ffb8": {
       "workers": {
         "app/activities/[id]/posts/[postId]/edit/page": {
           "moduleId": "16124",
@@ -322,7 +292,7 @@
       "filename": "src/actions/userAuth.ts",
       "exportedName": "getUserId"
     },
-    "70bc364ec1ed1484b059a9ac4142c6fdf9da546c77": {
+    "70cafd612c44b7f03c5e6c82eabbec5209ad8a0556": {
       "workers": {
         "app/activities/[id]/posts/new/page": {
           "moduleId": "6652",
@@ -337,7 +307,37 @@
       "filename": "src/actions/createPost.ts",
       "exportedName": "createPost"
     },
-    "00b05d0c78871aa2548aef0c50338e6da2a9a947fd": {
+    "407bb8a983cae66b6c00b74fbb45ae42cbf0c414cf": {
+      "workers": {
+        "app/activities/[id]/page": {
+          "moduleId": "75291",
+          "async": false,
+          "exportedName": "joinActivity",
+          "filename": "src/app/actions/participation.ts"
+        }
+      },
+      "layer": {
+        "app/activities/[id]/page": "action-browser"
+      },
+      "filename": "src/app/actions/participation.ts",
+      "exportedName": "joinActivity"
+    },
+    "40b5290adbc3e0cc98ad2f9b5cd455a7c6df80f0dd": {
+      "workers": {
+        "app/activities/[id]/page": {
+          "moduleId": "75291",
+          "async": false,
+          "exportedName": "cancelParticipation",
+          "filename": "src/app/actions/participation.ts"
+        }
+      },
+      "layer": {
+        "app/activities/[id]/page": "action-browser"
+      },
+      "filename": "src/app/actions/participation.ts",
+      "exportedName": "cancelParticipation"
+    },
+    "003d89cdc71a1e26db7edafa2c9dda5573a8d28a0f": {
       "workers": {
         "app/chatting/page": {
           "moduleId": "47426",
@@ -366,7 +366,7 @@
       "filename": "src/actions/userCallProfile.ts",
       "exportedName": "call_login_records"
     },
-    "40b51f7edf0ec5d695698f13d5650d24a2af78dce4": {
+    "40b5a208dded1167fff240374a8a808fcb3cd38aa8": {
       "workers": {
         "app/create-activity/page": {
           "moduleId": "51585",
@@ -381,7 +381,7 @@
       "filename": "src/app/actions/activity.ts",
       "exportedName": "createActivity"
     },
-    "604d43a6b539442e1b416861635413e58946b0bd95": {
+    "60876eb385a961da58c42d883e3ace7922d7b1edf5": {
       "workers": {
         "app/login/page": {
           "moduleId": "66701",
@@ -396,22 +396,7 @@
       "filename": "src/actions/userLogin.ts",
       "exportedName": "loginUser"
     },
-    "4097226354cce69d4e4bedfd09b1f30f296066da67": {
-      "workers": {
-        "app/profile/edit/page": {
-          "moduleId": "83796",
-          "async": false,
-          "exportedName": "editUserProfile",
-          "filename": "src/actions/userProfileEdit.ts"
-        }
-      },
-      "layer": {
-        "app/profile/edit/page": "rsc"
-      },
-      "filename": "src/actions/userProfileEdit.ts",
-      "exportedName": "editUserProfile"
-    },
-    "60ac57eb9fa1125f9ea31f096b963dd6f85a676a36": {
+    "607570a835e5d1463b848de4fd2a549ad740138376": {
       "workers": {
         "app/register/page": {
           "moduleId": "32012",
@@ -425,8 +410,23 @@
       },
       "filename": "src/actions/userRegister.ts",
       "exportedName": "registerUser"
+    },
+    "4056bb95a3d883e2cac6a3f2f73172252aebbefc9f": {
+      "workers": {
+        "app/profile/edit/page": {
+          "moduleId": "83796",
+          "async": false,
+          "exportedName": "editUserProfile",
+          "filename": "src/actions/userProfileEdit.ts"
+        }
+      },
+      "layer": {
+        "app/profile/edit/page": "rsc"
+      },
+      "filename": "src/actions/userProfileEdit.ts",
+      "exportedName": "editUserProfile"
     }
   },
   "edge": {},
-  "encryptionKey": "NQX4qy1SopSaOXoQkvdlGXb2Ptz+Ti5PwT9RNZsfCH4="
+  "encryptionKey": "XweOWvYJi8jFN00IuvnQkhnKgCaElUV3TZ7nDIXGcPk="
 }
