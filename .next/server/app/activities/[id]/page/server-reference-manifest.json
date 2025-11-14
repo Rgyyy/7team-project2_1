@@ -1,6 +1,10 @@
 {
   "node": {
+<<<<<<< HEAD
     "00b7a57c14b2684975b2c912dfa8f62e85d5d7f389": {
+=======
+    "00bf9bc1e293f156175d3d49e4edd92075726affdf": {
+>>>>>>> 570a0895651a0c8b7957032c0da71e2207c4ee5e
       "workers": {
         "app/activities/[id]/page": {
           "moduleId": "75291",
@@ -15,7 +19,11 @@
       "exportedName": "logoutUser",
       "filename": "src/actions/userLogout.ts"
     },
+<<<<<<< HEAD
     "402d7598771653f5eca731e3b25e4363277e258ee7": {
+=======
+    "407bb8a983cae66b6c00b74fbb45ae42cbf0c414cf": {
+>>>>>>> 570a0895651a0c8b7957032c0da71e2207c4ee5e
       "workers": {
         "app/activities/[id]/page": {
           "moduleId": "75291",
@@ -30,7 +38,11 @@
       "exportedName": "joinActivity",
       "filename": "src/app/actions/participation.ts"
     },
+<<<<<<< HEAD
     "4027d3de037d521d44de8927825bdbbc90786725fd": {
+=======
+    "40b5290adbc3e0cc98ad2f9b5cd455a7c6df80f0dd": {
+>>>>>>> 570a0895651a0c8b7957032c0da71e2207c4ee5e
       "workers": {
         "app/activities/[id]/page": {
           "moduleId": "75291",

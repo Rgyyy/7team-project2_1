@@ -1,6 +1,10 @@
 {
   "node": {
+<<<<<<< HEAD
     "00b7a57c14b2684975b2c912dfa8f62e85d5d7f389": {
+=======
+    "00bf9bc1e293f156175d3d49e4edd92075726affdf": {
+>>>>>>> 570a0895651a0c8b7957032c0da71e2207c4ee5e
       "workers": {
         "app/profile/edit/page": {
           "moduleId": "83796",
@@ -15,7 +19,11 @@
       "exportedName": "logoutUser",
       "filename": "src/actions/userLogout.ts"
     },
+<<<<<<< HEAD
     "005eedc454307c5e6bb44211c701593d64fc84271f": {
+=======
+    "003d89cdc71a1e26db7edafa2c9dda5573a8d28a0f": {
+>>>>>>> 570a0895651a0c8b7957032c0da71e2207c4ee5e
       "workers": {
         "app/profile/edit/page": {
           "moduleId": "83796",
@@ -30,7 +38,26 @@
       "exportedName": "call_login_records",
       "filename": "src/actions/userCallProfile.ts"
     },
+<<<<<<< HEAD
     "000a2bac3d7127b8cc9968b168117c754b7f405374": {
+=======
+    "00015dbee12d7908d089217079a4e72d5156799e5b": {
+      "workers": {
+        "app/profile/edit/page": {
+          "moduleId": "83796",
+          "async": false,
+          "exportedName": "getUserName",
+          "filename": "src/actions/userAuth.ts"
+        }
+      },
+      "layer": {
+        "app/profile/edit/page": "rsc"
+      },
+      "exportedName": "getUserName",
+      "filename": "src/actions/userAuth.ts"
+    },
+    "001a9ae53cd88677b0495aa77354b1ce40f310291b": {
+>>>>>>> 570a0895651a0c8b7957032c0da71e2207c4ee5e
       "workers": {
         "app/profile/edit/page": {
           "moduleId": "83796",
@@ -45,7 +72,26 @@
       "exportedName": "getUser",
       "filename": "src/actions/userAuth.ts"
     },
+<<<<<<< HEAD
     "001c02a6d91571d7198663363cbc61a27579b1b6bb": {
+=======
+    "00b5aaa146a4260f8b5ecf6a7cff27b9ace00e7dc9": {
+      "workers": {
+        "app/profile/edit/page": {
+          "moduleId": "83796",
+          "async": false,
+          "exportedName": "deleteUser",
+          "filename": "src/actions/userAuth.ts"
+        }
+      },
+      "layer": {
+        "app/profile/edit/page": "rsc"
+      },
+      "exportedName": "deleteUser",
+      "filename": "src/actions/userAuth.ts"
+    },
+    "00d012890103ff7de57a95e7edabbd73f851b4ffb8": {
+>>>>>>> 570a0895651a0c8b7957032c0da71e2207c4ee5e
       "workers": {
         "app/profile/edit/page": {
           "moduleId": "83796",
@@ -60,6 +106,7 @@
       "exportedName": "getUserId",
       "filename": "src/actions/userAuth.ts"
     },
+<<<<<<< HEAD
     "00212827235ea9c07f9f7bd0fb51db5b9293bb714b": {
       "workers": {
         "app/profile/edit/page": {
@@ -91,6 +138,9 @@
       "filename": "src/actions/userAuth.ts"
     },
     "40d5bbf17fea1a2d6779ee4e6c4c8a7ac93bbb6d66": {
+=======
+    "4056bb95a3d883e2cac6a3f2f73172252aebbefc9f": {
+>>>>>>> 570a0895651a0c8b7957032c0da71e2207c4ee5e
       "workers": {
         "app/profile/edit/page": {
           "moduleId": "83796",

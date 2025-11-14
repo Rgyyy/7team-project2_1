@@ -1,6 +1,10 @@
 {
   "node": {
+<<<<<<< HEAD
     "00b7a57c14b2684975b2c912dfa8f62e85d5d7f389": {
+=======
+    "00bf9bc1e293f156175d3d49e4edd92075726affdf": {
+>>>>>>> 570a0895651a0c8b7957032c0da71e2207c4ee5e
       "workers": {
         "app/example/page": {
           "moduleId": "93207",
@@ -15,7 +19,26 @@
       "exportedName": "logoutUser",
       "filename": "src/actions/userLogout.ts"
     },
+<<<<<<< HEAD
     "000a2bac3d7127b8cc9968b168117c754b7f405374": {
+=======
+    "00015dbee12d7908d089217079a4e72d5156799e5b": {
+      "workers": {
+        "app/example/page": {
+          "moduleId": "93207",
+          "async": false,
+          "exportedName": "getUserName",
+          "filename": "src/actions/userAuth.ts"
+        }
+      },
+      "layer": {
+        "app/example/page": "rsc"
+      },
+      "exportedName": "getUserName",
+      "filename": "src/actions/userAuth.ts"
+    },
+    "001a9ae53cd88677b0495aa77354b1ce40f310291b": {
+>>>>>>> 570a0895651a0c8b7957032c0da71e2207c4ee5e
       "workers": {
         "app/example/page": {
           "moduleId": "93207",
@@ -30,7 +53,26 @@
       "exportedName": "getUser",
       "filename": "src/actions/userAuth.ts"
     },
+<<<<<<< HEAD
     "001c02a6d91571d7198663363cbc61a27579b1b6bb": {
+=======
+    "00b5aaa146a4260f8b5ecf6a7cff27b9ace00e7dc9": {
+      "workers": {
+        "app/example/page": {
+          "moduleId": "93207",
+          "async": false,
+          "exportedName": "deleteUser",
+          "filename": "src/actions/userAuth.ts"
+        }
+      },
+      "layer": {
+        "app/example/page": "rsc"
+      },
+      "exportedName": "deleteUser",
+      "filename": "src/actions/userAuth.ts"
+    },
+    "00d012890103ff7de57a95e7edabbd73f851b4ffb8": {
+>>>>>>> 570a0895651a0c8b7957032c0da71e2207c4ee5e
       "workers": {
         "app/example/page": {
           "moduleId": "93207",

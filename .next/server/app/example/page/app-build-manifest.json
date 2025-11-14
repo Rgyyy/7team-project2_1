@@ -1,8 +1,13 @@
 {
   "pages": {
     "/example/page": [
+<<<<<<< HEAD
       "static/chunks/85b2f6028d4e58aa.css",
       "static/chunks/1d869b445b795974.js",
+=======
+      "static/chunks/136e3e24d5fd7d41.css",
+      "static/chunks/ba3f6d3a25bef8ec.js",
+>>>>>>> 570a0895651a0c8b7957032c0da71e2207c4ee5e
       "static/chunks/7dd66bdf8a7e5707.js",
       "static/chunks/146f90d7c1a7ab0a.js",
       "static/chunks/5a50ee1d1bd5f6b0.js",

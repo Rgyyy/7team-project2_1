@@ -103,7 +103,11 @@
         "transform": "lodash/{{member}}"
       }
     },
+<<<<<<< HEAD
     "outputFileTracingRoot": "C:\\camp\\imsi\\imsi",
+=======
+    "outputFileTracingRoot": "/home/last_build/imsi",
+>>>>>>> 570a0895651a0c8b7957032c0da71e2207c4ee5e
     "experimental": {
       "useSkewCookie": false,
       "cacheLife": {
@@ -299,10 +303,17 @@
       "socket.io"
     ],
     "turbopack": {
+<<<<<<< HEAD
       "root": "C:\\camp\\imsi\\imsi"
     }
   },
   "appDir": "C:\\camp\\imsi\\imsi",
+=======
+      "root": "/home/last_build/imsi"
+    }
+  },
+  "appDir": "/home/last_build/imsi",
+>>>>>>> 570a0895651a0c8b7957032c0da71e2207c4ee5e
   "relativeAppDir": "",
   "files": [
     ".next\\routes-manifest.json",
